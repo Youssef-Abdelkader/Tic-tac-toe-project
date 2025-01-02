@@ -12,14 +12,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+
+
 /**
  *
  * @author habib
  */
-public class FXMLDocumentController implements Initializable {
+public class WINNERController implements Initializable {
     
     @FXML
     private Label label;
+   
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -29,7 +36,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
     }    
     
 }
