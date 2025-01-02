@@ -20,6 +20,7 @@ public class History extends AnchorPane {
     protected final Button replayButton1;
     protected final Button replayButton2;
     protected final Button replayButton3;
+    protected final Button homeButton;
 
     public History() {
 
@@ -35,6 +36,7 @@ public class History extends AnchorPane {
         replayButton1 = new Button();
         replayButton2 = new Button();
         replayButton3 = new Button();
+        homeButton = new Button();
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -107,6 +109,12 @@ public class History extends AnchorPane {
         replayButton3.setText("Replay");
         replayButton3.setFont(new Font("Centaur", 14.0));
 
+        homeButton.setLayoutX(267.0);
+        homeButton.setLayoutY(316.0);
+        homeButton.setMnemonicParsing(false);
+        homeButton.setText("Home");
+        homeButton.setFont(new Font("Centaur", 14.0));
+
         getChildren().add(historyLable);
         getChildren().add(gameIdLable);
         getChildren().add(opponentLable);
@@ -119,6 +127,7 @@ public class History extends AnchorPane {
         getChildren().add(replayButton1);
         getChildren().add(replayButton2);
         getChildren().add(replayButton3);
+        getChildren().add(homeButton);
 
     }
 }

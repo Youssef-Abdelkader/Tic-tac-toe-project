@@ -71,5 +71,10 @@
             <Font name="Centaur" size="14.0" />
          </font>
       </Button>
+      <Button fx:id="homeButton" layoutX="267.0" layoutY="316.0" mnemonicParsing="false" text="Home">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
