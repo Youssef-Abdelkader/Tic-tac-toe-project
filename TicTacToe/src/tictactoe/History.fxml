@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tictactoe.HistoryController">
+    <stylesheets>
+        <URL value="@history.css" />
+    </stylesheets>
+   <children>
+      <Label fx:id="historyLable" layoutX="260.0" layoutY="34.0" text="Hisory" textFill="#cd0808">
+         <font>
+            <Font name="Centaur" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="gameIdLable" layoutX="65.0" layoutY="99.0" text="Game Id">
+         <font>
+            <Font name="Centaur" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="opponentLable" layoutX="259.0" layoutY="99.0" text="Opponent">
+         <font>
+            <Font name="Centaur" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="80.0" layoutY="142.0" text="2345">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="80.0" layoutY="184.0" text="5678">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="80.0" layoutY="230.0" text="1290">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="275.0" layoutY="142.0" text="Menna">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="273.0" layoutY="184.0" text="Youssef">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="274.0" layoutY="230.0" text="Habiba">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="replayButton1" layoutX="433.0" layoutY="137.0" mnemonicParsing="false" text="Replay">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="replayButton2" disable="true" layoutX="433.0" layoutY="179.0" mnemonicParsing="false" text="Replay">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="replayButton3" layoutX="433.0" layoutY="225.0" mnemonicParsing="false" text="Replay">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -20,8 +20,8 @@ public class TicTacToe extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        AnchorPane root = new Signup();
-        //root.getChildren().addAll(new Signup());
+        AnchorPane root = new Login();
+        //Signup() - History();
         
         Scene scene = new Scene(root);
         
