@@ -14,11 +14,14 @@ public class scenecontroller {
     // Cache for scenes
     private Parent serverScene;
     private Parent serverScene2;
+    private Parent Login;
+    private Parent Signup;
+    private Stage s, s1;
 
     public void switchToScene2(ActionEvent event) {
         // Initialize the scene if it's null
         if (serverScene2 == null) {
-            serverScene2 = new Serverscene2Base(); // Lazy initialization for Scene 2 (Pie Chart)
+            serverScene2 = new Serverscene2Base(s1); // Lazy initialization for Scene 2 (Pie Chart)
         }
         updateScene(event, serverScene2);
     }
@@ -26,7 +29,7 @@ public class scenecontroller {
     public void switchToScene1(ActionEvent event) {
         // Initialize the scene if it's null
         if (serverScene == null) {
-            serverScene = new serverscene(); // Lazy initialization for Scene 1 (Main Menu)
+           serverScene = new serverscene(s); // Lazy initialization for Scene 1 (Main Menu)
         }
         updateScene(event, serverScene);
     }

@@ -1,10 +1,14 @@
 package tictactoe;
 
 import java.net.URL;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class History extends AnchorPane {
 
@@ -22,7 +26,7 @@ public class History extends AnchorPane {
     protected final Button replayButton3;
     protected final Button homeButton;
 
-    public History() {
+    public History(Stage stage) {
 
         historyLable = new Label();
         gameIdLable = new Label();
@@ -114,6 +118,14 @@ public class History extends AnchorPane {
         homeButton.setMnemonicParsing(false);
         homeButton.setText("Home");
         homeButton.setFont(new Font("Centaur", 14.0));
+        homeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeOnline home = new HomeOnline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
 
         getChildren().add(historyLable);
         getChildren().add(gameIdLable);

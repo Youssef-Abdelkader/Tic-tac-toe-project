@@ -1,10 +1,14 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class Signup extends AnchorPane {
 
@@ -15,7 +19,7 @@ public class Signup extends AnchorPane {
     protected final Label title;
     protected final Button signUp;
 
-    public Signup() {
+    public Signup(Stage stage) {
 
         nameText = new TextField();
         passwordText = new TextField();
@@ -66,6 +70,14 @@ public class Signup extends AnchorPane {
         signUp.setPrefWidth(73.0);
         signUp.setText("Sign Up");
         signUp.setFont(new Font("Centaur", 14.0));
+        signUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeOnline home = new HomeOnline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
 
         getChildren().add(nameText);
         getChildren().add(passwordText);

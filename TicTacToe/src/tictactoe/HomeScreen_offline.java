@@ -1,6 +1,9 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class HomeScreen_offline extends BorderPane {
 
@@ -19,7 +23,7 @@ public class HomeScreen_offline extends BorderPane {
     protected final Button MultiPBtn;
     protected final Button OnlineBtn;
 
-    public HomeScreen_offline() {
+    public HomeScreen_offline(Stage stage) {
 
         label = new Label();
         imageView = new ImageView();
@@ -72,7 +76,15 @@ public class HomeScreen_offline extends BorderPane {
         singlePBtn.setStyle("-fx-border-radius: 10;");
         singlePBtn.setText("Single player");
         singlePBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-
+        singlePBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Single_Player_SceneBase single = new Single_Player_SceneBase(stage);
+                Scene scene = new Scene(single);
+                stage.setScene(scene);
+            }   
+        });
+                
         MultiPBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         MultiPBtn.setLayoutX(10.0);
         MultiPBtn.setLayoutY(10.0);
@@ -81,6 +93,14 @@ public class HomeScreen_offline extends BorderPane {
         MultiPBtn.setStyle("-fx-border-radius: 10;");
         MultiPBtn.setText("Multi player");
         MultiPBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Multi_player_SceneBase multi = new Multi_player_SceneBase(stage);
+                Scene scene = new Scene(multi);
+                stage.setScene(scene);
+            }   
+        });
 
         OnlineBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         OnlineBtn.setLayoutX(10.0);
@@ -92,6 +112,14 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         vBox.setPadding(new Insets(20.0, 0.0, 0.0, 0.0));
         setCenter(vBox);
+        OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Login account = new Login(stage);
+                Scene scene = new Scene(account);
+                stage.setScene(scene);
+            }   
+        });
 
         vBox.getChildren().add(singlePBtn);
         vBox.getChildren().add(MultiPBtn);

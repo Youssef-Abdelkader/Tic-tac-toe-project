@@ -1,11 +1,15 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class Login extends AnchorPane {
 
@@ -16,8 +20,9 @@ public class Login extends AnchorPane {
     protected final Label registerLable;
     protected final Label title;
     protected final Button signUp;
+    protected final Button loginButton;
 
-    public Login() {
+    public Login(Stage stage) {
 
         nameText = new TextField();
         passwordText = new TextField();
@@ -26,6 +31,7 @@ public class Login extends AnchorPane {
         registerLable = new Label();
         title = new Label();
         signUp = new Button();
+        loginButton = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -74,7 +80,29 @@ public class Login extends AnchorPane {
         signUp.setPrefWidth(51.0);
         signUp.setText("Sign Up");
         signUp.setFont(new Font("Centaur", 11.0));
+        signUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Signup signup = new Signup(stage);
+                Scene scene = new Scene(signup);
+                stage.setScene(scene);
+            }   
+        });
+
+        loginButton.setLayoutX(273.0);
+        loginButton.setLayoutY(325.0);
+        loginButton.setMnemonicParsing(false);
+        loginButton.setText("Log In");
+        loginButton.setFont(new Font("Centaur", 14.0));
         setOpaqueInsets(new Insets(0.0));
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeOnline home = new HomeOnline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
 
         getChildren().add(nameText);
         getChildren().add(passwordText);
@@ -83,6 +111,7 @@ public class Login extends AnchorPane {
         getChildren().add(registerLable);
         getChildren().add(title);
         getChildren().add(signUp);
+        getChildren().add(loginButton);
 
     }
 }

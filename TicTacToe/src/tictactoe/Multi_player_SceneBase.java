@@ -1,6 +1,9 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -9,10 +12,12 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public abstract class Multi_player_SceneBase extends BorderPane {
+public class Multi_player_SceneBase extends BorderPane {
 
     protected final Label multi_scene_label;
+    protected final Button backButton;
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -24,9 +29,10 @@ public abstract class Multi_player_SceneBase extends BorderPane {
     protected final TextField player2_txt_field;
     protected final Button Multi_Start_btn;
 
-    public Multi_player_SceneBase() {
+    public Multi_player_SceneBase(Stage stage) {
 
         multi_scene_label = new Label();
+        backButton = new Button();
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
@@ -46,12 +52,27 @@ public abstract class Multi_player_SceneBase extends BorderPane {
         setPrefWidth(600.0);
 
         BorderPane.setAlignment(multi_scene_label, javafx.geometry.Pos.CENTER);
-        multi_scene_label.setPrefHeight(71.0);
-        multi_scene_label.setPrefWidth(289.0);
-        multi_scene_label.setText("      Shik-Shack-shock");
+        multi_scene_label.setPrefHeight(53.0);
+        multi_scene_label.setPrefWidth(571.0);
+        multi_scene_label.setText("                  Shik-Shack-shock");
         multi_scene_label.setTextFill(javafx.scene.paint.Color.valueOf("#f51010"));
         multi_scene_label.setFont(new Font("Copperplate Gothic Light", 24.0));
+
+        backButton.setMnemonicParsing(false);
+        backButton.setPrefHeight(17.0);
+        backButton.setPrefWidth(46.0);
+        backButton.setText("Back");
+        backButton.setFont(new Font("Centaur", 12.0));
+        multi_scene_label.setGraphic(backButton);
         setTop(multi_scene_label);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeScreen_offline home = new HomeScreen_offline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setPrefHeight(249.0);
@@ -105,6 +126,14 @@ public abstract class Multi_player_SceneBase extends BorderPane {
         Multi_Start_btn.setFont(new Font(18.0));
         GridPane.setMargin(Multi_Start_btn, new Insets(50.0, 0.0, 0.0, 0.0));
         setLeft(gridPane);
+        Multi_Start_btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                game_screenBase game = new game_screenBase(stage);
+                Scene scene = new Scene(game);
+                stage.setScene(scene);
+            }   
+        });
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getColumnConstraints().add(columnConstraints0);

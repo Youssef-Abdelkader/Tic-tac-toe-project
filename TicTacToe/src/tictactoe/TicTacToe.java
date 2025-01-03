@@ -1,8 +1,10 @@
 package tictactoe;
 
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class TicTacToe extends Application {
@@ -10,7 +12,7 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        AnchorPane root = new Login();
+         Parent root = new HomeScreen_offline(stage);
         //Signup() - History();
 
         //AnchorPane root = new WINNERBase();

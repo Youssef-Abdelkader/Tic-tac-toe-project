@@ -3,6 +3,7 @@ package tictactoe;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +21,7 @@ public class serverscene extends AnchorPane {
 
     private scenecontroller controller;
 
-    public serverscene() {
+    public serverscene(Stage stage) {
 
         Scene_title = new Label();
         ambientLight = new AmbientLight();
@@ -64,14 +65,18 @@ public class serverscene extends AnchorPane {
 
         setButtonPosition(getWidth());
 
-        widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                setButtonPosition(newValue.doubleValue());
-            }
+        widthProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            setButtonPosition(newValue.doubleValue());
         });
 
-        Start.setOnAction(event -> controller.switchToScene2(event));
+        Start.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Serverscene2Base server = new Serverscene2Base(stage);
+                Scene scene = new Scene(server);
+                stage.setScene(scene);
+            }   
+        });
 
         getChildren().add(Scene_title);
         getChildren().add(Start);

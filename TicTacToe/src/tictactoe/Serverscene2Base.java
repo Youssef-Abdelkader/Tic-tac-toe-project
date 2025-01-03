@@ -2,13 +2,17 @@ package tictactoe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class Serverscene2Base extends AnchorPane {
 
-    public Serverscene2Base() {
+    public Serverscene2Base(Stage stage) {
 
         setStyle("-fx-background-color: #Bb8141;"); // Background color
 
@@ -29,9 +33,9 @@ public class Serverscene2Base extends AnchorPane {
         getChildren().add(pieChart);
 
         // Add a Back Button at the top
-        Button backButton = new Button("Back");
-        backButton.setLayoutX(20);
-        backButton.setLayoutY(20);
+        Button backButton = new Button("Stop");
+        backButton.setLayoutX(50);
+        backButton.setLayoutY(50);
         backButton.setStyle(
             "-fx-background-color: #C08A5B;" +
             "-fx-background-radius: 15;" +
@@ -41,9 +45,13 @@ public class Serverscene2Base extends AnchorPane {
         );
 
         // Set the action to switch back to Scene 1 (Main Menu)
-        backButton.setOnAction(event -> {
-            scenecontroller controller = new scenecontroller();
-            controller.switchToScene1(event); // Go back to serverscene
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                serverscene server = new serverscene(stage);
+                Scene scene = new Scene(server);
+                stage.setScene(scene);
+            }   
         });
 
         getChildren().add(backButton);

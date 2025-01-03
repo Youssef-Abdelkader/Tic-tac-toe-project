@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
 public class game_screenBase extends BorderPane {
 
@@ -39,7 +40,7 @@ public class game_screenBase extends BorderPane {
     protected final ImageView imageView8;
     protected final ImageView imageView9;
 
-    public game_screenBase() {
+    public game_screenBase(Stage stage) {
 
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
