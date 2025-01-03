@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MediaView fx:id="videoView" layoutX="200.0" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="lbl1" layoutX="324.0" layoutY="42.0" prefHeight="76.0" prefWidth="150.0" text="You Are The" textFill="#cc2727">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl2" layoutX="262.0" layoutY="80.0" prefHeight="152.0" prefWidth="276.0" text="WINNER" textFill="#c91c1c">
+         <font>
+            <Font size="71.0" />
+         </font>
+      </Label>
+      <Label fx:id="score" layoutX="346.0" layoutY="213.0" prefHeight="26.0" prefWidth="114.0" text="New Score = " textFill="#ec2a2a">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPA" layoutX="339.0" layoutY="269.0" mnemonicParsing="false" text="Play Again ?" />
+      <Button fx:id="btnEX" layoutX="319.0" layoutY="323.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="144.0" text="Exit" />
+   </children>
+</AnchorPane>

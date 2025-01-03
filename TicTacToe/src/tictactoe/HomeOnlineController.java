@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author habib
  */
-public class FXMLController implements Initializable {
+public class HomeOnlineController implements Initializable {
 
     /**
      * Initializes the controller class.
