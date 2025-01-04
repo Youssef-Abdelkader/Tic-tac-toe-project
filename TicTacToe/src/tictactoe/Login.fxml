@@ -41,6 +41,11 @@
             <Font name="Centaur" size="14.0" />
          </font>
       </Button>
+      <Button fx:id="backButton" layoutX="45.0" layoutY="33.0" mnemonicParsing="false" text="Back">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
    </children>
    <opaqueInsets>
       <Insets />

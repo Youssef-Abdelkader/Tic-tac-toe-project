@@ -18,6 +18,7 @@ public class Signup extends AnchorPane {
     protected final Label passwordLable;
     protected final Label title;
     protected final Button signUp;
+    protected final Button backButton;
 
     public Signup(Stage stage) {
 
@@ -27,6 +28,7 @@ public class Signup extends AnchorPane {
         passwordLable = new Label();
         title = new Label();
         signUp = new Button();
+        backButton = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -76,6 +78,20 @@ public class Signup extends AnchorPane {
                 HomeOnline home = new HomeOnline(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
+            }
+        });
+
+        backButton.setLayoutX(44.0);
+        backButton.setLayoutY(30.0);
+        backButton.setMnemonicParsing(false);
+        backButton.setText("Back");
+        backButton.setFont(new Font("Centaur", 14.0));
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeScreen_offline home = new HomeScreen_offline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
             }   
         });
 
@@ -85,6 +101,7 @@ public class Signup extends AnchorPane {
         getChildren().add(passwordLable);
         getChildren().add(title);
         getChildren().add(signUp);
+        getChildren().add(backButton);
 
     }
 }

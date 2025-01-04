@@ -25,6 +25,7 @@ public class HomeOnline extends AnchorPane {
     protected final Button requestButton1;
     protected final Button requestButton2;
     protected final Button requestButton3;
+    protected final Button backButton;
 
     public HomeOnline(Stage stage) {
 
@@ -41,6 +42,7 @@ public class HomeOnline extends AnchorPane {
         requestButton1 = new Button();
         requestButton2 = new Button();
         requestButton3 = new Button();
+        backButton = new Button();
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -49,17 +51,17 @@ public class HomeOnline extends AnchorPane {
         getStylesheets().add("/tictactoe/homeonline.css");
 
         label.setLayoutX(50.0);
-        label.setLayoutY(59.0);
+        label.setLayoutY(81.0);
         label.setText("Hello! Habiba");
         label.setFont(new Font("Centaur", 18.0));
 
         label0.setLayoutX(420.0);
-        label0.setLayoutY(59.0);
+        label0.setLayoutY(81.0);
         label0.setText("Score");
         label0.setFont(new Font("Centaur", 18.0));
 
-        scoreLabel.setLayoutX(478.0);
-        scoreLabel.setLayoutY(59.0);
+        scoreLabel.setLayoutX(479.0);
+        scoreLabel.setLayoutY(81.0);
         scoreLabel.setText("50");
         scoreLabel.setFont(new Font("Centaur", 18.0));
 
@@ -74,7 +76,7 @@ public class HomeOnline extends AnchorPane {
                 History history = new History(stage);
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
-            }   
+            }
         });
 
         label1.setLayoutX(77.0);
@@ -114,6 +116,13 @@ public class HomeOnline extends AnchorPane {
         requestButton1.setPrefWidth(68.0);
         requestButton1.setText("Request");
         requestButton1.setFont(new Font("Centaur", 14.0));
+        requestButton1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                requestButton1.setDisable(true);
+                requestButton1.setText("Wait");
+            }
+        });
 
         requestButton2.setDisable(true);
         requestButton2.setLayoutX(333.0);
@@ -133,6 +142,20 @@ public class HomeOnline extends AnchorPane {
         requestButton3.setText("Request");
         requestButton3.setFont(new Font("Centaur", 14.0));
 
+        backButton.setLayoutX(32.0);
+        backButton.setLayoutY(27.0);
+        backButton.setMnemonicParsing(false);
+        backButton.setText("Back");
+        backButton.setFont(new Font("Centaur", 14.0));
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeScreen_offline home = new HomeScreen_offline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }
+        });
+
         getChildren().add(label);
         getChildren().add(label0);
         getChildren().add(scoreLabel);
@@ -146,6 +169,7 @@ public class HomeOnline extends AnchorPane {
         getChildren().add(requestButton1);
         getChildren().add(requestButton2);
         getChildren().add(requestButton3);
+        getChildren().add(backButton);
 
     }
 }

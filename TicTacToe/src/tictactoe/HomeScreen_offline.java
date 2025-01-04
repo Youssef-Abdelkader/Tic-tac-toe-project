@@ -60,7 +60,7 @@ public class HomeScreen_offline extends BorderPane {
         imageView0.setFitWidth(200.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("/images_and_other/red-3d-symbol-with-bevel-letter-o_417879-52098-removebg-preview.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/images_and_other/o.png").toExternalForm()));
         setRight(imageView0);
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
@@ -115,6 +115,7 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                TicTacToe.online = true;
                 Login account = new Login(stage);
                 Scene scene = new Scene(account);
                 stage.setScene(scene);
