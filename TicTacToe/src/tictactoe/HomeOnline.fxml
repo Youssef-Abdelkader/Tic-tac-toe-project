@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tictactoe.HomeOnlineController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.HomeOnlineController">
     <stylesheets>
         <URL value="@homeonline.css" />
     </stylesheets>
    <children>
-      <Label layoutX="50.0" layoutY="59.0" text="Hello! Habiba">
+      <Label layoutX="50.0" layoutY="81.0" text="Hello! Habiba">
          <font>
             <Font name="Centaur" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="420.0" layoutY="59.0" text="Score">
+      <Label layoutX="420.0" layoutY="81.0" text="Score">
          <font>
             <Font name="Centaur" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="scoreLabel" layoutX="478.0" layoutY="59.0" text="50">
+      <Label fx:id="scoreLabel" layoutX="479.0" layoutY="81.0" text="50">
          <font>
             <Font name="Centaur" size="18.0" />
          </font>
@@ -72,6 +72,11 @@
          </font>
       </Button>
       <Button fx:id="requestButton3" disable="true" layoutX="333.0" layoutY="294.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="68.0" text="Request">
+         <font>
+            <Font name="Centaur" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="backButton" layoutX="32.0" layoutY="27.0" mnemonicParsing="false" text="Back">
          <font>
             <Font name="Centaur" size="14.0" />
          </font>

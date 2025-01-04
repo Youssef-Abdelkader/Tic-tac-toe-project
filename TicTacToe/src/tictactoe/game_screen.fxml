@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -22,20 +23,47 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ImageView fitHeight="53.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/OIP.jpeg" />
+                  <Image url="@../images_and_other/x_game.jpeg" />
                </image>
             </ImageView>
             <ImageView fitHeight="58.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/371-3713702_new-svg-image-letter-o-red-removebg-preview.png" />
+                  <Image url="@../images_and_other/o_game.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Player 1" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="17.0" text="Player 2" GridPane.columnIndex="3" GridPane.rowSpan="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Habiba" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font></Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="17.0" text="Menna" GridPane.columnIndex="3" GridPane.rowSpan="2">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font></Label>
+            <Button fx:id="recordButton" mnemonicParsing="false" text="Record" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="forfeitButton" mnemonicParsing="false" text="Forfeit" translateX="120.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font>
+            </Button>
+            <Label text="Score 50" translateY="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font>
+            </Label>
+            <Label text="Score  40" translateY="15.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Centaur" size="14.0" />
+               </font>
+            </Label>
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
