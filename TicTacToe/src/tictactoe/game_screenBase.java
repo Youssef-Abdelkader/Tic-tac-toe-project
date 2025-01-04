@@ -1,6 +1,10 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class game_screenBase extends BorderPane {
@@ -19,17 +24,22 @@ public class game_screenBase extends BorderPane {
     protected final ColumnConstraints columnConstraints2;
     protected final RowConstraints rowConstraints;
     protected final RowConstraints rowConstraints0;
+    protected final RowConstraints rowConstraints1;
     protected final ImageView imageView;
     protected final ImageView imageView0;
     protected final Label label;
     protected final Label label0;
+    protected final Button recordButton;
+    protected final Button forfeitButton;
+    protected final Label label1;
+    protected final Label label2;
     protected final GridPane gridPane0;
     protected final ColumnConstraints columnConstraints3;
     protected final ColumnConstraints columnConstraints4;
     protected final ColumnConstraints columnConstraints5;
-    protected final RowConstraints rowConstraints1;
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
+    protected final RowConstraints rowConstraints4;
     protected final ImageView imageView1;
     protected final ImageView imageView2;
     protected final ImageView imageView3;
@@ -49,17 +59,22 @@ public class game_screenBase extends BorderPane {
         columnConstraints2 = new ColumnConstraints();
         rowConstraints = new RowConstraints();
         rowConstraints0 = new RowConstraints();
+        rowConstraints1 = new RowConstraints();
         imageView = new ImageView();
         imageView0 = new ImageView();
         label = new Label();
         label0 = new Label();
+        recordButton = new Button();
+        forfeitButton = new Button();
+        label1 = new Label();
+        label2 = new Label();
         gridPane0 = new GridPane();
         columnConstraints3 = new ColumnConstraints();
         columnConstraints4 = new ColumnConstraints();
         columnConstraints5 = new ColumnConstraints();
-        rowConstraints1 = new RowConstraints();
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
+        rowConstraints4 = new RowConstraints();
         imageView1 = new ImageView();
         imageView2 = new ImageView();
         imageView3 = new ImageView();
@@ -112,12 +127,16 @@ public class game_screenBase extends BorderPane {
         rowConstraints0.setPrefHeight(30.0);
         rowConstraints0.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
+        rowConstraints1.setMinHeight(10.0);
+        rowConstraints1.setPrefHeight(30.0);
+        rowConstraints1.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
+
         GridPane.setRowSpan(imageView, 2);
         imageView.setFitHeight(53.0);
         imageView.setFitWidth(56.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("/images_and_other/OIP.jpeg").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("../images_and_other/OIP.jpeg").toExternalForm()));
 
         GridPane.setColumnIndex(imageView0, 2);
         GridPane.setRowSpan(imageView0, 2);
@@ -125,14 +144,15 @@ public class game_screenBase extends BorderPane {
         imageView0.setFitWidth(60.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("/images_and_other/371-3713702_new-svg-image-letter-o-red-removebg-preview.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("../images_and_other/371-3713702_new-svg-image-letter-o-red-removebg-preview.png").toExternalForm()));
 
         GridPane.setColumnIndex(label, 1);
         GridPane.setRowSpan(label, 2);
         label.setAlignment(javafx.geometry.Pos.CENTER);
         label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
-        label.setText("Player 1");
+        label.setText("Habiba");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        label.setFont(new Font("Centaur", 14.0));
 
         GridPane.setColumnIndex(label0, 3);
         GridPane.setRowSpan(label0, 2);
@@ -140,7 +160,48 @@ public class game_screenBase extends BorderPane {
         label0.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label0.setLayoutX(160.0);
         label0.setLayoutY(17.0);
-        label0.setText("Player 2");
+        label0.setText("Menna");
+        label0.setFont(new Font("Centaur", 14.0));
+
+        GridPane.setColumnIndex(recordButton, 1);
+        GridPane.setRowIndex(recordButton, 1);
+        recordButton.setMnemonicParsing(false);
+        recordButton.setText("Record");
+        recordButton.setTranslateX(200.0);
+        recordButton.setFont(new Font("Centaur", 14.0));
+        recordButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               recordButton.setDisable(true);
+            }   
+        });
+
+        GridPane.setColumnIndex(forfeitButton, 1);
+        GridPane.setRowIndex(forfeitButton, 1);
+        forfeitButton.setMnemonicParsing(false);
+        forfeitButton.setText("Forfeit");
+        forfeitButton.setTranslateX(120.0);
+        forfeitButton.setFont(new Font("Centaur", 14.0));
+        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LOSERBase lose = new LOSERBase(stage);
+                Scene scene = new Scene(lose);
+                stage.setScene(scene);
+            }   
+        });
+
+        GridPane.setColumnIndex(label1, 1);
+        GridPane.setRowIndex(label1, 1);
+        label1.setText("Score 50");
+        label1.setTranslateY(15.0);
+        label1.setFont(new Font("Centaur", 14.0));
+
+        GridPane.setColumnIndex(label2, 3);
+        GridPane.setRowIndex(label2, 1);
+        label2.setText("Score  40");
+        label2.setTranslateY(15.0);
+        label2.setFont(new Font("Centaur", 14.0));
         BorderPane.setMargin(gridPane, new Insets(10.0));
         setTop(gridPane);
 
@@ -162,10 +223,6 @@ public class game_screenBase extends BorderPane {
         columnConstraints5.setMinWidth(10.0);
         columnConstraints5.setPrefWidth(100.0);
 
-        rowConstraints1.setMinHeight(10.0);
-        rowConstraints1.setPrefHeight(30.0);
-        rowConstraints1.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-
         rowConstraints2.setMinHeight(10.0);
         rowConstraints2.setPrefHeight(30.0);
         rowConstraints2.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
@@ -173,6 +230,10 @@ public class game_screenBase extends BorderPane {
         rowConstraints3.setMinHeight(10.0);
         rowConstraints3.setPrefHeight(30.0);
         rowConstraints3.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
+
+        rowConstraints4.setMinHeight(10.0);
+        rowConstraints4.setPrefHeight(30.0);
+        rowConstraints4.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
         gridPane0.setPadding(new Insets(10.0));
 
         GridPane.setHalignment(imageView1, javafx.geometry.HPos.CENTER);
@@ -274,16 +335,21 @@ public class game_screenBase extends BorderPane {
         gridPane.getColumnConstraints().add(columnConstraints2);
         gridPane.getRowConstraints().add(rowConstraints);
         gridPane.getRowConstraints().add(rowConstraints0);
+        gridPane.getRowConstraints().add(rowConstraints1);
         gridPane.getChildren().add(imageView);
         gridPane.getChildren().add(imageView0);
         gridPane.getChildren().add(label);
         gridPane.getChildren().add(label0);
+        gridPane.getChildren().add(recordButton);
+        gridPane.getChildren().add(forfeitButton);
+        gridPane.getChildren().add(label1);
+        gridPane.getChildren().add(label2);
         gridPane0.getColumnConstraints().add(columnConstraints3);
         gridPane0.getColumnConstraints().add(columnConstraints4);
         gridPane0.getColumnConstraints().add(columnConstraints5);
-        gridPane0.getRowConstraints().add(rowConstraints1);
         gridPane0.getRowConstraints().add(rowConstraints2);
         gridPane0.getRowConstraints().add(rowConstraints3);
+        gridPane0.getRowConstraints().add(rowConstraints4);
         gridPane0.getChildren().add(imageView1);
         gridPane0.getChildren().add(imageView2);
         gridPane0.getChildren().add(imageView3);

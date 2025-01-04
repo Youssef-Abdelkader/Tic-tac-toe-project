@@ -21,6 +21,7 @@ public class Login extends AnchorPane {
     protected final Label title;
     protected final Button signUp;
     protected final Button loginButton;
+    protected final Button backButton;
 
     public Login(Stage stage) {
 
@@ -32,6 +33,7 @@ public class Login extends AnchorPane {
         title = new Label();
         signUp = new Button();
         loginButton = new Button();
+        backButton = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -86,7 +88,7 @@ public class Login extends AnchorPane {
                 Signup signup = new Signup(stage);
                 Scene scene = new Scene(signup);
                 stage.setScene(scene);
-            }   
+            }
         });
 
         loginButton.setLayoutX(273.0);
@@ -94,11 +96,25 @@ public class Login extends AnchorPane {
         loginButton.setMnemonicParsing(false);
         loginButton.setText("Log In");
         loginButton.setFont(new Font("Centaur", 14.0));
-        setOpaqueInsets(new Insets(0.0));
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HomeOnline home = new HomeOnline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }
+        });
+
+        backButton.setLayoutX(45.0);
+        backButton.setLayoutY(33.0);
+        backButton.setMnemonicParsing(false);
+        backButton.setText("Back");
+        backButton.setFont(new Font("Centaur", 14.0));
+        setOpaqueInsets(new Insets(0.0));
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeScreen_offline home = new HomeScreen_offline(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }   
@@ -112,6 +128,7 @@ public class Login extends AnchorPane {
         getChildren().add(title);
         getChildren().add(signUp);
         getChildren().add(loginButton);
+        getChildren().add(backButton);
 
     }
 }

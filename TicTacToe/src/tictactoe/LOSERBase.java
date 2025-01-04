@@ -1,5 +1,8 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -7,6 +10,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class LOSERBase extends AnchorPane {
 
@@ -17,7 +21,7 @@ public class LOSERBase extends AnchorPane {
     protected final Button btnPA;
     protected final Button btnEX;
 
-    public LOSERBase() {
+    public LOSERBase(Stage stage) {
 
         videoView = new MediaView();
         lbl1 = new Label();
@@ -25,6 +29,11 @@ public class LOSERBase extends AnchorPane {
         score = new Label();
         btnPA = new Button();
         btnEX = new Button();
+        
+        // Set up the video
+        Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        videoView.setMediaPlayer(mediaPlayer);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -68,6 +77,15 @@ public class LOSERBase extends AnchorPane {
         btnPA.setLayoutY(274.0);
         btnPA.setMnemonicParsing(false);
         btnPA.setText("Play Again ?");
+        btnPA.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                game_screenBase game = new game_screenBase(stage);
+                Scene scene = new Scene(game);
+                stage.setScene(scene);
+                mediaPlayer.pause();
+            }   
+        });
 
         btnEX.setLayoutX(315.0);
         btnEX.setLayoutY(323.0);
@@ -75,6 +93,21 @@ public class LOSERBase extends AnchorPane {
         btnEX.setPrefHeight(26.0);
         btnEX.setPrefWidth(159.0);
         btnEX.setText("Exit");
+        btnEX.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (TicTacToe.online == false) {
+                    HomeScreen_offline home = new HomeScreen_offline(stage);
+                    Scene scene = new Scene(home);
+                    stage.setScene(scene);
+                } else {
+                    HomeOnline home = new HomeOnline(stage);
+                    Scene scene = new Scene(home);
+                    stage.setScene(scene);
+                }
+               mediaPlayer.pause();
+            }
+        });
 
         getChildren().add(videoView);
         getChildren().add(lbl1);
@@ -84,11 +117,7 @@ public class LOSERBase extends AnchorPane {
         getChildren().add(btnEX);
 
         
-         // Set up the video
-        Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        videoView.setMediaPlayer(mediaPlayer);
-        
+
         // Bind MediaView size to AnchorPane
         videoView.fitWidthProperty().bind(widthProperty());
         videoView.fitHeightProperty().bind(heightProperty());

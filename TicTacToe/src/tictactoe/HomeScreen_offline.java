@@ -115,6 +115,7 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                TicTacToe.online = true;
                 Login account = new Login(stage);
                 Scene scene = new Scene(account);
                 stage.setScene(scene);
