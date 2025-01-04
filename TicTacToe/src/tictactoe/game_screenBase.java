@@ -15,6 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 public class game_screenBase extends BorderPane {
 
     protected final GridPane gridPane;
@@ -136,7 +137,7 @@ public class game_screenBase extends BorderPane {
         imageView.setFitWidth(56.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../images_and_other/x_game.jpeg").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("x_game.jpeg").toExternalForm()));
 
         GridPane.setColumnIndex(imageView0, 2);
         GridPane.setRowSpan(imageView0, 2);
@@ -144,7 +145,7 @@ public class game_screenBase extends BorderPane {
         imageView0.setFitWidth(60.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../images_and_other/o_game.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("o_game.png").toExternalForm()));
 
         GridPane.setColumnIndex(label, 1);
         GridPane.setRowSpan(label, 2);
