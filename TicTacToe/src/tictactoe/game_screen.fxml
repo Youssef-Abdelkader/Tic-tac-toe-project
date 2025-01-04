@@ -28,12 +28,12 @@
          <children>
             <ImageView fitHeight="53.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/OIP.jpeg" />
+                  <Image url="@../images_and_other/x_game.jpeg" />
                </image>
             </ImageView>
             <ImageView fitHeight="58.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/371-3713702_new-svg-image-letter-o-red-removebg-preview.png" />
+                  <Image url="@../images_and_other/o_game.png" />
                </image>
             </ImageView>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Habiba" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2">

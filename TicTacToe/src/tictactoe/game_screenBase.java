@@ -136,7 +136,7 @@ public class game_screenBase extends BorderPane {
         imageView.setFitWidth(56.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../images_and_other/OIP.jpeg").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("../images_and_other/x_game.jpeg").toExternalForm()));
 
         GridPane.setColumnIndex(imageView0, 2);
         GridPane.setRowSpan(imageView0, 2);
@@ -144,7 +144,7 @@ public class game_screenBase extends BorderPane {
         imageView0.setFitWidth(60.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../images_and_other/371-3713702_new-svg-image-letter-o-red-removebg-preview.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("../images_and_other/o_game.png").toExternalForm()));
 
         GridPane.setColumnIndex(label, 1);
         GridPane.setRowSpan(label, 2);
