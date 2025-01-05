@@ -47,8 +47,9 @@ public class HomeOnline extends AnchorPane {
         setId("AnchorPane");
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-        getStyleClass().add("mainFxmlClass");
         getStylesheets().add("/tictactoe/homeonline.css");
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
         label.setLayoutX(50.0);
         label.setLayoutY(81.0);
@@ -70,7 +71,7 @@ public class HomeOnline extends AnchorPane {
         historyButton.setMnemonicParsing(false);
         historyButton.setText("History");
         historyButton.setFont(new Font("Centaur", 18.0));
-        historyButton.setOnAction(new EventHandler<ActionEvent>() {
+         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 History history = new History(stage);
@@ -94,29 +95,29 @@ public class HomeOnline extends AnchorPane {
         label3.setText("Abdelrahman");
         label3.setFont(new Font("Centaur", 16.0));
 
-        status1.setLayoutX(219.0);
+        status1.setLayoutX(280.0);
         status1.setLayoutY(205.0);
         status1.setText("Online");
         status1.setFont(new Font("Centaur", 16.0));
 
-        status2.setLayoutX(218.0);
+        status2.setLayoutX(279.0);
         status2.setLayoutY(251.0);
         status2.setText("Offline");
         status2.setFont(new Font("Centaur", 16.0));
 
-        status3.setLayoutX(219.0);
+        status3.setLayoutX(280.0);
         status3.setLayoutY(297.0);
         status3.setText("Online");
         status3.setFont(new Font("Centaur", 16.0));
 
-        requestButton1.setLayoutX(333.0);
+        requestButton1.setLayoutX(386.0);
         requestButton1.setLayoutY(202.0);
         requestButton1.setMnemonicParsing(false);
         requestButton1.setPrefHeight(25.0);
         requestButton1.setPrefWidth(68.0);
         requestButton1.setText("Request");
         requestButton1.setFont(new Font("Centaur", 14.0));
-        requestButton1.setOnAction(new EventHandler<ActionEvent>() {
+         requestButton1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 requestButton1.setDisable(true);
@@ -124,8 +125,9 @@ public class HomeOnline extends AnchorPane {
             }
         });
 
+           
         requestButton2.setDisable(true);
-        requestButton2.setLayoutX(333.0);
+        requestButton2.setLayoutX(386.0);
         requestButton2.setLayoutY(248.0);
         requestButton2.setMnemonicParsing(false);
         requestButton2.setPrefHeight(25.0);
@@ -134,7 +136,7 @@ public class HomeOnline extends AnchorPane {
         requestButton2.setFont(new Font("Centaur", 14.0));
 
         requestButton3.setDisable(true);
-        requestButton3.setLayoutX(333.0);
+        requestButton3.setLayoutX(386.0);
         requestButton3.setLayoutY(294.0);
         requestButton3.setMnemonicParsing(false);
         requestButton3.setPrefHeight(27.0);
@@ -147,7 +149,7 @@ public class HomeOnline extends AnchorPane {
         backButton.setMnemonicParsing(false);
         backButton.setText("Back");
         backButton.setFont(new Font("Centaur", 14.0));
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
+         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HomeScreen_offline home = new HomeScreen_offline(stage);

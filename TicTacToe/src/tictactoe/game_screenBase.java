@@ -15,7 +15,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
 public class game_screenBase extends BorderPane {
 
     protected final GridPane gridPane;
@@ -92,6 +91,8 @@ public class game_screenBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setAlignment(javafx.geometry.Pos.CENTER);
@@ -153,7 +154,8 @@ public class game_screenBase extends BorderPane {
         label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label.setText("Habiba");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        label.setFont(new Font("Centaur", 14.0));
+        label.setTextFill(javafx.scene.paint.Color.valueOf("#f7f3f3"));
+        label.setFont(new Font("Centaur", 28.0));
 
         GridPane.setColumnIndex(label0, 3);
         GridPane.setRowSpan(label0, 2);
@@ -162,7 +164,8 @@ public class game_screenBase extends BorderPane {
         label0.setLayoutX(160.0);
         label0.setLayoutY(17.0);
         label0.setText("Menna");
-        label0.setFont(new Font("Centaur", 14.0));
+        label0.setTextFill(javafx.scene.paint.Color.WHITE);
+        label0.setFont(new Font("Centaur", 28.0));
 
         GridPane.setColumnIndex(recordButton, 1);
         GridPane.setRowIndex(recordButton, 1);
@@ -195,12 +198,14 @@ public class game_screenBase extends BorderPane {
         GridPane.setColumnIndex(label1, 1);
         GridPane.setRowIndex(label1, 1);
         label1.setText("Score 50");
+        label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setTranslateY(15.0);
         label1.setFont(new Font("Centaur", 14.0));
 
         GridPane.setColumnIndex(label2, 3);
         GridPane.setRowIndex(label2, 1);
         label2.setText("Score  40");
+        label2.setTextFill(javafx.scene.paint.Color.WHITE);
         label2.setTranslateY(15.0);
         label2.setFont(new Font("Centaur", 14.0));
         BorderPane.setMargin(gridPane, new Insets(10.0));

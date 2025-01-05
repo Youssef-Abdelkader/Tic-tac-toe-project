@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 public class Login extends AnchorPane {
 
     protected final TextField nameText;
@@ -41,33 +42,35 @@ public class Login extends AnchorPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
-        nameText.setLayoutX(226.0);
-        nameText.setLayoutY(139.0);
+        nameText.setLayoutX(252.0);
+        nameText.setLayoutY(138.0);
 
-        passwordText.setLayoutX(226.0);
-        passwordText.setLayoutY(219.0);
+        passwordText.setLayoutX(252.0);
+        passwordText.setLayoutY(206.0);
 
-        nameLable.setLayoutX(179.0);
-        nameLable.setLayoutY(117.0);
+        nameLable.setLayoutX(82.0);
+        nameLable.setLayoutY(140.0);
         nameLable.setText("Name");
         nameLable.setFont(new Font("Centaur", 18.0));
 
-        passwordLable.setLayoutX(178.0);
-        passwordLable.setLayoutY(188.0);
+        passwordLable.setLayoutX(71.0);
+        passwordLable.setLayoutY(206.0);
         passwordLable.setPrefHeight(25.0);
         passwordLable.setPrefWidth(62.0);
         passwordLable.setText("Password");
         passwordLable.setFont(new Font("Centaur", 18.0));
 
-        registerLable.setLayoutX(209.0);
-        registerLable.setLayoutY(275.0);
+        registerLable.setLayoutX(43.0);
+        registerLable.setLayoutY(255.0);
         registerLable.setText("Don't have an account?");
         registerLable.setFont(new Font("Centaur", 14.0));
 
         title.setAlignment(javafx.geometry.Pos.CENTER);
         title.setLayoutX(133.0);
-        title.setLayoutY(45.0);
+        title.setLayoutY(67.0);
         title.setPrefHeight(17.0);
         title.setPrefWidth(335.0);
         title.setText("Shick-Shack-Shock");
@@ -75,8 +78,8 @@ public class Login extends AnchorPane {
         title.setTextFill(javafx.scene.paint.Color.valueOf("#c90707"));
         title.setFont(new Font("Copperplate Gothic Light", 24.0));
 
-        signUp.setLayoutX(339.0);
-        signUp.setLayoutY(273.0);
+        signUp.setLayoutX(301.0);
+        signUp.setLayoutY(253.0);
         signUp.setMnemonicParsing(false);
         signUp.setPrefHeight(17.0);
         signUp.setPrefWidth(51.0);
@@ -110,7 +113,6 @@ public class Login extends AnchorPane {
         backButton.setMnemonicParsing(false);
         backButton.setText("Back");
         backButton.setFont(new Font("Centaur", 14.0));
-        setOpaqueInsets(new Insets(0.0));
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -119,6 +121,7 @@ public class Login extends AnchorPane {
                 stage.setScene(scene);
             }   
         });
+        setOpaqueInsets(new Insets(0.0));
 
         getChildren().add(nameText);
         getChildren().add(passwordText);

@@ -50,9 +50,11 @@ public class Multi_player_SceneBase extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
         BorderPane.setAlignment(multi_scene_label, javafx.geometry.Pos.CENTER);
-        multi_scene_label.setPrefHeight(53.0);
+        multi_scene_label.setPrefHeight(29.0);
         multi_scene_label.setPrefWidth(571.0);
         multi_scene_label.setText("                  Shik-Shack-shock");
         multi_scene_label.setTextFill(javafx.scene.paint.Color.valueOf("#f51010"));
@@ -63,9 +65,7 @@ public class Multi_player_SceneBase extends BorderPane {
         backButton.setPrefWidth(46.0);
         backButton.setText("Back");
         backButton.setFont(new Font("Centaur", 12.0));
-        multi_scene_label.setGraphic(backButton);
-        setTop(multi_scene_label);
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
+         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 HomeScreen_offline home = new HomeScreen_offline(stage);
@@ -73,6 +73,8 @@ public class Multi_player_SceneBase extends BorderPane {
                 stage.setScene(scene);
             }   
         });
+        multi_scene_label.setGraphic(backButton);
+        setTop(multi_scene_label);
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
         gridPane.setPrefHeight(249.0);
@@ -101,20 +103,24 @@ public class Multi_player_SceneBase extends BorderPane {
         player1_label.setPrefHeight(57.0);
         player1_label.setPrefWidth(223.0);
         player1_label.setText("     Enter Name of Player 1");
+        player1_label.setTextFill(javafx.scene.paint.Color.valueOf("#d72929"));
         player1_label.setFont(new Font("Constantia", 17.0));
 
         GridPane.setRowIndex(player2_label, 1);
         player2_label.setPrefHeight(55.0);
         player2_label.setPrefWidth(223.0);
         player2_label.setText("    Enter Name of Player 2");
+        player2_label.setTextFill(javafx.scene.paint.Color.valueOf("#b71414"));
         player2_label.setFont(new Font("Constantia", 17.0));
         GridPane.setMargin(player2_label, new Insets(0.0, 0.0, 120.0, 0.0));
 
         GridPane.setColumnIndex(player1_txt_fied, 1);
+        player1_txt_fied.setText("Player 1");
         GridPane.setMargin(player1_txt_fied, new Insets(0.0));
 
         GridPane.setColumnIndex(player2_txt_field, 1);
         GridPane.setRowIndex(player2_txt_field, 1);
+        player2_txt_field.setText("Player 2");
         GridPane.setMargin(player2_txt_field, new Insets(0.0, 0.0, 120.0, 0.0));
 
         GridPane.setColumnIndex(Multi_Start_btn, 1);
@@ -124,8 +130,6 @@ public class Multi_player_SceneBase extends BorderPane {
         Multi_Start_btn.setPrefWidth(109.0);
         Multi_Start_btn.setText("Start");
         Multi_Start_btn.setFont(new Font(18.0));
-        GridPane.setMargin(Multi_Start_btn, new Insets(50.0, 0.0, 0.0, 0.0));
-        setLeft(gridPane);
         Multi_Start_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -134,6 +138,8 @@ public class Multi_player_SceneBase extends BorderPane {
                 stage.setScene(scene);
             }   
         });
+        GridPane.setMargin(Multi_Start_btn, new Insets(50.0, 0.0, 0.0, 0.0));
+        setLeft(gridPane);
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getColumnConstraints().add(columnConstraints0);

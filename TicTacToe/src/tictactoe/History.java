@@ -45,54 +45,55 @@ public class History extends AnchorPane {
         setId("AnchorPane");
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-        getStyleClass().add("mainFxmlClass");
         getStylesheets().add("/tictactoe/history.css");
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
-        historyLable.setLayoutX(260.0);
-        historyLable.setLayoutY(34.0);
+        historyLable.setLayoutX(253.0);
+        historyLable.setLayoutY(59.0);
         historyLable.setText("Hisory");
         historyLable.setTextFill(javafx.scene.paint.Color.valueOf("#cd0808"));
         historyLable.setFont(new Font("Centaur", 32.0));
 
-        gameIdLable.setLayoutX(65.0);
+        gameIdLable.setLayoutX(62.0);
         gameIdLable.setLayoutY(99.0);
         gameIdLable.setText("Game Id");
-        gameIdLable.setFont(new Font("Centaur", 18.0));
+        gameIdLable.setFont(new Font("Centaur", 26.0));
 
-        opponentLable.setLayoutX(259.0);
+        opponentLable.setLayoutX(270.0);
         opponentLable.setLayoutY(99.0);
         opponentLable.setText("Opponent");
-        opponentLable.setFont(new Font("Centaur", 18.0));
+        opponentLable.setFont(new Font("Centaur", 26.0));
 
         label.setLayoutX(80.0);
         label.setLayoutY(142.0);
         label.setText("2345");
-        label.setFont(new Font("Centaur", 14.0));
+        label.setFont(new Font("Centaur", 24.0));
 
         label0.setLayoutX(80.0);
         label0.setLayoutY(184.0);
         label0.setText("5678");
-        label0.setFont(new Font("Centaur", 14.0));
+        label0.setFont(new Font("Centaur", 24.0));
 
         label1.setLayoutX(80.0);
         label1.setLayoutY(230.0);
         label1.setText("1290");
-        label1.setFont(new Font("Centaur", 14.0));
+        label1.setFont(new Font("Centaur", 24.0));
 
-        label2.setLayoutX(275.0);
+        label2.setLayoutX(288.0);
         label2.setLayoutY(142.0);
         label2.setText("Menna");
-        label2.setFont(new Font("Centaur", 14.0));
+        label2.setFont(new Font("Centaur", 24.0));
 
-        label3.setLayoutX(273.0);
+        label3.setLayoutX(284.0);
         label3.setLayoutY(184.0);
         label3.setText("Youssef");
-        label3.setFont(new Font("Centaur", 14.0));
+        label3.setFont(new Font("Centaur", 24.0));
 
-        label4.setLayoutX(274.0);
+        label4.setLayoutX(287.0);
         label4.setLayoutY(230.0);
         label4.setText("Habiba");
-        label4.setFont(new Font("Centaur", 14.0));
+        label4.setFont(new Font("Centaur", 24.0));
 
         replayButton1.setLayoutX(433.0);
         replayButton1.setLayoutY(137.0);
