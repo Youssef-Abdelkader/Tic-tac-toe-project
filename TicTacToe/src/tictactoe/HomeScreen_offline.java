@@ -64,7 +64,7 @@ public class HomeScreen_offline extends BorderPane {
         setRight(imageView0);
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+            vBox.setAlignment(javafx.geometry.Pos.CENTER);
         vBox.setMinHeight(USE_PREF_SIZE);
         vBox.setPrefHeight(268.0);
         vBox.setPrefWidth(180.0);
