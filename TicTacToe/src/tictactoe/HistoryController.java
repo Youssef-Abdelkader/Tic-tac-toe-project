@@ -8,20 +8,26 @@ package tictactoe;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author habib
  */
-public class HistoryController implements Initializable {
+public class HistoryController extends History{
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+
+    public HistoryController(Stage stage) {
+        super(stage);
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+      
     
 }

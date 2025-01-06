@@ -19,7 +19,7 @@ public class serverscene extends AnchorPane {
     protected final AmbientLight ambientLight;
     protected final Button Start;
 
-    private scenecontroller controller;
+
 
     public serverscene(Stage stage) {
 
@@ -27,7 +27,7 @@ public class serverscene extends AnchorPane {
         ambientLight = new AmbientLight();
         Start = new Button();
 
-        controller = new scenecontroller();
+      
 
         setId("AnchorPane");
         setPrefHeight(377.0);

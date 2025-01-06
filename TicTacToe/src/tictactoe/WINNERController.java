@@ -16,27 +16,19 @@ import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
 
 /**
  *
  * @author habib
  */
-public class WINNERController implements Initializable {
+public class WINNERController extends WINNERBase {
     
-    @FXML
-    private Label label;
-   
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    public WINNERController(Stage stage) {
+        super(stage);
     }
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
-    }    
+  
     
 }

@@ -8,20 +8,18 @@ package tictactoe;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author A.Atia
  */
-public class Multi_player_SceneController implements Initializable {
+public class Multi_player_SceneController extends Multi_player_SceneBase{
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+    public Multi_player_SceneController(Stage stage) {
+        super(stage);
+    }
+
+   
 }

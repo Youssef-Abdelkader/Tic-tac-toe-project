@@ -5,22 +5,16 @@
  */
 package tictactoe;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
  *
- * @author habib
+ * @author yosef
  */
-public class HomeOnlineController extends HomeOnline {
-
-    public HomeOnlineController(Stage stage) {
+public class SignupController extends Signup {
+    
+    public SignupController(Stage stage) {
         super(stage);
     }
-
     
-   
 }
