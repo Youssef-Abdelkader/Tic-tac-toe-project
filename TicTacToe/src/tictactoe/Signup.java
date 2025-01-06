@@ -36,28 +36,30 @@ public class Signup extends AnchorPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
-        nameText.setLayoutX(236.0);
-        nameText.setLayoutY(149.0);
+        nameText.setLayoutX(300.0);
+        nameText.setLayoutY(148.0);
 
-        passwordText.setLayoutX(236.0);
-        passwordText.setLayoutY(229.0);
+        passwordText.setLayoutX(300.0);
+        passwordText.setLayoutY(216.0);
 
-        nameLable.setLayoutX(189.0);
-        nameLable.setLayoutY(127.0);
+        nameLable.setLayoutX(68.0);
+        nameLable.setLayoutY(149.0);
         nameLable.setText("Name");
         nameLable.setFont(new Font("Centaur", 18.0));
 
-        passwordLable.setLayoutX(188.0);
-        passwordLable.setLayoutY(198.0);
+        passwordLable.setLayoutX(57.0);
+        passwordLable.setLayoutY(216.0);
         passwordLable.setPrefHeight(25.0);
         passwordLable.setPrefWidth(62.0);
         passwordLable.setText("Password");
         passwordLable.setFont(new Font("Centaur", 18.0));
 
         title.setAlignment(javafx.geometry.Pos.CENTER);
-        title.setLayoutX(143.0);
-        title.setLayoutY(55.0);
+        title.setLayoutX(132.0);
+        title.setLayoutY(67.0);
         title.setPrefHeight(17.0);
         title.setPrefWidth(335.0);
         title.setText("Shick-Shack-Shock");
@@ -65,8 +67,8 @@ public class Signup extends AnchorPane {
         title.setTextFill(javafx.scene.paint.Color.valueOf("#c90707"));
         title.setFont(new Font("Copperplate Gothic Light", 24.0));
 
-        signUp.setLayoutX(274.0);
-        signUp.setLayoutY(283.0);
+        signUp.setLayoutX(338.0);
+        signUp.setLayoutY(308.0);
         signUp.setMnemonicParsing(false);
         signUp.setPrefHeight(28.0);
         signUp.setPrefWidth(73.0);

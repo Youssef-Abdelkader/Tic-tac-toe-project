@@ -39,8 +39,12 @@ public class HomeScreen_offline extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/all.css");
 
         BorderPane.setAlignment(label, javafx.geometry.Pos.CENTER);
+        label.setPrefHeight(115.0);
+        label.setPrefWidth(353.0);
         label.setText("SHICK SHACK SHOCK");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         label.setFont(new Font("Comic Sans MS Bold", 32.0));
@@ -52,7 +56,7 @@ public class HomeScreen_offline extends BorderPane {
         imageView.setFitWidth(200.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("/images_and_other/COLOURBOX2165692-removebg-preview.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("x.png").toExternalForm()));
         setLeft(imageView);
 
         BorderPane.setAlignment(imageView0, javafx.geometry.Pos.CENTER);
@@ -60,7 +64,7 @@ public class HomeScreen_offline extends BorderPane {
         imageView0.setFitWidth(200.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("/images_and_other/o.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("o.png").toExternalForm()));
         setRight(imageView0);
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
@@ -84,7 +88,7 @@ public class HomeScreen_offline extends BorderPane {
                 stage.setScene(scene);
             }   
         });
-                
+
         MultiPBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         MultiPBtn.setLayoutX(10.0);
         MultiPBtn.setLayoutY(10.0);
@@ -93,7 +97,7 @@ public class HomeScreen_offline extends BorderPane {
         MultiPBtn.setStyle("-fx-border-radius: 10;");
         MultiPBtn.setText("Multi player");
         MultiPBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
+         MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Multi_player_SceneBase multi = new Multi_player_SceneBase(stage);
@@ -110,8 +114,6 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.setStyle("-fx-border-radius: 10;");
         OnlineBtn.setText("online");
         OnlineBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        vBox.setPadding(new Insets(20.0, 0.0, 0.0, 0.0));
-        setCenter(vBox);
         OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -121,6 +123,8 @@ public class HomeScreen_offline extends BorderPane {
                 stage.setScene(scene);
             }   
         });
+        vBox.setPadding(new Insets(20.0, 0.0, 0.0, 0.0));
+        setCenter(vBox);
 
         vBox.getChildren().add(singlePBtn);
         vBox.getChildren().add(MultiPBtn);
