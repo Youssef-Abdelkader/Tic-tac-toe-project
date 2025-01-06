@@ -5,23 +5,30 @@
  */
 package tictactoe;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
  * @author yosef
  */
-public class Serverscene2Controller implements Initializable {
+public class Serverscene2Controller  extends Serverscene2Base {
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    
+
+    public Serverscene2Controller(Stage stage) {
+        super(stage);
+    }
+    
     
 }
