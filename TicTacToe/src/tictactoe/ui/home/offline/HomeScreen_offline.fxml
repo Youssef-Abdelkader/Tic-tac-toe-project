@@ -6,16 +6,31 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@all.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../../../styles/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <Label prefHeight="115.0" prefWidth="353.0" text="SHICK SHACK SHOCK" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Comic Sans MS Bold" size="32.0" />
-         </font>
-      </Label>
+      <StackPane prefHeight="77.0" prefWidth="580.0" style="-fx-background-color: white; -fx-opacity: .9; -fx-border-radius: 10;" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="115.0" prefWidth="353.0" text="SHICK SHACK SHOCK" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="32.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="0.6190476190476191" startX="1.0">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="#33807d" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+         </children>
+      </StackPane>
    </top>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
@@ -35,11 +50,11 @@
       </ImageView>
    </right>
    <center>
-      <VBox alignment="CENTER" minHeight="-Infinity" prefHeight="268.0" prefWidth="180.0" spacing="15.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="268.0" prefWidth="180.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="singlePBtn" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" text="Single player" textAlignment="CENTER" />
-            <Button fx:id="MultiPBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" text="Multi player" textAlignment="CENTER" />
-            <Button fx:id="OnlineBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="42.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" text="online" textAlignment="CENTER" />
+            <Button fx:id="singlePBtn" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" styleClass="home_screen_btns" stylesheets="@../../../styles/background.css" text="Single player" textAlignment="CENTER" />
+            <Button fx:id="MultiPBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" styleClass="home_screen_btns" stylesheets="@../../../styles/background.css" text="Multi player" textAlignment="CENTER" />
+            <Button fx:id="OnlineBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="42.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-border-radius: 10;" styleClass="home_screen_btns" stylesheets="@../../../styles/background.css" text="online" textAlignment="CENTER" />
          </children>
          <padding>
             <Insets top="20.0" />
