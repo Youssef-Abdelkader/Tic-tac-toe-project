@@ -1,20 +1,14 @@
 package tictactoe.login_signup;
 
-import java.lang.String;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import tictactoe.HomeOnline;
-import tictactoe.HomeScreen_offline;
 
-public class Login extends AnchorPane {
+public abstract class Login extends AnchorPane {
 
     protected final TextField nameText;
     protected final TextField passwordText;
@@ -94,14 +88,6 @@ public class Login extends AnchorPane {
         signUp.getStyleClass().add("signUp");
         signUp.setText("Sign Up");
         signUp.setFont(new Font("Centaur", 11.0));
-        signUp.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Signup signup = new Signup(stage);
-                Scene scene = new Scene(signup);
-                stage.setScene(scene);
-            }
-        });
 
         loginButton.setLayoutX(481.0);
         loginButton.setLayoutY(168.0);
@@ -109,14 +95,6 @@ public class Login extends AnchorPane {
         loginButton.getStyleClass().add("loginButton");
         loginButton.setText("Log In");
         loginButton.setFont(new Font("Centaur", 14.0));
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeOnline home = new HomeOnline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }
-        });
 
         backButton.setLayoutX(27.0);
         backButton.setLayoutY(25.0);
@@ -126,14 +104,6 @@ public class Login extends AnchorPane {
         backButton.getStyleClass().add("backButton");
         backButton.setText("Back");
         backButton.setFont(new Font("Centaur", 14.0));
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }   
-        });
 
         nameLable.setAlignment(javafx.geometry.Pos.CENTER);
         nameLable.setLayoutX(135.0);

@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import tictactoe.login_signup.Login;
+import tictactoe.login_signup.LoginController;
 
 public class HomeScreen_offline extends BorderPane {
 
@@ -119,7 +119,7 @@ public class HomeScreen_offline extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 TicTacToe.online = true;
-                Login account = new Login(stage);
+                LoginController account = new LoginController(stage);
                 Scene scene = new Scene(account);
                 stage.setScene(scene);
             }   

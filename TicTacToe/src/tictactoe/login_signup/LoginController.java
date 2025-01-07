@@ -5,7 +5,12 @@
  */
 package tictactoe.login_signup;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.HomeOnline;
+import tictactoe.HomeScreen_offline;
 
 /**
  *
@@ -15,6 +20,32 @@ public class LoginController extends Login {
     
     public LoginController(Stage stage) {
         super(stage);
+        signUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                SignupController signup = new SignupController(stage);
+                Scene scene = new Scene(signup);
+                stage.setScene(scene);
+            }
+        });
+        
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeOnline home = new HomeOnline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }
+        });
+        
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeScreen_offline home = new HomeScreen_offline(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
     }
     
 }

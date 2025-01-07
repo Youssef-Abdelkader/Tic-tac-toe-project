@@ -1,18 +1,13 @@
 package tictactoe.login_signup;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import tictactoe.HomeOnline;
-import tictactoe.HomeScreen_offline;
 
-public class Signup extends AnchorPane {
+public abstract class Signup extends AnchorPane {
 
     protected final TextField nameText;
     protected final TextField passwordText;
@@ -82,14 +77,6 @@ public class Signup extends AnchorPane {
         signUp.getStyleClass().add("signUp");
         signUp.setText("Sign Up");
         signUp.setFont(new Font("Centaur", 14.0));
-        signUp.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeOnline home = new HomeOnline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }
-        });
 
         backButton.setLayoutX(31.0);
         backButton.setLayoutY(27.0);
@@ -97,14 +84,6 @@ public class Signup extends AnchorPane {
         backButton.getStyleClass().add("backButton");
         backButton.setText("Back");
         backButton.setFont(new Font("Centaur", 14.0));
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }   
-        });
 
         nameLable.setAlignment(javafx.geometry.Pos.CENTER);
         nameLable.setLayoutX(159.0);
