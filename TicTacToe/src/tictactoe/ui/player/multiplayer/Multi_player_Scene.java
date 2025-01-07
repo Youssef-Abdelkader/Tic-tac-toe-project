@@ -29,8 +29,9 @@ public  class Multi_player_Scene extends AnchorPane {
     protected final TextField player1_textfield;
     protected final TextField player2_textfield;
     protected final Button start_btn;
+    
 
-    public Multi_player_Scene(Stage stage) {
+    public Multi_player_Scene() {
 
         title_anchor = new AnchorPane();
         label = new Label();
@@ -74,14 +75,7 @@ public  class Multi_player_Scene extends AnchorPane {
         back_btn.getStylesheets().add("/tictactoe/styles/Multi_player.css");
         back_btn.setText("Back");
         
-        back_btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }   
-        });
+       
 
         label1_anchor.setLayoutX(25.0);
         label1_anchor.setLayoutY(149.0);
@@ -135,14 +129,7 @@ public  class Multi_player_Scene extends AnchorPane {
         start_btn.getStyleClass().add("btn");
         start_btn.getStylesheets().add("/tictactoe/styles/Multi_player.css");
         start_btn.setText("Start");
-        start_btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                game_screenBase game = new game_screenBase(stage);
-                Scene scene = new Scene(game);
-                stage.setScene(scene);
-            }   
-        });
+        
 
         title_anchor.getChildren().add(label);
         getChildren().add(title_anchor);
