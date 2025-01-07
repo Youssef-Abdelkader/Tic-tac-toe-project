@@ -1,0 +1,75 @@
+.anchor-pane {
+    -fx-background-image: url("../images/cover.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+.labelAnchorPane {
+    -fx-background-color: white;
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-radius:15;
+}
+.listview
+{
+    -fx-background-radius:15;
+
+}
+
+.history_btn 
+{
+    -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 10px; /* Padding for size */
+    -fx-background-radius: 20; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+   
+}
+.game_grid{
+        -fx-background-image: url("../images/grid.PNG");
+/*        -fx-background-size: cover;*/
+            -fx-background-size: 100% 100%; /* Match the size of the GridPane */
+         -fx-background-radius: 20;
+        -fx-background-repeat: no-repeat;
+}
+.forfiet_btn 
+{
+    -fx-background-color: linear-gradient(to bottom, #e54927, #c0614c); /* Gradient background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 10px; /* Padding for size */
+    -fx-background-radius: 20; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+   
+}
+.record_btn 
+{
+    -fx-background-color: linear-gradient(to bottom, #ba8579, #e9d8d4); /* Gradient background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 10px; /* Padding for size */
+    -fx-background-radius: 20; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+   
+}
+.home_screen_btns 
+{
+    -fx-background-color: linear-gradient(to bottom, #707070, #474747); /* Gradient background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 10px; /* Padding for size */
+    -fx-background-radius: 20; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+   
+}
+.homescreen_blurred_image {
+    -fx-background-image: url("/tictactoe/images/elkebiir.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
+}
