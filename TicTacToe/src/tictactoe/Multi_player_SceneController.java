@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author A.Atia
  */
-public class Multi_player_SceneController extends Multi_player_SceneBase{
+public class Multi_player_SceneController extends Multi_player_Scene{
 
     public Multi_player_SceneController(Stage stage) {
         super(stage);

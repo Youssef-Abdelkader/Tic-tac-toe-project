@@ -100,7 +100,7 @@ public class HomeScreen_offline extends BorderPane {
          MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Multi_player_SceneBase multi = new Multi_player_SceneBase(stage);
+                Multi_player_Scene multi = new Multi_player_Scene(stage);
                 Scene scene = new Scene(multi);
                 stage.setScene(scene);
             }   
