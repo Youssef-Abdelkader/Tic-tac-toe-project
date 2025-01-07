@@ -1,11 +1,18 @@
 package tictactoe.ui.game.looser;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
+import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.online.HomeOnlineController;
+
 
 public abstract class LOSERBase extends AnchorPane {
 
@@ -82,12 +89,15 @@ public abstract class LOSERBase extends AnchorPane {
         btnEX.setPrefHeight(26.0);
         btnEX.setPrefWidth(159.0);
         btnEX.setText("Exit");
+
         btnEX.setStyle("-fx-background-color: linear-gradient(to bottom, #ff7e5f, #ff4d4d); " +
                        "-fx-text-fill: white; " +
                        "-fx-font-family: 'Segoe UI'; " +
                        "-fx-font-size: 16px; " +
                        "-fx-padding: 10px; " +
                        "-fx-background-radius: 20;");
+
+        
 
         getChildren().addAll(videoView, lbl1, lbl2, score, btnPA, btnEX);
 

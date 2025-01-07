@@ -1,14 +1,13 @@
 package tictactoe.ui.game.winner;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.media.MediaView;
 
 public abstract class WINNERBase extends AnchorPane {
 
@@ -26,37 +25,42 @@ public abstract class WINNERBase extends AnchorPane {
         score = new Label();
         btnPA = new Button();
         btnEX = new Button();
-        setMaxHeight(USE_PREF_SIZE);
+
+            setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(450.0);
         setPrefWidth(800.0);
+
         AnchorPane.setBottomAnchor(videoView, 0.0);
         AnchorPane.setLeftAnchor(videoView, 0.0);
         AnchorPane.setRightAnchor(videoView, 0.0);
         AnchorPane.setTopAnchor(videoView, 0.0);
         videoView.setLayoutX(200.0);
         videoView.setLayoutY(100.0);
-
+        // Label 1: "You Are The"
         lbl1.setLayoutX(300.0);
         lbl1.setLayoutY(50.0);
         lbl1.setText("You Are The");
         lbl1.setTextFill(Color.web("#28a745"));
         lbl1.setFont(new Font("Arial", 28.0));
 
+        // Label 2: "WINNER"
         lbl2.setLayoutX(270.0);
         lbl2.setLayoutY(110.0);
         lbl2.setText("WINNER");
         lbl2.setTextFill(Color.web("#28a745"));
         lbl2.setFont(new Font("Arial", 70.0));
 
+        // Score label
         score.setLayoutX(350.0);
         score.setLayoutY(200.0);
         score.setText("New Score = ");
         score.setTextFill(Color.web("#28a745"));
         score.setFont(new Font("Arial", 18.0));
 
+        // Play Again Button
         btnPA.setLayoutX(320.0);
         btnPA.setLayoutY(270.0);
         btnPA.setText("Play Again?");
@@ -70,6 +74,7 @@ public abstract class WINNERBase extends AnchorPane {
         btnPA.setPrefHeight(40.0);
         btnPA.setEffect(new DropShadow(10, Color.BLACK));
 
+        // Exit Button
         btnEX.setLayoutX(320.0);
         btnEX.setLayoutY(320.0);
         btnEX.setText("Exit");
@@ -83,6 +88,17 @@ public abstract class WINNERBase extends AnchorPane {
         btnEX.setPrefHeight(40.0);
         btnEX.setEffect(new DropShadow(10, Color.BLACK));
 
-        getChildren().addAll(videoView, lbl1, lbl2, score, btnPA, btnEX);
+        // Add all components to the scene
+        getChildren().add(videoView);
+        getChildren().add(lbl1);
+        getChildren().add(lbl2);
+        getChildren().add(score);
+        getChildren().add(btnPA);
+        getChildren().add(btnEX);
+
+        // Bind MediaView size to AnchorPane
+        videoView.fitWidthProperty().bind(widthProperty());
+        videoView.fitHeightProperty().bind(heightProperty());
+        videoView.setPreserveRatio(true);
     }
 }

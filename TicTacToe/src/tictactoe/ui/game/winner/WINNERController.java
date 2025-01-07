@@ -15,26 +15,33 @@ public class WINNERController extends WINNERBase {
     public WINNERController(Stage stage) {
         super();
 
+        // Initialize the MediaPlayer with the winner video
         Media media = new Media(getClass().getResource("/resources/winner.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
 
+        // Set the video to auto-play
         mediaPlayer.setAutoPlay(true);
 
+        // Play Again button event handler
         btnPA.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // Transition to the game screen
                 game_screenBase gameScreen = new game_screenBase(stage);
                 Scene scene = new Scene(gameScreen);
                 stage.setScene(scene);
 
+                // Pause the video when transitioning
                 mediaPlayer.pause();
             }
         });
 
+        // Exit button event handler
         btnEX.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // Close the stage (exit the application)
                 stage.close();
             }
         });
