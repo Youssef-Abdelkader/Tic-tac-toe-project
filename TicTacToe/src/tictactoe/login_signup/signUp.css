@@ -1,0 +1,57 @@
+   .coverPage{
+        -fx-background-image: url("cover.jpg");
+        -fx-background-size: cover;
+        -fx-background-repeat: no-repeat;
+    }
+    .titleBackground {
+        -fx-background-color: white;
+        -fx-background-size: cover;
+        -fx-background-repeat: no-repeat;
+
+        -fx-background-radius:15;
+    }
+    
+    .nameBackground{
+        -fx-background-color: white;
+        -fx-background-size: cover;
+        -fx-background-repeat: no-repeat;
+
+        -fx-background-radius:15;
+    }
+    
+    .passwordBackground{
+        -fx-background-color: white;
+        -fx-background-size: cover;
+        -fx-background-repeat: no-repeat;
+
+        -fx-background-radius:15;
+    }
+    
+    .nameText
+    {-fx-background-radius:15;}
+    
+    .passwordText
+    {-fx-background-radius:15;}
+    
+
+    .signUp 
+    {
+        -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
+        -fx-text-fill: white; /* White text color */
+        -fx-font-size: 12px; /* Font size */
+        -fx-font-weight: bold; /* Bold text */
+        -fx-padding: 10px; /* Padding for size */
+        -fx-background-radius: 20; /* Rounded corners */
+        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,)
+    }
+    
+    
+    .backButton{
+        -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
+        -fx-text-fill: white; /* White text color */
+        -fx-font-size: 14px; /* Font size */
+        -fx-font-weight: bold; /* Bold text */
+        -fx-padding: 10px; /* Padding for size */
+        -fx-background-radius: 20; /* Rounded corners */
+        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,)
+    }
