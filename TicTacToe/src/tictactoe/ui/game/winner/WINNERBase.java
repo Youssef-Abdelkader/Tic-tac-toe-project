@@ -42,25 +42,25 @@ public abstract class WINNERBase extends AnchorPane {
         lbl1.setLayoutX(300.0);
         lbl1.setLayoutY(50.0);
         lbl1.setText("You Are The");
-        lbl1.setTextFill(Color.web("#e74c3c"));
+        lbl1.setTextFill(Color.web("#28a745"));
         lbl1.setFont(new Font("Arial", 28.0));
 
         lbl2.setLayoutX(270.0);
         lbl2.setLayoutY(110.0);
         lbl2.setText("WINNER");
-        lbl2.setTextFill(Color.web("#ff4d4d"));
+        lbl2.setTextFill(Color.web("#28a745"));
         lbl2.setFont(new Font("Arial", 70.0));
 
         score.setLayoutX(350.0);
         score.setLayoutY(200.0);
         score.setText("New Score = ");
-        score.setTextFill(Color.web("#ff4d4d"));
+        score.setTextFill(Color.web("#28a745"));
         score.setFont(new Font("Arial", 18.0));
 
         btnPA.setLayoutX(320.0);
         btnPA.setLayoutY(270.0);
         btnPA.setText("Play Again?");
-        btnPA.setStyle("-fx-background-color: linear-gradient(to bottom, #6a11cb, #2575fc); " +
+        btnPA.setStyle("-fx-background-color: linear-gradient(to bottom, #28a745, #66c767); " +
                        "-fx-text-fill: white; " +
                        "-fx-font-family: 'Segoe UI'; " +
                        "-fx-font-size: 16px; " +

@@ -82,7 +82,7 @@ public abstract class LOSERBase extends AnchorPane {
         btnEX.setPrefHeight(26.0);
         btnEX.setPrefWidth(159.0);
         btnEX.setText("Exit");
-        btnEX.setStyle("-fx-background-color: linear-gradient(to bottom, #ff7e5f, #feb47b); " +
+        btnEX.setStyle("-fx-background-color: linear-gradient(to bottom, #ff7e5f, #ff4d4d); " +
                        "-fx-text-fill: white; " +
                        "-fx-font-family: 'Segoe UI'; " +
                        "-fx-font-size: 16px; " +
