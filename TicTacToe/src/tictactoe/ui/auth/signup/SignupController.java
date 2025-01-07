@@ -9,8 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tictactoe.ui.home.online.HomeOnline;
 import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 /**
  *
@@ -24,7 +24,7 @@ public class SignupController extends Signup {
         signUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HomeOnline home = new HomeOnline(stage);
+                HomeOnlineController home = new HomeOnlineController(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }

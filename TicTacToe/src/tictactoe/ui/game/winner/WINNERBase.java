@@ -15,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 public class WINNERBase extends AnchorPane {
 
@@ -105,7 +106,7 @@ public class WINNERBase extends AnchorPane {
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnline home = new HomeOnline(stage);
+                    HomeOnlineController home = new HomeOnlineController(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }

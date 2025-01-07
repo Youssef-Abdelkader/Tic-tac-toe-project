@@ -7,8 +7,13 @@ package tictactoe.ui.history;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.ui.home.online.HomeOnline;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 /**
  * FXML Controller class
@@ -23,6 +28,14 @@ public class HistoryController extends History{
 
     public HistoryController(Stage stage) {
         super(stage);
+        history_btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HomeOnlineController home = new HomeOnlineController(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+            }   
+        });
     }
 
     /**
