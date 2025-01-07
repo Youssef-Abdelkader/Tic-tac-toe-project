@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class HomeOnline extends AnchorPane {
+public  class HomeOnline extends AnchorPane {
 
     protected final Label label;
     protected final Label label0;
