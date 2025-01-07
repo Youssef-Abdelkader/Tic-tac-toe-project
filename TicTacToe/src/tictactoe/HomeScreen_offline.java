@@ -83,7 +83,7 @@ public class HomeScreen_offline extends BorderPane {
         singlePBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Single_Player_SceneBase single = new Single_Player_SceneBase(stage);
+                Single_Player_Scene single = new Single_Player_Scene(stage);
                 Scene scene = new Scene(single);
                 stage.setScene(scene);
             }   
