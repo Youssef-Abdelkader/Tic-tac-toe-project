@@ -1,6 +1,4 @@
-
-
-    .anchor-pane {
+.anchor-pane {
         -fx-background-image: url("cover.jpg");
         -fx-background-size: cover;
         -fx-background-repeat: no-repeat;
@@ -29,6 +27,3 @@
         -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,)
 
     }
-
-
-

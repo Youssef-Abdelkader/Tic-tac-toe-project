@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import tictactoe.login_signup.Login;
 
 public class HomeScreen_offline extends BorderPane {
 
