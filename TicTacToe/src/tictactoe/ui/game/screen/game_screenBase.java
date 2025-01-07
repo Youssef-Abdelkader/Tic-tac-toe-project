@@ -15,6 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.ui.game.looser.LOSERBase;
+import tictactoe.ui.game.looser.LOSERController;
 
 public class game_screenBase extends BorderPane {
 
@@ -190,7 +191,7 @@ public class game_screenBase extends BorderPane {
         forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERBase(stage);
+                LOSERBase lose = new LOSERController(stage);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
             }   
