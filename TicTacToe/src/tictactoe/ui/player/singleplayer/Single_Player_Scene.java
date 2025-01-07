@@ -24,7 +24,7 @@ public class Single_Player_Scene extends AnchorPane {
     protected final Label title_label;
     protected final Button start_btn;
 
-    public Single_Player_Scene(Stage stage) {
+    public Single_Player_Scene() {
 
         textField = new TextField();
         enter_name_anchor = new AnchorPane();
@@ -74,14 +74,7 @@ public class Single_Player_Scene extends AnchorPane {
         back_btn.getStylesheets().add("/tictactoe/styles/Single_player.css");
         back_btn.setText("Back");
         
-        back_btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }   
-        });
+       
 
         label_anchor.setLayoutX(143.0);
         label_anchor.setLayoutY(30.0);
@@ -107,14 +100,7 @@ public class Single_Player_Scene extends AnchorPane {
         start_btn.getStylesheets().add("/tictactoe/styles/Single_player.css");
         start_btn.setText("Start");
         
-        start_btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                game_screenBase game = new game_screenBase(stage);
-                Scene scene = new Scene(game);
-                stage.setScene(scene);
-            }   
-        });
+        
 
         getChildren().add(textField);
         getChildren().add(enter_name_anchor);
