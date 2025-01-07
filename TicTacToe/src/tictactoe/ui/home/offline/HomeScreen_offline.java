@@ -16,6 +16,7 @@ import tictactoe.ui.player.multiplayer.Multi_player_Scene;
 import tictactoe.ui.player.singleplayer.Single_Player_Scene;
 import tictactoe.TicTacToe;
 import tictactoe.ui.auth.login.LoginController;
+import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 
 public class HomeScreen_offline extends BorderPane {
 
@@ -104,7 +105,7 @@ public class HomeScreen_offline extends BorderPane {
          MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Multi_player_Scene multi = new Multi_player_Scene(stage);
+                Multi_player_SceneController multi = new Multi_player_SceneController(stage);
                 Scene scene = new Scene(multi);
                 stage.setScene(scene);
             }   
