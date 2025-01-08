@@ -24,6 +24,6 @@
         -fx-font-weight: bold; /* Bold text */
         -fx-padding: 10px; /* Padding for size */
         -fx-background-radius: 20; /* Rounded corners */
-        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
 
     }

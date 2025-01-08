@@ -41,7 +41,7 @@ public abstract class HomeOnline extends AnchorPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
         getStyleClass().add("coverBackground");
-        getStylesheets().add("/tictactoe/ui/home/online/../../../styles/homeonline.css");
+        getStylesheets().add("/tictactoe/styles/homeonline.css");
 
         helloBackground.setLayoutX(207.0);
         helloBackground.setLayoutY(30.0);
