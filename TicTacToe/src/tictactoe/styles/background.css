@@ -1,5 +1,5 @@
 .anchor-pane {
-    -fx-background-image: url("../images/cover.jpg");
+    -fx-background-image: url("/tictactoe/images/elkebiir.jpg");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
