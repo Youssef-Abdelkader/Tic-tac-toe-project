@@ -24,7 +24,7 @@
     -fx-font-weight: bold; /* Bold text */
     -fx-padding: 10px; /* Padding for size */
     -fx-background-radius: 20; /* Rounded corners */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,2,2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
    
 }
 .game_grid{
@@ -42,18 +42,18 @@
     -fx-font-weight: bold; /* Bold text */
     -fx-padding: 10px; /* Padding for size */
     -fx-background-radius: 20; /* Rounded corners */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
    
 }
 .record_btn 
 {
-    -fx-background-color: linear-gradient(to bottom, #ba8579, #e9d8d4); /* Gradient background */
+    -fx-background-color: linear-gradient(to bottom, #e54927, #c0614c); /* Gradient background */
     -fx-text-fill: white; /* White text color */
     -fx-font-size: 14px; /* Font size */
     -fx-font-weight: bold; /* Bold text */
     -fx-padding: 10px; /* Padding for size */
     -fx-background-radius: 20; /* Rounded corners */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
    
 }
 .home_screen_btns 
@@ -64,7 +64,7 @@
     -fx-font-weight: bold; /* Bold text */
     -fx-padding: 10px; /* Padding for size */
     -fx-background-radius: 20; /* Rounded corners */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
    
 }
 .homescreen_blurred_image {
