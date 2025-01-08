@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@all.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../../../styles/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="60.0" prefWidth="556.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -24,44 +24,46 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ImageView fitHeight="53.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/x_game.jpeg" />
+                  <Image url="@../../../images/x_game.jpeg" />
                </image>
             </ImageView>
             <ImageView fitHeight="58.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images_and_other/o_game.png" />
+                  <Image url="@../../../images/o_game.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Habiba" textAlignment="CENTER" textFill="#f7f3f3" GridPane.columnIndex="1" GridPane.rowSpan="2">
-               <font>
-                  <Font name="Centaur" size="28.0" />
-               </font></Label>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="17.0" text="Menna" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowSpan="2">
                <font>
-                  <Font name="Centaur" size="28.0" />
+                  <Font name="Comic Sans MS Bold" size="34.0" />
                </font></Label>
-            <Button fx:id="recordButton" mnemonicParsing="false" text="Record" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="recordButton" mnemonicParsing="false" styleClass="record_btn" stylesheets="@../../../styles/background.css" text="Record" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Centaur" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="forfeitButton" mnemonicParsing="false" text="Forfeit" translateX="120.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="forfeitButton" mnemonicParsing="false" styleClass="forfiet_btn" stylesheets="@../../../styles/background.css" text="Forfeit" translateX="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Centaur" size="14.0" />
                </font>
             </Button>
-            <Label text="Score 50" textFill="WHITE" translateY="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Score  40" textFill="WHITE" translateY="15.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
-                  <Font name="Centaur" size="14.0" />
+                  <Font name="Cambria Bold" size="18.0" />
                </font>
             </Label>
-            <Label text="Score  40" textFill="WHITE" translateY="15.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Habiba" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowSpan="2">
                <font>
-                  <Font name="Centaur" size="14.0" />
+                  <Font name="Comic Sans MS Bold" size="34.0" />
+               </font>
+            </Label>
+            <Label text="Score  40" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
                </font>
             </Label>
          </children>
@@ -71,7 +73,7 @@
       </GridPane>
    </top>
    <center>
-      <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="400.0" style="-fx-opacity: .8; -fx-border-radius: 20;" styleClass="game_grid" stylesheets="@../../../styles/background.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
