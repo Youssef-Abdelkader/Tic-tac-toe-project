@@ -17,7 +17,7 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-         Parent root = new WINNERController(stage);
+         Parent root = new HomeScreen_offline(stage);
         //Signup() - History();
 
         //AnchorPane root = new WINNERBase();
