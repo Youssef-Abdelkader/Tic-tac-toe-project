@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import tictactoe.ui.game.winner.WINNERController;
 
 
 public class TicTacToe extends Application {
@@ -18,6 +17,9 @@ public class TicTacToe extends Application {
     public void start(Stage stage) throws Exception {
 
          Parent root = new HomeScreen_offline(stage);
+
+         //Parent root = new WINNERController(stage);
+
         //Signup() - History();
 
         //AnchorPane root = new WINNERBase();
