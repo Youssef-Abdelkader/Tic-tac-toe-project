@@ -51,16 +51,14 @@ public class HomeScreen_offline extends BorderPane {
         getStyleClass().add("anchor-pane");
         getStylesheets().add("/tictactoe/styles/background.css");
 
-        BorderPane.setAlignment(stackPane, javafx.geometry.Pos.CENTER);
-        stackPane.setPrefHeight(77.0);
-        stackPane.setPrefWidth(580.0);
-        stackPane.setStyle("-fx-background-color: white; -fx-opacity: .9; -fx-border-radius: 10;");
-
-        label.setPrefHeight(115.0);
-        label.setPrefWidth(353.0);
+        label.setAlignment(javafx.geometry.Pos.CENTER);
+        label.setPrefHeight(62.0);
+        label.setPrefWidth(406.0);
+        label.getStyleClass().add("homescreen_title");
+        label.getStylesheets().add("/tictactoe/styles/background.css");
         label.setText("SHICK SHACK SHOCK");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        label.setFont(new Font("Comic Sans MS Bold", 32.0));
+        label.setFont(new Font("Berlin Sans FB Demi Bold", 36.0));
         setTop(stackPane);
         setPadding(new Insets(30.0, 10.0, 10.0, 10.0));
 
@@ -85,16 +83,16 @@ public class HomeScreen_offline extends BorderPane {
         vBox.setMaxWidth(USE_PREF_SIZE);
         vBox.setMinHeight(USE_PREF_SIZE);
         vBox.setPrefHeight(268.0);
-        vBox.setPrefWidth(180.0);
+        vBox.setPrefWidth(300.0);
         vBox.setSpacing(15.0);
 
         singlePBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         singlePBtn.setMaxWidth(Double.MAX_VALUE);
         singlePBtn.setMnemonicParsing(false);
         singlePBtn.setStyle("-fx-border-radius: 10;");
-        singlePBtn.getStyleClass().add("home_screen_btns");
+        singlePBtn.getStyleClass().add("history_btn");
         singlePBtn.getStylesheets().add("/tictactoe/styles/background.css");
-        singlePBtn.setText("Single player");
+        singlePBtn.setText("Vs Computer");
         singlePBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
         MultiPBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
@@ -103,7 +101,7 @@ public class HomeScreen_offline extends BorderPane {
         MultiPBtn.setMaxWidth(Double.MAX_VALUE);
         MultiPBtn.setMnemonicParsing(false);
         MultiPBtn.setStyle("-fx-border-radius: 10;");
-        MultiPBtn.getStyleClass().add("home_screen_btns");
+        MultiPBtn.getStyleClass().add("history_btn");
         MultiPBtn.getStylesheets().add("/tictactoe/styles/background.css");
         MultiPBtn.setText("Multi player");
         MultiPBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
@@ -114,7 +112,7 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.setMaxWidth(Double.MAX_VALUE);
         OnlineBtn.setMnemonicParsing(false);
         OnlineBtn.setStyle("-fx-border-radius: 10;");
-        OnlineBtn.getStyleClass().add("home_screen_btns");
+        OnlineBtn.getStyleClass().add("history_btn");
         OnlineBtn.getStylesheets().add("/tictactoe/styles/background.css");
         OnlineBtn.setText("online");
         OnlineBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
@@ -126,7 +124,7 @@ public class HomeScreen_offline extends BorderPane {
         vBox.getChildren().add(MultiPBtn);
         vBox.getChildren().add(OnlineBtn);
 
-         MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
+        MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Multi_player_SceneController multi = new Multi_player_SceneController(stage);

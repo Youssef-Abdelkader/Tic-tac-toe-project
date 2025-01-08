@@ -15,6 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.ui.game.looser.LOSERBase;
+import tictactoe.ui.game.looser.LOSERController;
 
 public class game_screenBase extends BorderPane {
 
@@ -189,6 +190,14 @@ public class game_screenBase extends BorderPane {
         label0.setTextFill(javafx.scene.paint.Color.WHITE);
         label0.setTranslateY(15.0);
         label0.setFont(new Font("Cambria Bold", 18.0));
+        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LOSERBase lose = new LOSERController(stage);
+                Scene scene = new Scene(lose);
+                stage.setScene(scene);
+            }   
+        });
 
         GridPane.setColumnIndex(label1, 1);
         GridPane.setRowSpan(label1, 2);
@@ -367,7 +376,7 @@ public class game_screenBase extends BorderPane {
         forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERBase(stage);
+                LOSERBase lose = new LOSERController(stage);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
             }   
