@@ -19,8 +19,6 @@ public class TicTacToe extends Application {
 
          Parent root = new HomeScreen_offline(stage);
 
-
-
          //Parent root = new WINNERController(stage);
 
         //Signup() - History();
