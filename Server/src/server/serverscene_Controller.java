@@ -1,6 +1,11 @@
 
 package server;
 
+
+import com.sun.corba.se.spi.activation.Server;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,6 +25,7 @@ import javafx.stage.Stage;
 
 public class serverscene_Controller extends serverscene {
 
+    
     ServerSocket serverSocket;
 
     public serverscene_Controller(Stage stage) {
@@ -29,12 +35,10 @@ public class serverscene_Controller extends serverscene {
             @Override
             public void handle(ActionEvent event) {
 
-                Serverscene2Base server = new Serverscene2Base(stage);
-                Scene scene = new Scene(server);
-                stage.setScene(scene);
+                
 
                 // Start the server on a separate thread
-                new Thread(() -> {
+                Thread th = new Thread(() -> {
                     try {
                         serverSocket = new ServerSocket(5005);
                         System.out.println("Server started on port 5005...");
@@ -46,7 +50,13 @@ public class serverscene_Controller extends serverscene {
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }).start();
+                });
+                th.start();
+                Serverscene2Controller c = new Serverscene2Controller(stage,th);
+                
+                //Serverscene2Base server = new Serverscene2Base(stage);
+                Scene scene = new Scene(c);
+                stage.setScene(scene);
             }
         });
     }
@@ -96,4 +106,5 @@ class UserHandler extends Thread {
             user.output.println(msg); // Send to each client
         }
     }
+
 }

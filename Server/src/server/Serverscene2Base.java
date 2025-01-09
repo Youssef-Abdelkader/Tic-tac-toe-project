@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 public class Serverscene2Base extends AnchorPane {
 
+    Button stop_server_btn = new Button("Stop");
+
     public Serverscene2Base(Stage stage) {
 
         setStyle("-fx-background-color: #Bb8141;"); // Background color
@@ -33,47 +35,45 @@ public class Serverscene2Base extends AnchorPane {
         getChildren().add(pieChart);
 
         // Add a Back Button at the top
-        Button backButton = new Button("Stop");
-        backButton.setLayoutX(50);
-        backButton.setLayoutY(50);
-        backButton.setStyle(
-            "-fx-background-color: #C08A5B;" +
-            "-fx-background-radius: 15;" +
-            "-fx-font-size: 14px;" +
-            "-fx-font-weight: bold;" +
-            "-fx-text-fill: white;"
+        //stop_server_btn = new Button("Stop");
+        stop_server_btn.setLayoutX(50);
+        stop_server_btn.setLayoutY(50);
+        stop_server_btn.setStyle(
+                "-fx-background-color: #C08A5B;"
+                + "-fx-background-radius: 15;"
+                + "-fx-font-size: 14px;"
+                + "-fx-font-weight: bold;"
+                + "-fx-text-fill: white;"
         );
 
         // Set the action to switch back to Scene 1 (Main Menu)
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                serverscene server = new serverscene(stage);
-                Scene scene = new Scene(server);
-                stage.setScene(scene);
-            }   
-        });
-
-        getChildren().add(backButton);
+        getChildren().add(stop_server_btn);
 
         // Center the PieChart on the screen (stage)
         this.widthProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
         this.heightProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
+        
+       /* stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
+            System.out.println("stop button clicked");
+        });*/
     }
+    
+   
 
     // Method to center the PieChart in the middle of the screen
     private void centerPieChart(PieChart pieChart) {
         // Ensure that the stage is fully loaded before centering
         double stageWidth = getScene().getWindow().getWidth();
         double stageHeight = getScene().getWindow().getHeight();
-        
+
         double pieChartWidth = pieChart.getWidth();
         double pieChartHeight = pieChart.getHeight();
-        
+
         double centerX = (stageWidth - pieChartWidth) / 2;
         double centerY = (stageHeight - pieChartHeight) / 2;
 
         pieChart.setLayoutX(centerX);
         pieChart.setLayoutY(centerY);
     }
+    
 }
