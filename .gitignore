@@ -1,10 +1,13 @@
 /TicTacToe/nbproject/private/
 /TicTacToe/dist/
-<<<<<<< HEAD
+
 /TicTacToe/build/
-=======
+
 /TicTacToe/build/
 /TicTacToe/build/
 /TicTacToe/dist/
 /TicTacToe/build/
->>>>>>> developer
+
+/Server/nbproject/private/
+/Server/dist/
+/Server/build/
