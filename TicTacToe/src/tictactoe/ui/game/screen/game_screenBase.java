@@ -162,9 +162,9 @@ public abstract class game_screenBase extends BorderPane {
         label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label.setLayoutX(160.0);
         label.setLayoutY(17.0);
-        label.setText("Menna");
+        label.setText("PC");
         label.setTextFill(javafx.scene.paint.Color.WHITE);
-        label.setFont(new Font("Comic Sans MS Bold", 34.0));
+        label.setFont(new Font("Berlin Sans FB", 28.0));
 
         GridPane.setColumnIndex(recordButton, 1);
         GridPane.setRowIndex(recordButton, 2);
@@ -198,7 +198,7 @@ public abstract class game_screenBase extends BorderPane {
         label1.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label1.setText("Habiba");
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
-        label1.setFont(new Font("Comic Sans MS Bold", 34.0));
+        label1.setFont(new Font("Berlin Sans FB", 28.0));
 
         GridPane.setColumnIndex(label2, 1);
         GridPane.setRowIndex(label2, 3);

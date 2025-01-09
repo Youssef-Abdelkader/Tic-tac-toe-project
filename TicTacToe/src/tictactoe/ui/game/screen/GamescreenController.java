@@ -20,6 +20,8 @@ import tictactoe.ui.game.looser.LOSERController;
  */
 public class GamescreenController  extends game_screenBase{
     
+     //SINGLE PLAYER CONSTRUCTOR
+    
     public GamescreenController(Stage stage, String name) {
         super(stage);
         
@@ -38,6 +40,38 @@ public class GamescreenController  extends game_screenBase{
         
     
         label1.setText(name);
+    
+
+          recordButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               recordButton.setDisable(true);
+            }   
+        });
+    }
+    
+      //MULTI PLAYER CONSTRUCTOR
+    
+    
+    public GamescreenController(Stage stage, String name1, String name2) {
+        super(stage);
+        
+        
+        
+         
+        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LOSERBase lose = new LOSERController(stage, name1, name2);
+                Scene scene = new Scene(lose);
+                stage.setScene(scene);
+            }   
+        });
+        
+        
+    
+        label1.setText(name1);
+        label.setText(name2);
     
 
           recordButton.setOnAction(new EventHandler<ActionEvent>() {
