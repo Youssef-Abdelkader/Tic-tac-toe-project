@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -111,6 +112,14 @@ public  class Multi_player_Scene extends AnchorPane {
         player1_textfield.setLayoutY(146.0);
         player1_textfield.setPrefHeight(31.0);
         player1_textfield.setPrefWidth(214.0);
+        player1_textfield.setText("Player 1");
+        int maxLength = 10;
+        player1_textfield.setTextFormatter(new TextFormatter<String>(change -> {
+            if (change.getControlNewText().length() > maxLength) {
+                return null; // Reject the change
+            }
+            return change; // Accept the change
+        }));
         player1_textfield.getStyleClass().add("listview");
         player1_textfield.getStylesheets().add("/tictactoe/styles/Multi_player.css");
 
@@ -118,6 +127,13 @@ public  class Multi_player_Scene extends AnchorPane {
         player2_textfield.setLayoutY(237.0);
         player2_textfield.setPrefHeight(31.0);
         player2_textfield.setPrefWidth(214.0);
+        player2_textfield.setText("Player 2");
+        player2_textfield.setTextFormatter(new TextFormatter<String>(change -> {
+            if (change.getControlNewText().length() > maxLength) {
+                return null; // Reject the change
+            }
+            return change; // Accept the change
+        }));
         player2_textfield.getStyleClass().add("listview");
         player2_textfield.getStylesheets().add("/tictactoe/styles/Multi_player.css");
 

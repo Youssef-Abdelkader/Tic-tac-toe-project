@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.offline.HomeScreen_offline;
 
@@ -23,6 +24,7 @@ import tictactoe.ui.home.offline.HomeScreen_offline;
 public class Multi_player_SceneController extends Multi_player_Scene {
 
     private Stage stage;
+   
 
     public Multi_player_SceneController(Stage stage) {
         this.stage = stage;
@@ -39,7 +41,7 @@ public class Multi_player_SceneController extends Multi_player_Scene {
     }
 
     private void goToGame() {
-        game_screenBase game = new game_screenBase(stage);
+        game_screenBase game = new GamescreenController(stage,player1_textfield.getText(), player2_textfield.getText());
         Scene scene = new Scene(game);
         stage.setScene(scene);
 

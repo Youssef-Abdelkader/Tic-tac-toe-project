@@ -1,4 +1,4 @@
-package tictactoe.serverMUSTmove;
+package server;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
