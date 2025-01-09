@@ -46,10 +46,10 @@ public class serverscene_Controller extends serverscene {
                     }
                 });
                 th.start();
-                //Serverscene2Controller c = new Serverscene2Controller(th);
+                Serverscene2Controller c = new Serverscene2Controller(stage,th);
                 
-                Serverscene2Base server = new Serverscene2Base(stage);
-                Scene scene = new Scene(server);
+                //Serverscene2Base server = new Serverscene2Base(stage);
+                Scene scene = new Scene(c);
                 stage.setScene(scene);
             }
         });

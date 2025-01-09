@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Serverscene2Base extends AnchorPane {
 
-    Button stop_server_btn;
+    Button stop_server_btn = new Button("Stop");
 
     public Serverscene2Base(Stage stage) {
 
@@ -35,7 +35,7 @@ public class Serverscene2Base extends AnchorPane {
         getChildren().add(pieChart);
 
         // Add a Back Button at the top
-        stop_server_btn = new Button("Stop");
+        //stop_server_btn = new Button("Stop");
         stop_server_btn.setLayoutX(50);
         stop_server_btn.setLayoutY(50);
         stop_server_btn.setStyle(
@@ -52,7 +52,13 @@ public class Serverscene2Base extends AnchorPane {
         // Center the PieChart on the screen (stage)
         this.widthProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
         this.heightProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
+        
+       /* stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
+            System.out.println("stop button clicked");
+        });*/
     }
+    
+   
 
     // Method to center the PieChart in the middle of the screen
     private void centerPieChart(PieChart pieChart) {
@@ -69,4 +75,5 @@ public class Serverscene2Base extends AnchorPane {
         pieChart.setLayoutX(centerX);
         pieChart.setLayoutY(centerY);
     }
+    
 }

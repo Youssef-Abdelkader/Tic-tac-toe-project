@@ -23,29 +23,20 @@ import javafx.stage.Stage;
  */
 public class Serverscene2Controller extends Serverscene2Base {
 
-    Thread th = new Thread();
-    Stage stage;
-
+    //Thread th = new Thread();
+    //Stage stage;
     public Serverscene2Controller(Stage stage, Thread th) {
         super(stage);
-        this.th = th;
-        this.stage = stage;
+        //this.th = th;
+        //this.stage = stage;
         //stopServer();
-        stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
+        stop_server_btn.addEventHandler(ActionEvent.ACTION, (event) -> {
             serverscene server = new serverscene(stage);
-        Scene scene = new Scene(server);
-        stage.setScene(scene);
-            System.out.println("went to scene 2 but not stopped");
-            stopServer();
+            Scene scene = new Scene(server);
+            stage.setScene(scene);
+            //System.out.println("went to scene 2 but not stopped");
+            th.stop();
+            System.out.println("server stopped ");
         });
-    }
-        
-    
-    public void stopServer() {
-        //stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
-        th.stop();
-        
-        System.out.println("server stopped ");
-        // });
     }
 }
