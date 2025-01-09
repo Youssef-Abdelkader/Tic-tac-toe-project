@@ -22,19 +22,10 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
 
-    ServerSocket serverSocket;
 
     public Main() {
 
-        try {
-            serverSocket = new ServerSocket(5005);
-            while (true) {
-                Socket socket = serverSocket.accept();
-                new UserHandler(socket);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
@@ -56,48 +47,4 @@ public class Main extends Application {
 
 }
 
-class UserHandler extends Thread {
 
-    DataInputStream input;
-    PrintStream output;
-    static Vector<UserHandler> clientsVector = new Vector<UserHandler>();
-
-    public UserHandler(Socket socket) {
-        try {
-            input = new DataInputStream(socket.getInputStream());
-            output = new PrintStream(socket.getOutputStream());
-            UserHandler.clientsVector.add(this);
-            start();
-        } catch (IOException ex) {
-            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void run() {
-        while (true) {
-            try {
-                String str = input.readLine();
-                sendMessageToAll(str);
-            } catch (IOException ex) {
-                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    void sendMessageToAll(String msg) {
-        System.out.println("Broadcasting message: " + msg); // Debug log
-        for (UserHandler user : clientsVector) {
-            user.output.println(msg); // Send to each client
-        }
-    }
-
-    /*
-void sendMessageToAll (String msg)
-{
-for (ChatHandler ch : clientsVector){
-//for(int i=0; i<clientsVector.size(); i++){
- ch.ps.println(msg);
-}
-}
-     */
-}

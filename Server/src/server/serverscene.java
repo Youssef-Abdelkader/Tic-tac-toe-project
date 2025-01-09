@@ -69,8 +69,6 @@ public class serverscene extends AnchorPane {
             setButtonPosition(newValue.doubleValue());
         });
 
-       
-
         getChildren().add(Scene_title);
         getChildren().add(Start);
     }
