@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 
-public class game_screenBase extends BorderPane {
+public abstract class game_screenBase extends BorderPane {
 
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
@@ -30,11 +30,11 @@ public class game_screenBase extends BorderPane {
     protected final RowConstraints rowConstraints2;
     protected final ImageView imageView;
     protected final ImageView imageView0;
-    protected final Label label;
+    protected final Label label; //MENNAAAAAAAAAAAAAAAAAAAAAAAAAA
     protected final Button recordButton;
     protected final Button forfeitButton;
     protected final Label label0;
-    protected final Label label1;
+    protected final Label label1; //HABIBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     protected final Label label2;
     protected final GridPane gridPane0;
     protected final ColumnConstraints columnConstraints3;
@@ -190,14 +190,7 @@ public class game_screenBase extends BorderPane {
         label0.setTextFill(javafx.scene.paint.Color.WHITE);
         label0.setTranslateY(15.0);
         label0.setFont(new Font("Cambria Bold", 18.0));
-        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERController(stage);
-                Scene scene = new Scene(lose);
-                stage.setScene(scene);
-            }   
-        });
+        
 
         GridPane.setColumnIndex(label1, 1);
         GridPane.setRowSpan(label1, 2);
@@ -372,22 +365,7 @@ public class game_screenBase extends BorderPane {
         gridPane0.getChildren().add(imageView7);
         gridPane0.getChildren().add(imageView8);
         gridPane0.getChildren().add(imageView9);
-        
-        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERController(stage);
-                Scene scene = new Scene(lose);
-                stage.setScene(scene);
-            }   
-        });
-
-          recordButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-               recordButton.setDisable(true);
-            }   
-        });
+       
 
     }
 }
