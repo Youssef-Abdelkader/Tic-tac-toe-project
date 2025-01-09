@@ -69,14 +69,7 @@ public class serverscene extends AnchorPane {
             setButtonPosition(newValue.doubleValue());
         });
 
-        Start.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Serverscene2Base server = new Serverscene2Base(stage);
-                Scene scene = new Scene(server);
-                stage.setScene(scene);
-            }   
-        });
+        
 
         getChildren().add(Scene_title);
         getChildren().add(Start);
