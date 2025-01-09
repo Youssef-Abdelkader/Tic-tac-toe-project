@@ -20,15 +20,14 @@ import javafx.stage.Stage;
  * @author yosef
  */
 public class Serverscene2Controller  extends Serverscene2Base {
-
-    /**
-     * Initializes the controller class.
-     */
-    
-
+    Button start;
     public Serverscene2Controller(Stage stage) {
         super(stage);
+        super.
     }
     
+    public void startServer(){
+        
+    }
     
 }
