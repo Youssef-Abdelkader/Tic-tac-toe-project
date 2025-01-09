@@ -1,4 +1,4 @@
-package tictactoe.serverMUSTmove;
+package server;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
