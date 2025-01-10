@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe.templates;
+package templates;
 
 /**
  *
  * @author yosef
  */
-public class game {
+public class Game {
     public int Game_Id;
     public int player_id1;
     public int player_id2; 
     public String Record;
     public int Winner_Id;
 
-    public game(int Game_Id, int player_id1, int player_id2, String Record, int Winner_Id) {
+    public Game(int Game_Id, int player_id1, int player_id2, String Record, int Winner_Id) {
         this.Game_Id = Game_Id;
         this.player_id1 = player_id1;
         this.player_id2 = player_id2;

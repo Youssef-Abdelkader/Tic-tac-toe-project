@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe.templates;
+package templates;
 
 /**
  *
  * @author yosef
  */
-public class player {
+public class Player {
     public int id;
     public String name;
     public String password;
     public int status;
     public int score;
 
-    public player(int id, String name, String password, int status, int score) {
+    public Player(){
+    }
+    
+    public Player(int id, String name, String password, int status, int score) {
         this.id = id;
         this.name = name;
         this.password = password;

@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import templates.Player;
 
 class UserHandler extends Thread {
 
@@ -34,6 +35,14 @@ class UserHandler extends Thread {
 
                 switch (split[0]) {
                     case "login":
+                        {}
+                    
+                    case"signup":
+                        {
+                            Player player = new Player();
+                            player.setName(split[1]);
+                            player.setPassword(split[2]);
+                        }
 
                 }
 

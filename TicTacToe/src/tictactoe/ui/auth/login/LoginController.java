@@ -94,9 +94,11 @@ public class LoginController extends Login {
                 //*************************
                 
                 String user = nameText.getText();
-                if (!user.isEmpty()) {
+                String userpass = passwordText.getText();
+                String con = "login"+"###"+user+"###"+userpass;
+                if (!con.isEmpty()) {
                     //txta.appendText("You: " + message + "\n");
-                    mouth.println(user);
+                    mouth.println(con);
                    
             }
             }
