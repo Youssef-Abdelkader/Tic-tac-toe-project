@@ -39,13 +39,17 @@ public class LoginController extends Login {
             ear = new DataInputStream(server.getInputStream());
             mouth = new PrintStream(server.getOutputStream());
 
+            mouth.println("Hello");
             // Start a thread to listen for messages from the server
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         while (true) {
-                           String user = ear.readLine();
+                           
+                            String user = ear.readLine();
+                           //System.out.println(user);
+                           
                             if (user != null) {
                                 Platform.runLater(new Runnable() {
                                     @Override
