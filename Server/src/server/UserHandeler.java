@@ -79,6 +79,15 @@ class UserHandler extends Thread {
                     case"history":
                     {}
 
+                    case"move": //will be handeled when the game logic is implemented
+                    {}
+                    
+                    case"logout":
+                    {}
+                    
+                    case"winner":
+                    {}
+
                 }
 
                 //if (request == null) break; // Exit if client disconnects

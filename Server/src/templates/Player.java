@@ -10,30 +10,24 @@ package templates;
  * @author yosef
  */
 public class Player {
-    public int id;
+    
     public String name;
     public String password;
     public int status;
     public int score;
 
-    public Player(){
+    public Player() {
     }
+
     
-    public Player(int id, String name, String password, int status, int score) {
-        this.id = id;
+    public Player(String name, String password, int status, int score) {
+        
         this.name = name;
         this.password = password;
         this.status = status;
         this.score = score;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

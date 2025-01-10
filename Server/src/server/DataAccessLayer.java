@@ -73,16 +73,15 @@ public class DataAccessLayer {
         return player;
     }
 
-    
     public static void logout(String name) throws SQLException {
-        
+
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE STATUS INTO 0 FROM PLAYER WHERE USER_NAME = ?",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setString(1, name);
         preparedStatement.executeQuery();
 
     }
-    
+
     public static void sendRequest(String nameOne, String nameTwo) throws SQLException {
 
         UserHandler user = UserHandler.getUserHandler(nameTwo);
@@ -119,23 +118,34 @@ public class DataAccessLayer {
 
         return message;
     }
-    
+
     public static Vector<String> retriveHistory(String playerName) throws SQLException {
-        Vector<String>data = new Vector<String>();
-        
+        Vector<String> data = new Vector<String>();
+
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAME WHERE USER_NAME1 OR USER_NAME2 = ?",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         preparedStatement.setString(1, playerName);
         ResultSet resultSet = preparedStatement.executeQuery();
-        
-        while(resultSet.next()){
-            data.add(resultSet.getString("GAME_ID")+"###"+
-                    resultSet.getString("USER_NAME1")+"###"+
-                    resultSet.getString("USER_NAME2")+"###"+
-                    resultSet.getString("WINNER_NAME")+"###"+
-                    resultSet.getString("RECORD"));
+
+        while (resultSet.next()) {
+            data.add(resultSet.getString("GAME_ID") + "###"
+                    + resultSet.getString("USER_NAME1") + "###"
+                    + resultSet.getString("USER_NAME2") + "###"
+                    + resultSet.getString("WINNER_NAME") + "###"
+                    + resultSet.getString("RECORD"));
         }
         return data;
     }
+
+    public static void addWinner(String winnerName, int id) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE WINNER_NAME INTO ? FROM GAME WHERE GAME_ID = ?",
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+        preparedStatement.setString(1, winnerName);
+        preparedStatement.setInt(2, id);
+        preparedStatement.executeQuery();
+    }
+    
+    
 }
