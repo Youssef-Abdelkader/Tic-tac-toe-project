@@ -11,19 +11,23 @@ package templates;
  */
 public class Game {
     public int Game_Id;
-    public int player_id1;
-    public int player_id2; 
+    public String player1;
+    public String player2; 
     public String Record;
-    public int Winner_Id;
+    public String winnerName;
 
-    public Game(int Game_Id, int player_id1, int player_id2, String Record, int Winner_Id) {
-        this.Game_Id = Game_Id;
-        this.player_id1 = player_id1;
-        this.player_id2 = player_id2;
-        this.Record = Record;
-        this.Winner_Id = Winner_Id;
+    public Game() {
     }
 
+    public Game(int Game_Id, String player1, String player2, String Record, String winnerName) {
+        this.Game_Id = Game_Id;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.Record = Record;
+        this.winnerName = winnerName;
+    }
+
+  
     public int getGame_Id() {
         return Game_Id;
     }
@@ -32,21 +36,30 @@ public class Game {
         this.Game_Id = Game_Id;
     }
 
-    public int getPlayer_id1() {
-        return player_id1;
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
     }
 
-    public void setPlayer_id1(int player_id1) {
-        this.player_id1 = player_id1;
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
     }
 
-    public int getPlayer_id2() {
-        return player_id2;
+    public void setWinnerName(String winnerName) {
+        this.winnerName = winnerName;
     }
 
-    public void setPlayer_id2(int player_id2) {
-        this.player_id2 = player_id2;
+    public String getPlayer1() {
+        return player1;
     }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public String getWinnerName() {
+        return winnerName;
+    }
+
 
     public String getRecord() {
         return Record;
@@ -56,13 +69,7 @@ public class Game {
         this.Record = Record;
     }
 
-    public int getWinner_Id() {
-        return Winner_Id;
-    }
-
-    public void setWinner_Id(int Winner_Id) {
-        this.Winner_Id = Winner_Id;
-    }
+ 
     
     
 }

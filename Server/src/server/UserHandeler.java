@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ class UserHandler extends Thread {
 
     DataInputStream input;
     PrintStream output;
+    String name;
     static Vector<UserHandler> clientsVector = new Vector<>();
 
     public UserHandler(Socket socket) {
@@ -27,22 +29,55 @@ class UserHandler extends Thread {
         }
     }
 
+    public static UserHandler getUserHandler(String nameFound){
+        UserHandler userFound = null;
+        for(UserHandler user:clientsVector){
+            if(user.name == nameFound){
+                userFound = user;
+            }
+        }
+        return userFound;
+    }
+    
     public void run() {
+
         while (true) {
             try {
                 String request = input.readLine();
-                String[] split = request.split("###");
+                String[] data = request.split("###");
 
-                switch (split[0]) {
-                    case "login":
-                        {}
-                    
-                    case"signup":
-                        {
-                            Player player = new Player();
-                            player.setName(split[1]);
-                            player.setPassword(split[2]);
+                switch (data[0]) {
+
+                    case "login": {
+                    }
+
+                    case "signup": {
+                        boolean signedUp = false;
+                        Player player = new Player();
+                        player.setName(data[1]);
+                        player.setPassword(data[2]);
+                        player.setScore(0);
+                        player.setStatus(1);
+
+                        try {
+                            signedUp = DataAccessLayer.signUp(player);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
+
+                        if (signedUp == true) {
+                            
+                        }
+                    }
+                    
+                    case"sendRequest":
+                    {}
+                    
+                    case"recieveRequest":
+                    {}
+                    
+                    case"history":
+                    {}
 
                 }
 
