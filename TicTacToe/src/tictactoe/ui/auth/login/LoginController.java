@@ -39,13 +39,17 @@ public class LoginController extends Login {
             ear = new DataInputStream(server.getInputStream());
             mouth = new PrintStream(server.getOutputStream());
 
+            mouth.println("Hello");
             // Start a thread to listen for messages from the server
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         while (true) {
-                           String user = ear.readLine();
+                           
+                            String user = ear.readLine();
+                           //System.out.println(user);
+                           
                             if (user != null) {
                                 Platform.runLater(new Runnable() {
                                     @Override
@@ -90,9 +94,11 @@ public class LoginController extends Login {
                 //*************************
                 
                 String user = nameText.getText();
-                if (!user.isEmpty()) {
+                String userpass = passwordText.getText();
+                String con = "login"+"###"+user+"###"+userpass;
+                if (!con.isEmpty()) {
                     //txta.appendText("You: " + message + "\n");
-                    mouth.println(user);
+                    mouth.println(con);
                    
             }
             }

@@ -45,6 +45,7 @@ public class serverscene_Controller extends serverscene {
                         while (true) {
                             Socket socket = serverSocket.accept();
                             System.out.println("New client connected.");
+                            
                             new UserHandler(socket);
                         }
                     } catch (IOException ex) {
@@ -62,49 +63,4 @@ public class serverscene_Controller extends serverscene {
     }
 }
 
-class UserHandler extends Thread {
 
-    DataInputStream input;
-    PrintStream output;
-    static Vector<UserHandler> clientsVector = new Vector<>();
-
-    public UserHandler(Socket socket) {
-        try {
-            input = new DataInputStream(socket.getInputStream());
-            output = new PrintStream(socket.getOutputStream());
-            clientsVector.add(this);
-            start(); // Start the thread for this user
-        } catch (IOException ex) {
-            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void run() {
-        while (true) {
-            try {
-                String str = input.readLine();
-                if (str == null) break; // Exit if client disconnects
-                sendMessageToAll(str);
-            } catch (IOException ex) {
-                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                break; // Exit the loop if an error occurs
-            }
-        }
-        // Cleanup after client disconnects
-        clientsVector.remove(this);
-        try {
-            input.close();
-            output.close();
-        } catch (IOException ex) {
-            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    void sendMessageToAll(String msg) {
-        System.out.println("Broadcasting message: " + msg); // Debug log
-        for (UserHandler user : clientsVector) {
-            user.output.println(msg); // Send to each client
-        }
-    }
-
-}
