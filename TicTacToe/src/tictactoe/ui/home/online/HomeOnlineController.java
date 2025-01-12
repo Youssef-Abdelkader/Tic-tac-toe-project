@@ -46,7 +46,14 @@ public class HomeOnlineController extends HomeOnline {
         
         listView.setOnMouseClicked(((event) -> {
             
-            String player[]=listView.getSelectionModel().getSelectedItem();
+           
+            String[] parts =listView.getSelectionModel().getSelectedItem().split(" - Score: ");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    String score = parts[1];
+                    System.out.println("Name: " + name);
+                    System.out.println("Score: " + score);
+                }
             
         }));
     }

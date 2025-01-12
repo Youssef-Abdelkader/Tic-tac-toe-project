@@ -21,7 +21,7 @@ public abstract class HomeOnline extends AnchorPane {
     protected final Button backButton;
     protected final AnchorPane playerBackground;
     protected final Label playerLabel;
-    protected final ListView listView;
+    protected final ListView<String>listView;
     protected final Label scoreLabel;
 
     public HomeOnline(Stage stage) {
@@ -103,7 +103,9 @@ public abstract class HomeOnline extends AnchorPane {
         listView.setPrefHeight(243.0);
         listView.setPrefWidth(474.0);
         listView.getStyleClass().add("listView");
-        listView.getItems().addAll("item1","item2");
+        
+        listView.getItems().add("Alice - Score: 10");
+        
        
 
         scoreLabel.setAlignment(javafx.geometry.Pos.CENTER);
