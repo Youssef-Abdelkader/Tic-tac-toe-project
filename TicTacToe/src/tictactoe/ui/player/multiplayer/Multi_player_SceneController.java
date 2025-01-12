@@ -5,16 +5,13 @@
  */
 package tictactoe.ui.player.multiplayer;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 /**
  * FXML Controller class
@@ -49,7 +46,7 @@ public class Multi_player_SceneController extends Multi_player_Scene {
 
     private void goToHome() {
 
-        HomeScreen_offline home = new HomeScreen_offline(stage);
+        HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
         Scene scene = new Scene(home);
         stage.setScene(scene);
 

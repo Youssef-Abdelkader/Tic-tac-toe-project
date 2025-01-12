@@ -3,6 +3,7 @@ package tictactoe.ui.auth.login;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 public abstract class Login extends AnchorPane {
 
     protected final TextField nameText;
-    protected final TextField passwordText;
+    protected final PasswordField passwordText;
     protected final AnchorPane nameBackground;
     protected final AnchorPane passwordBackground;
     protected final AnchorPane registerBackground;
@@ -23,11 +24,13 @@ public abstract class Login extends AnchorPane {
     protected final Label nameLable;
     protected final Label passwordLable;
     protected final Label registerLable;
+    protected final Label nameError;
+    protected final Label passwordError;
 
     public Login(Stage stage) {
 
         nameText = new TextField();
-        passwordText = new TextField();
+        passwordText = new PasswordField();
         nameBackground = new AnchorPane();
         passwordBackground = new AnchorPane();
         registerBackground = new AnchorPane();
@@ -39,6 +42,8 @@ public abstract class Login extends AnchorPane {
         nameLable = new Label();
         passwordLable = new Label();
         registerLable = new Label();
+        nameError = new Label();
+        passwordError = new Label();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -135,6 +140,27 @@ public abstract class Login extends AnchorPane {
         registerLable.setTextFill(javafx.scene.paint.Color.valueOf("#1e9413"));
         registerLable.setFont(new Font("Berlin Sans FB", 14.0));
         setOpaqueInsets(new Insets(0.0));
+        
+        AnchorPane.setLeftAnchor(nameError, 270.0);
+        AnchorPane.setTopAnchor(nameError, 173.0);
+        nameError.setVisible(false);
+        nameError.setLayoutX(264.0);
+        nameError.setLayoutY(173.0);
+        nameError.setPrefHeight(17.0);
+        nameError.setPrefWidth(162.0);
+        nameError.setText("Please Enter your name");
+        nameError.setTextFill(javafx.scene.paint.Color.valueOf("#c30404"));
+        nameError.setFont(new Font("Berlin Sans FB", 15.0));
+
+        AnchorPane.setLeftAnchor(passwordError, 270.0);
+        passwordError.setVisible(false);
+        passwordError.setLayoutX(270.0);
+        passwordError.setLayoutY(236.0);
+        passwordError.setPrefHeight(17.0);
+        passwordError.setPrefWidth(162.0);
+        passwordError.setText("Please Enter Password");
+        passwordError.setTextFill(javafx.scene.paint.Color.valueOf("#c30404"));
+        passwordError.setFont(new Font("Berlin Sans FB", 15.0));
 
         getChildren().add(nameText);
         getChildren().add(passwordText);
@@ -149,6 +175,8 @@ public abstract class Login extends AnchorPane {
         getChildren().add(nameLable);
         getChildren().add(passwordLable);
         getChildren().add(registerLable);
+        getChildren().add(nameError);
+        getChildren().add(passwordError);
 
     }
 }

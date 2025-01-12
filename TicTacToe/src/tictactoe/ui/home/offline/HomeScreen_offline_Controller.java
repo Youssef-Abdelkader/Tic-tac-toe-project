@@ -6,20 +6,11 @@
 package tictactoe.ui.home.offline;
 
 import connection.Connection;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
-import tictactoe.ui.auth.login.Login;
 import tictactoe.ui.auth.login.LoginController;
 import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 import tictactoe.ui.player.singleplayer.Single_player_sceneController;
