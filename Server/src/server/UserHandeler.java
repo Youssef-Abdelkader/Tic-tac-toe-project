@@ -88,7 +88,24 @@ class UserHandler extends Thread {
                     }
 
                     case "logout": {
+                          try {
+                            DataAccessLayer.logout(this.name);
+                            output.println("logout###success");
+                            clientsVector.remove(this);
+                            input.close();
+                            output.close();
+                            break;
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            output.println("logout###failure");
+                        } catch (IOException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
                     }
+                        
+                        
+                    
 
                     case "winner": {
                     }
