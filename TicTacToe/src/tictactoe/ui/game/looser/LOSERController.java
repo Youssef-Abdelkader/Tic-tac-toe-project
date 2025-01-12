@@ -11,6 +11,7 @@ import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.online.HomeOnline;
 import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 
 public class LOSERController extends LOSERBase {
@@ -42,7 +43,7 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
-                    HomeScreen_offline home = new HomeScreen_offline(stage);
+                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
@@ -80,7 +81,7 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
-                    HomeScreen_offline home = new HomeScreen_offline(stage);
+                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {

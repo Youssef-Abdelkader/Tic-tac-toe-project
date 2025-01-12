@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 /**
  * FXML Controller class
@@ -52,7 +53,7 @@ public class Single_player_sceneController extends Single_Player_Scene{
 
     private void goToHome() {
 
-        HomeScreen_offline home = new HomeScreen_offline(stage);
+        HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
         Scene scene = new Scene(home);
         stage.setScene(scene);
 

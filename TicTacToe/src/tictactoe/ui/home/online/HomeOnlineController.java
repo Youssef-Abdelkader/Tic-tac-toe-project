@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import tictactoe.ui.history.History;
 import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 /**
  * FXML Controller class
@@ -37,11 +38,17 @@ public class HomeOnlineController extends HomeOnline {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline(stage);
+                HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }
         });
+        
+        listView.setOnMouseClicked(((event) -> {
+            
+            String player[]=listView.getSelectionModel().getSelectedItem();
+            
+        }));
     }
 
     
