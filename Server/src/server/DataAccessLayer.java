@@ -25,7 +25,8 @@ import templates.Game;
 public class DataAccessLayer {
 
     public static Connection connection;
-
+    public static int gameId = 1;
+    
     static {
         try {
             DriverManager.registerDriver(new ClientDriver());
@@ -82,14 +83,14 @@ public class DataAccessLayer {
 
     }
 
-    public static void sendRequest(String nameOne, String nameTwo) throws SQLException {
+    public static void sendRequest(String senderName, String recieverName) throws SQLException {
 
-        UserHandler user = UserHandler.getUserHandler(nameTwo);
-        user.output.println(nameOne + " wants to play against you");
+        UserHandler user = UserHandler.getUserHandler(recieverName);
+        user.output.println(senderName + " wants to play against you"); //output of server to communicate with reciever
 
     }
 
-    public static String acceptRequest(String senderName, String recieverName, String response) throws SQLException {
+    public static String acceptRequest(String senderName, String recieverName) throws SQLException {
 
         String message;
 
@@ -108,13 +109,13 @@ public class DataAccessLayer {
         resultSet = preparedStatementTwo.executeQuery();
         int recieverScore = resultSet.getInt("USER_SCORE");
 
-        int gameId = 1;
+        
         Game game = new Game();
         game.setGame_Id(gameId);
         game.setPlayer1(senderName);
         game.setPlayer2(recieverName);
         gameId++;
-        message = response + "###" + recieverName + "###" + recieverScore + "###" + senderName + "###" + senderScore;
+        message = recieverName + "###" + recieverScore + "###" + senderName + "###" + senderScore;
 
         return message;
     }

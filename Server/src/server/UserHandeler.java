@@ -29,16 +29,16 @@ class UserHandler extends Thread {
         }
     }
 
-    public static UserHandler getUserHandler(String nameFound){
+    public static UserHandler getUserHandler(String nameFound) {
         UserHandler userFound = null;
-        for(UserHandler user:clientsVector){
-            if(user.name == nameFound){
+        for (UserHandler user : clientsVector) {
+            if (user.name == nameFound) {
                 userFound = user;
             }
         }
         return userFound;
     }
-    
+
     public void run() {
 
         while (true) {
@@ -66,27 +66,32 @@ class UserHandler extends Thread {
                         }
 
                         if (signedUp == true) {
-                            
+
                         }
                     }
-                    
-                    case"sendRequest":
-                    {}
-                    
-                    case"recieveRequest":
-                    {}
-                    
-                    case"history":
-                    {}
 
-                    case"move": //will be handeled when the game logic is implemented
-                    {}
-                    
-                    case"logout":
-                    {}
-                    
-                    case"winner":
-                    {}
+                    case "sendRequest": {
+                        //UserHandler user = UserHandler.getUserHandler(data[1]); //sender
+                        UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
+                        user2.output.println(data[1] + " wants to play against you");
+                        //user2.input.readLine(); (will be handeled in client page)
+                    }
+
+                    case "recieveRequest": {
+                    }
+
+                    case "history": {
+                    }
+
+                    case "move": //will be handeled when the game logic is implemented
+                    {
+                    }
+
+                    case "logout": {
+                    }
+
+                    case "winner": {
+                    }
 
                 }
 
