@@ -5,6 +5,7 @@
  */
 package tictactoe.ui.home.online;
 
+import connection.Connection;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -34,7 +35,7 @@ public class HomeOnlineController extends HomeOnline {
                 stage.setScene(scene);
             }
         });
-        
+
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -43,21 +44,20 @@ public class HomeOnlineController extends HomeOnline {
                 stage.setScene(scene);
             }
         });
-        
+
         listView.setOnMouseClicked(((event) -> {
-            
-           
-            String[] parts =listView.getSelectionModel().getSelectedItem().split(" - Score: ");
-                if (parts.length == 2) {
-                    String name = parts[0];
-                    String score = parts[1];
-                    System.out.println("Name: " + name);
-                    System.out.println("Score: " + score);
-                }
-            
+
+            String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
+
+            String name = player[0];
+            String score = player[1];
+            System.out.println("Name: " + name);
+            System.out.println("Score: " + score);
+            Thread th=new Thread(() -> {
+                Connection.sendRequest("sendRequest"+"###"+playerLabel.getText()+"###"+name);
+            });
+
         }));
     }
 
-    
-   
 }
