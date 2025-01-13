@@ -5,11 +5,9 @@
  */
 package tictactoe.ui.home.online;
 
-
 import connection.Connection;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,15 +27,18 @@ public class HomeOnlineController extends HomeOnline {
     public HomeOnlineController(Stage stage) {
         super(stage);
         Connection.sendRequest("sendList");
+
         Thread thread = new Thread(() -> {
-            String recieve = Connection.recieveRequest();
-            String rec[] = recieve.split("###");
-            
-            if (rec[0].equals("List")) {
-                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                listView.getItems().clear();
-                for (String player : players) {
-                    listView.getItems().add(player.trim());
+            while (true) {
+                String recieve = Connection.recieveRequest();
+                String rec[] = recieve.split("###");
+
+                if (rec[0].equals("List")) {
+                    String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+                    listView.getItems().clear();
+                    for (String player : players) {
+                        listView.getItems().add(player.trim());
+                    }
                 }
             }
         });
@@ -56,14 +57,9 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
 
-                HomeScreen_offline_Controller home = new  HomeScreen_offline_Controller(stage);
+                HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
-
-               // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
-
-                
-
-
+                // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }
