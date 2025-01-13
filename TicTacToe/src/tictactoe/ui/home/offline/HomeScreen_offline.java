@@ -18,7 +18,7 @@ import tictactoe.ui.auth.login.LoginController;
 import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 import tictactoe.ui.player.singleplayer.Single_player_sceneController;
 
-public class HomeScreen_offline extends BorderPane {
+public abstract class HomeScreen_offline extends BorderPane {
 
     protected final StackPane stackPane;
     protected final Label label;
@@ -125,32 +125,8 @@ public class HomeScreen_offline extends BorderPane {
         vBox.getChildren().add(OnlineBtn);
         setCenter(vBox);
 
-        MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Multi_player_SceneController multi = new Multi_player_SceneController(stage);
-                Scene scene = new Scene(multi);
-                stage.setScene(scene);
-            }
-        });
+        
 
-        singlePBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Single_player_sceneController single = new Single_player_sceneController(stage);
-                Scene scene = new Scene(single);
-                stage.setScene(scene);
-            }
-        });
-
-        OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                TicTacToe.online = true;
-                LoginController account = new LoginController(stage);
-                Scene scene = new Scene(account);
-                stage.setScene(scene);
-            }
-        });
+        
     }
 }
