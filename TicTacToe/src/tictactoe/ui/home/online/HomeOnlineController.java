@@ -56,6 +56,8 @@ public class HomeOnlineController extends HomeOnline {
             Thread th=new Thread(() -> {
                 Connection.sendRequest("sendRequest"+"###"+playerLabel.getText()+"###"+name);
             });
+            th.setDaemon(true);
+            th.start();
 
         }));
     }

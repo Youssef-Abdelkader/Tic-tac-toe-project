@@ -44,7 +44,9 @@ class UserHandler extends Thread {
         while (true) {
             try {
                 String request = input.readLine();
+                System.out.println(request);
                 String[] data = request.split("###");
+                System.out.println(data.length);
 
                 switch (data[0]) {
 
@@ -69,12 +71,18 @@ class UserHandler extends Thread {
 
                         }
                     }
+                    
+                    case "sendList":
+                    {}
 
                     case "sendRequest": {
-                        //UserHandler user = UserHandler.getUserHandler(data[1]); //sender
+
                         UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
                         user2.output.println(data[1] + " wants to play against you");
-                        //user2.input.readLine(); (will be handeled in client page)
+                        System.out.println(data[1]+" "+data[2]);
+                        break;
+                        
+
                     }
 
                     case "recieveRequest": {
