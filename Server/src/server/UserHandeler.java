@@ -56,6 +56,7 @@ class UserHandler extends Thread {
                     case "login": {
                         try {
                             Player player = login(data[1], data[2]);
+                            name=data[1];
                             System.out.println(player.getPassword());
                             System.out.println(data[2]);
                             if (player.getName() != null) {
@@ -79,6 +80,7 @@ class UserHandler extends Thread {
                         boolean signedUp = false;
                         Player player = new Player();
                         player.setName(data[1]);
+                        name=data[1];
                         player.setPassword(data[2]);
                         player.setScore(0);
                         player.setStatus(1);

@@ -81,7 +81,7 @@ public class SignupController extends Signup {
                 stage.setScene(scene);
             }
         });
-<<<<<<< HEAD
+
         
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -91,7 +91,7 @@ public class SignupController extends Signup {
                 stage.setScene(scene);
             }   
         });
-=======
+
 
     }
 
@@ -110,6 +110,6 @@ public class SignupController extends Signup {
             passwordError.setVisible(false);
         }
         return check;
->>>>>>> 4899b0d4a36d1e9fd893462c7d714c6bdae74cd7
+
     }
 }
