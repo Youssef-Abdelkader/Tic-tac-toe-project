@@ -27,6 +27,21 @@ public class HomeOnlineController extends HomeOnline {
 
     public HomeOnlineController(Stage stage) {
         super(stage);
+        Connection.sendRequest("sendList");
+        Thread thread = new Thread(() -> {
+            String recieve = Connection.recieveRequest();
+            String rec[] = recieve.split("###");
+            
+            if (rec[0].equals("List")) {
+                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+                listView.getItems().clear();
+                for (String player : players) {
+                    listView.getItems().add(player.trim());
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -53,8 +68,8 @@ public class HomeOnlineController extends HomeOnline {
             String score = player[1];
             System.out.println("Name: " + name);
             System.out.println("Score: " + score);
-            Thread th=new Thread(() -> {
-                Connection.sendRequest("sendRequest"+"###"+playerLabel.getText()+"###"+name);
+            Thread th = new Thread(() -> {
+                Connection.sendRequest("sendRequest" + "###" + name);
             });
             th.setDaemon(true);
             th.start();

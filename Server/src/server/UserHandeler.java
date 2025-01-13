@@ -15,6 +15,9 @@ class UserHandler extends Thread {
     DataInputStream input;
     PrintStream output;
     String name;
+    String oppoName;
+    boolean isPlaying = false;
+    int score;
     static Vector<UserHandler> clientsVector = new Vector<>();
 
     public UserHandler(Socket socket) {
@@ -44,9 +47,8 @@ class UserHandler extends Thread {
         while (true) {
             try {
                 String request = input.readLine();
-                System.out.println(request);
+
                 String[] data = request.split("###");
-                System.out.println(data.length);
 
                 switch (data[0]) {
 
@@ -71,17 +73,19 @@ class UserHandler extends Thread {
 
                         }
                     }
-                    
-                    case "sendList":
-                    {}
+
+                    case "sendList": {
+                        sendList();
+                        break;
+
+                    }
 
                     case "sendRequest": {
 
-                        UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
-                        user2.output.println(data[1] + " wants to play against you");
-                        System.out.println(data[1]+" "+data[2]);
+                        UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
+                        user2.output.println(name + " wants to play against you");
+
                         break;
-                        
 
                     }
 
@@ -125,4 +129,15 @@ class UserHandler extends Thread {
         for (UserHandler user : clientsVector) {
             user.output.println(msg); // Send to each client
         }*/
+    public void sendList() {
+        Vector<String> available = new Vector<String>();
+        for (UserHandler user : clientsVector) {
+            if (!user.isPlaying && !(user.name.equals(name))) {
+                available.add(user.name + " - Score: " + score);
+            }
+        }
+
+        output.println("List" + "###" + available);
+
+    }
 }
