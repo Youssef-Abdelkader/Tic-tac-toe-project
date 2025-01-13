@@ -17,7 +17,7 @@ public class DataAccessLayer {
 
     public static Connection connection;
     public static int gameId = 1;
-    
+
     static {
         try {
             DriverManager.registerDriver(new ClientDriver());
@@ -54,13 +54,18 @@ public class DataAccessLayer {
         preparedStatement.setString(1, name);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        int score = resultSet.getInt("USER_SCORE");
-        int status = resultSet.getInt("USER_STATUS");
+        if (resultSet.next()) {
+            int score = resultSet.getInt("USER_SCORE");
+            int status = resultSet.getInt("USER_STATUS");
+            String realPassword = resultSet.getString("USER_PASSWORD");
 
-        player.setName(name);
-        player.setPassword(password);
-        player.setScore(score);
-        player.setStatus(status);
+            if (resultSet.getFetchSize() > 0) {
+                player.setName(name);
+                player.setPassword(realPassword);
+                player.setScore(score);
+                player.setStatus(status);
+            }
+        }
 
         return player;
     }
@@ -100,7 +105,6 @@ public class DataAccessLayer {
         resultSet = preparedStatementTwo.executeQuery();
         int recieverScore = resultSet.getInt("USER_SCORE");
 
-        
         Game game = new Game();
         game.setGame_Id(String.valueOf(gameId)); // Convert int to String
         game.setPlayer1(senderName);
@@ -141,4 +145,16 @@ public class DataAccessLayer {
         preparedStatement.setString(2, String.valueOf(id)); // Convert int to String
         preparedStatement.executeUpdate();
     }
+
+
+
+    public static void updateStatus(String name, int status) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PLAYER SET USER_STATUS = ? WHERE USER_NAME = ?",
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+        preparedStatement.setInt(1, status);
+        preparedStatement.setString(2, name);
+        preparedStatement.executeQuery();
+    }
 }
+

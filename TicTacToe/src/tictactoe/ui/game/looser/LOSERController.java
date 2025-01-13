@@ -17,13 +17,11 @@ import tictactoe.ui.home.online.HomeOnlineController;
 public class LOSERController extends LOSERBase {
 
     private final MediaPlayer mediaPlayer;
-    
-      //SINGLE PLAYER CONSTRUCTOR
-  
+
+    //SINGLE PLAYER CONSTRUCTOR
     public LOSERController(Stage stage, String name) {
         super();
 
-        
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -43,7 +41,13 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
+
                     HomeScreen_offline home = new  HomeScreen_offline_Controller(stage);
+
+
+                    
+
+
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else { 
@@ -55,13 +59,11 @@ public class LOSERController extends LOSERBase {
             }
         });
     }
-    
+
     //MULTI PLAYER CONSTRUCTOR
-    
     public LOSERController(Stage stage, String name1, String name2) {
         super();
 
-        
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -82,6 +84,10 @@ public class LOSERController extends LOSERBase {
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
                     HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+
+                   // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
+
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
