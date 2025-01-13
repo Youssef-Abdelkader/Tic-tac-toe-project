@@ -5,11 +5,7 @@
  */
 package tictactoe.ui.player.multiplayer;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.game.screen.GamescreenController;

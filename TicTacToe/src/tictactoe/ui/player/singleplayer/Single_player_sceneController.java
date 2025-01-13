@@ -5,11 +5,7 @@
  */
 package tictactoe.ui.player.singleplayer;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.game.screen.GamescreenController;
@@ -53,7 +49,11 @@ public class Single_player_sceneController extends Single_Player_Scene{
 
     private void goToHome() {
 
+<<<<<<< HEAD
         HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+=======
+        HomeScreen_offline home = new HomeScreen_offline_Controller (stage);
+>>>>>>> 4899b0d4a36d1e9fd893462c7d714c6bdae74cd7
         Scene scene = new Scene(home);
         stage.setScene(scene);
 

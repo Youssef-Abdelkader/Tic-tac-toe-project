@@ -3,14 +3,14 @@ package tictactoe;
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
-import tictactoe.ui.home.offline.HomeScreen_offline;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import tictactoe.ui.game.winner.WINNERController;
+=======
+>>>>>>> 4899b0d4a36d1e9fd893462c7d714c6bdae74cd7
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 
@@ -26,12 +26,16 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+<<<<<<< HEAD
          Parent root = new HomeScreen_offline_Controller(stage);
 
 
 
 
 
+=======
+         Parent root = new HomeScreen_offline_Controller (stage);
+>>>>>>> 4899b0d4a36d1e9fd893462c7d714c6bdae74cd7
 
          //Parent root = new WINNERController(stage);
 

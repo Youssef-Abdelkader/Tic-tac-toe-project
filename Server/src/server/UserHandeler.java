@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static server.DataAccessLayer.login;
 import templates.Player;
 
 class UserHandler extends Thread {
@@ -53,7 +54,26 @@ class UserHandler extends Thread {
                 switch (data[0]) {
 
                     case "login": {
+                        try {
+                            Player player = login(data[1], data[2]);
+                            System.out.println(player.getPassword());
+                            System.out.println(data[2]);
+                            if (player.getName() != null) {
+                                if (player.getPassword().equals(data[2])) {
+                                    this.output.println(player.getScore());
+                                    DataAccessLayer.updateStatus(data[1], 1);
+                                } else {
+                                    this.output.println("incorrect password");
+                                }
+                            }else{
+                                this.output.println("this name is not exist");
+                            }
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                            
+                        }
                     }
+                    break;
 
                     case "signup": {
                         boolean signedUp = false;
@@ -66,13 +86,14 @@ class UserHandler extends Thread {
                         try {
                             signedUp = DataAccessLayer.signUp(player);
                         } catch (SQLException ex) {
-                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            this.output.println("Duplicated name");
                         }
 
-                        if (signedUp == true) {
-
+                        if (signedUp) {
+                            this.output.println("Signed up successfully");
                         }
                     }
+                    break;
 
                     case "sendList": {
                         sendList();
@@ -82,10 +103,17 @@ class UserHandler extends Thread {
 
                     case "sendRequest": {
 
+
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
                         user2.output.println(name + " wants to play against you");
 
                         break;
+
+
+                        //UserHandler user = UserHandler.getUserHandler(data[1]); //sender
+//                        UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
+//                       user2.output.println(data[1] + " wants to play against you");
+                        //user2.input.readLine(); (will be handeled in client page)
 
                     }
 

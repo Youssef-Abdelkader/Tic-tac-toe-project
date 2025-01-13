@@ -2,6 +2,7 @@ package tictactoe.ui.auth.signup;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -10,7 +11,6 @@ import javafx.stage.Stage;
 public abstract class Signup extends AnchorPane {
 
     protected final TextField nameText;
-    protected final TextField passwordText;
     protected final AnchorPane nameBackground;
     protected final AnchorPane passwordBackground;
     protected final AnchorPane titleBackground;
@@ -19,11 +19,13 @@ public abstract class Signup extends AnchorPane {
     protected final Button backButton;
     protected final Label nameLable;
     protected final Label passwordLable;
+    protected final PasswordField passwordText;
+    protected final Label nameError;
+    protected final Label passwordError;
 
     public Signup(Stage stage) {
 
         nameText = new TextField();
-        passwordText = new TextField();
         nameBackground = new AnchorPane();
         passwordBackground = new AnchorPane();
         titleBackground = new AnchorPane();
@@ -32,6 +34,9 @@ public abstract class Signup extends AnchorPane {
         backButton = new Button();
         nameLable = new Label();
         passwordLable = new Label();
+        passwordText = new PasswordField();
+        nameError = new Label();
+        passwordError = new Label();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -45,10 +50,6 @@ public abstract class Signup extends AnchorPane {
         nameText.setLayoutX(264.0);
         nameText.setLayoutY(148.0);
         nameText.getStyleClass().add("nameText");
-
-        passwordText.setLayoutX(264.0);
-        passwordText.setLayoutY(211.0);
-        passwordText.getStyleClass().add("passwordText");
 
         nameBackground.setLayoutX(68.0);
         nameBackground.setLayoutY(149.0);
@@ -105,8 +106,32 @@ public abstract class Signup extends AnchorPane {
         passwordLable.setTextFill(javafx.scene.paint.Color.valueOf("#1e9413"));
         passwordLable.setFont(new Font("Berlin Sans FB", 18.0));
 
+        passwordText.setLayoutX(263.0);
+        passwordText.setLayoutY(211.0);
+        passwordText.getStyleClass().add("passwordText");
+
+        AnchorPane.setLeftAnchor(nameError, 270.0);
+        AnchorPane.setTopAnchor(nameError, 173.0);
+        nameError.setVisible(false);
+        nameError.setLayoutX(264.0);
+        nameError.setLayoutY(173.0);
+        nameError.setPrefHeight(17.0);
+        nameError.setPrefWidth(162.0);
+        nameError.setText("Please Enter your name");
+        nameError.setTextFill(javafx.scene.paint.Color.valueOf("#c30404"));
+        nameError.setFont(new Font("Berlin Sans FB", 15.0));
+
+        AnchorPane.setLeftAnchor(passwordError, 270.0);
+        passwordError.setVisible(false);
+        passwordError.setLayoutX(270.0);
+        passwordError.setLayoutY(236.0);
+        passwordError.setPrefHeight(17.0);
+        passwordError.setPrefWidth(162.0);
+        passwordError.setText("Please Enter Password");
+        passwordError.setTextFill(javafx.scene.paint.Color.valueOf("#c30404"));
+        passwordError.setFont(new Font("Berlin Sans FB", 15.0));
+
         getChildren().add(nameText);
-        getChildren().add(passwordText);
         getChildren().add(nameBackground);
         getChildren().add(passwordBackground);
         titleBackground.getChildren().add(title);
@@ -115,6 +140,9 @@ public abstract class Signup extends AnchorPane {
         getChildren().add(backButton);
         getChildren().add(nameLable);
         getChildren().add(passwordLable);
+        getChildren().add(passwordText);
+        getChildren().add(nameError);
+        getChildren().add(passwordError);
 
     }
 }
