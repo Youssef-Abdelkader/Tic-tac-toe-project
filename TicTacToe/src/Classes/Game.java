@@ -25,6 +25,7 @@ public class Game {
 
     public boolean placeXO(int pos, char c) {
         boolean placed = false;
+        
         if (pos > 0 && pos < 4) {
             Board.setCols(pos - 1);
             Board.setRows(0);

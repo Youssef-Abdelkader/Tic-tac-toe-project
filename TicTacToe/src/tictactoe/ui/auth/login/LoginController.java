@@ -28,6 +28,10 @@ public class LoginController extends Login {
             }
         });
 
+        //get the player username
+        //find that player's data from the database
+        //use this data to initialize player object
+        //pass it to homeonline screen
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

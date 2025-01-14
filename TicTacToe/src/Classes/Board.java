@@ -2,9 +2,13 @@ package Classes;
 
 class Board {
 
-    private static int rows,cols =3;
-    public static int[][] grid = new int[rows][cols];
-    
+    private static final int rows = 3;
+    private static final int cols = 3;
+    public static char[][] grid = new char[rows][cols];
+
+    private static int row_in;
+    private static int col_in;
+
     /*public enum BoardSquares {
         SQUARE_1(null),
         SQUARE_2(null),
@@ -71,6 +75,29 @@ class Board {
         }
         
     }*/
-    
-    
+    public static int getRows() {
+        return row_in;
+    }
+
+    public static void setRows(int rows) {
+        row_in = rows;
+    }
+
+    public static int getCols() {
+        return col_in;
+    }
+
+    public static void setCols(int cols) {
+        col_in = cols;
+    }
+
+    public static char[][] getGrid() {
+        return grid;
+    }
+
+    public static void setGrid(int row, int col, char c) { //starts from 1
+        grid[row - 1][col - 1] = c;
+        // Board.grid = grid;
+    }
+
 }
