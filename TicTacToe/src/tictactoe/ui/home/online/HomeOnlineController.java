@@ -6,9 +6,12 @@
 package tictactoe.ui.home.online;
 
 import connection.Connection;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
@@ -37,58 +40,65 @@ public class HomeOnlineController extends HomeOnline {
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
-                    String recieve = Connection.recieveRequest();
-                    String rec[] = recieve.split("###");
-                    switch (rec[0]) {
-                        case "List": {
-                            Platform.runLater(
-                                    () -> {
-                                        if (rec[0].equals("List")) {
-                                            String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                                            listView.getItems().clear();
-                                            for (String player : players) {
-                                                listView.getItems().add(player.trim());
+                    try {
+                        String message = Connection.ear.readLine();
+                        String recieve = Connection.recieveRequest();
+                        String rec[] = recieve.split("###");
+                        switch (rec[0]) {
+                            case "List": {
+                                Platform.runLater(
+                                        () -> {
+                                            if (rec[0].equals("List")) {
+                                                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+                                                listView.getItems().clear();
+                                                for (String player : players) {
+                                                    listView.getItems().add(player.trim());
+                                                }
                                             }
                                         }
+                                );
+                            }
+                            case "logout": {
+
+                            }
+                            case "Accept": {
+
+                            }
+                            case "Decline": {
+
+                            }
+                            case "invitation": {
+
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmation Dialog");
+                                alert.setHeaderText("Please Confirm");
+                                alert.setContentText(rec[1] + " Wants to Play Against You");
+
+                                // Customize the buttons
+                                ButtonType acceptButton = new ButtonType("Accept");
+                                ButtonType declineButton = new ButtonType("Decline");
+
+                                // Add the buttons to the alert
+                                alert.getButtonTypes().setAll(acceptButton, declineButton);
+
+                                // Show the alert and wait for a response
+                                Optional<ButtonType> result = alert.showAndWait();
+
+                                // Handle button clicks
+                                if (result.isPresent()) {
+                                    if (result.get() == acceptButton) {
+                                        System.out.println("You accepted!");
+                                        Connection.sendRequest("GetInvitation" + "###" + "Accepted" + rec[1]);
+                                    } else if (result.get() == declineButton) {
+                                        System.out.println("You declined!");
+                                        Connection.sendRequest("GetInvitation" + "###" + "Refused" + rec[1]);
                                     }
-                            );
-                        }
-                        case "logout": {
-
-                        }
-                        case "Accept": {
-
-                        }
-                        case "Decline": {
-
-                        }
-                        case "invitation": {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Confirmation Dialog");
-                            alert.setHeaderText("Please Confirm");
-                            alert.setContentText(rec[1]+" Wants to Play Against You");
-
-                            // Customize the buttons
-                            ButtonType acceptButton = new ButtonType("Accept");
-                            ButtonType declineButton = new ButtonType("Decline");
-
-                            // Add the buttons to the alert
-                            alert.getButtonTypes().setAll(acceptButton, declineButton);
-
-                            // Show the alert and wait for a response
-                            Optional<ButtonType> result = alert.showAndWait();
-
-                            // Handle button clicks
-                            if (result.isPresent()) {
-                                if (result.get() == acceptButton) {
-                                    System.out.println("You accepted!");
-                                    Connection.sendRequest("GetInvitation"+"###"+"Accepted"+rec[1]);
-                                } else if (result.get() == declineButton) {
-                                    System.out.println("You declined!");
-                                    Connection.sendRequest("GetInvitation"+"###"+"Refused"+rec[1]);
                                 }
+
                             }
                         }
+                    } catch (IOException ex) {
+                        Logger.getLogger(HomeOnlineController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }

@@ -26,7 +26,10 @@ public class serverscene_Controller extends serverscene {
                 th = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                         System.out.println("start before try");
+                        
                         try {
+                            
                             serverSocket = new ServerSocket(5005);
                             System.out.println("Server started on port 5005...");
                             while (true){
@@ -36,6 +39,7 @@ public class serverscene_Controller extends serverscene {
                                 UserHandler userHandler = new UserHandler(socket);
                             }
                         } catch (IOException ex) {
+                             System.out.println("start catch"+ex.getMessage());
                             closeServer();
                         }
                     }
