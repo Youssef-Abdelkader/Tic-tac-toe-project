@@ -1,4 +1,4 @@
-package Classes;
+package tictactoe.ui.game.screen;
 
 /**
  *
@@ -36,5 +36,15 @@ public abstract class Player {
     }
     public char getPlayerCharacter(){
         return character.getCharacter();
+    }
+
+    
+
+    public String getPlayerName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void assignXorO(char c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

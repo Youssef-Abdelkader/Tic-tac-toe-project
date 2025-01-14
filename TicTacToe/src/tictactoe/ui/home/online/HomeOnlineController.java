@@ -1,32 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe.ui.home.online;
 
-import Classes.OnlinePlayer;
-import Classes.Player;
 import connection.Connection;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Vector;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.ui.game.screen.OnlinePlayer;
+import tictactoe.ui.game.screen.Player;
 import tictactoe.ui.history.HistoryController;
-import tictactoe.ui.home.offline.HomeScreen_offline;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
-/**
- * FXML Controller class
- *
- * @author habib
- */
 public class HomeOnlineController extends HomeOnline {
-    
+
     Player onl_player = new OnlinePlayer();
 
     public HomeOnlineController(Stage stage) {
@@ -46,12 +32,12 @@ public class HomeOnlineController extends HomeOnline {
         });
         thread.setDaemon(true);
         thread.start();
+
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //onl_player -> to be implemented;
-                
-                HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
+                // Cast onl_player to OnlinePlayer
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory((OnlinePlayer) onl_player));
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
             }
@@ -60,19 +46,14 @@ public class HomeOnlineController extends HomeOnline {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
-
-                // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }
         });
 
         listView.setOnMouseClicked(((event) -> {
-
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
-
             String name = player[0];
             String score = player[1];
             System.out.println("Name: " + name);
@@ -82,12 +63,10 @@ public class HomeOnlineController extends HomeOnline {
             });
             th.setDaemon(true);
             th.start();
-
         }));
     }
 
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
-        //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
 
         if (Connection.setConnection()) {
@@ -139,11 +118,8 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(player2s);
                 history.add(winners);
                 history.add(recordings);
-                // Update UI with history data
-                //retflag = true;
             }
         }
         return history;
     }
-
 }
