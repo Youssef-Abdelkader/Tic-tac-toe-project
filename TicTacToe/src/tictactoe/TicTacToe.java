@@ -12,21 +12,13 @@ import tictactoe.ui.game.winner.WINNERController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
-
-
-
 public class TicTacToe extends Application {
-
     public static boolean online = false;
-
     Socket server;
     DataInputStream ear;
     PrintStream mouth;
-
     @Override
     public void start(Stage stage) throws Exception {
-
-
          Parent root = new HomeScreen_offline_Controller(stage);
 
          //Parent root = new WINNERController(stage);
