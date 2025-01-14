@@ -1,6 +1,4 @@
-
 package server;
-
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,12 +10,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-
-
 public class serverscene_Controller extends serverscene {
 
-    
     ServerSocket serverSocket;
 
     public serverscene_Controller(Stage stage) {
@@ -26,8 +20,6 @@ public class serverscene_Controller extends serverscene {
         Start.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
-                
 
                 // Start the server on a separate thread
                 Thread th = new Thread(new Runnable() {
@@ -39,7 +31,7 @@ public class serverscene_Controller extends serverscene {
                             while (true) {
                                 Socket socket = serverSocket.accept();
                                 System.out.println("New client connected.");
-                                
+
                                 UserHandler userHandler = new UserHandler(socket);
                             }
                         } catch (IOException ex) {
@@ -48,8 +40,8 @@ public class serverscene_Controller extends serverscene {
                     }
                 });
                 th.start();
-                Serverscene2Controller c = new Serverscene2Controller(stage,th);
-                
+                Serverscene2Controller c = new Serverscene2Controller(stage, th);
+
                 //Serverscene2Base server = new Serverscene2Base(stage);
                 Scene scene = new Scene(c);
                 stage.setScene(scene);
@@ -57,5 +49,3 @@ public class serverscene_Controller extends serverscene {
         });
     }
 }
-
-
