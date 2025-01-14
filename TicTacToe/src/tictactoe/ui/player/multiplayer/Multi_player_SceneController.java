@@ -46,7 +46,10 @@ public class Multi_player_SceneController extends Multi_player_Scene {
 
     private void goToHome() {
 
-        HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
+        HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+      //  HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
         Scene scene = new Scene(home);
         stage.setScene(scene);
 

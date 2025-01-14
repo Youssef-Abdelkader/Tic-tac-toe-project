@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package server;
 
 import java.io.IOException;
@@ -18,10 +13,6 @@ import java.util.logging.Logger;
 import org.apache.derby.jdbc.ClientDriver;
 import templates.Game;
 
-/**
- *
- * @author habib
- */
 public class DataAccessLayer {
 
     public static Connection connection;
@@ -81,17 +72,17 @@ public class DataAccessLayer {
 
     public static void logout(String name) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE STATUS INTO 0 FROM PLAYER WHERE USER_NAME = ?",
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PLAYER SET USER_STATUS = 0 WHERE USER_NAME = ?",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setString(1, name);
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
     }
 
     public static void sendRequest(String senderName, String recieverName) throws SQLException {
 
         UserHandler user = UserHandler.getUserHandler(recieverName);
-        user.output.println(senderName + " wants to play against you"); //output of server to communicate with reciever
+        user.output.println(senderName + " wants to play against you");
 
     }
 
@@ -115,7 +106,7 @@ public class DataAccessLayer {
         int recieverScore = resultSet.getInt("USER_SCORE");
 
         Game game = new Game();
-        game.setGame_Id(gameId);
+        game.setGame_Id(String.valueOf(gameId)); // Convert int to String
         game.setPlayer1(senderName);
         game.setPlayer2(recieverName);
         gameId++;
@@ -129,10 +120,11 @@ public class DataAccessLayer {
 
         Vector<String> data = new Vector<String>();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAME WHERE USER_NAME1 OR USER_NAME2 = ?",
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAME WHERE USER_NAME1 = ? OR USER_NAME2 = ?",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         preparedStatement.setString(1, playerName);
+        preparedStatement.setString(2, playerName);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         //ead
@@ -148,13 +140,17 @@ public class DataAccessLayer {
 /////////
 
     public static void addWinner(String winnerName, int id) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE WINNER_NAME INTO ? FROM GAME WHERE GAME_ID = ?",
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        PreparedStatement preparedStatement = connection.prepareStatement(
+            "UPDATE GAME SET WINNER_NAME = ? WHERE GAME_ID = ?",
+            ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY
+        );
 
         preparedStatement.setString(1, winnerName);
-        preparedStatement.setInt(2, id);
-        preparedStatement.executeQuery();
+        preparedStatement.setString(2, String.valueOf(id)); // Convert int to String
+        preparedStatement.executeUpdate();
     }
+
+
 
     public static void updateStatus(String name, int status) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PLAYER SET USER_STATUS = ? WHERE USER_NAME = ?",
@@ -166,3 +162,4 @@ public class DataAccessLayer {
     }
 
 }
+

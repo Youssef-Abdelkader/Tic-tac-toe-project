@@ -42,11 +42,15 @@ public class LOSERController extends LOSERBase {
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
 
-                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+                    HomeScreen_offline home = new  HomeScreen_offline_Controller(stage);
+
+
+                    
+
 
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
-                } else {
+                } else { 
                     HomeOnline home = new HomeOnlineController(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
@@ -79,8 +83,10 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
+                    HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
-                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+                   // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
 
                     Scene scene = new Scene(home);
                     stage.setScene(scene);

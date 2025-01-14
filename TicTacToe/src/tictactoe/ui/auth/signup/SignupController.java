@@ -86,7 +86,11 @@ public class SignupController extends Signup {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
+                HomeScreen_offline_Controller home = new  HomeScreen_offline_Controller(stage);
+
+                
+
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
             }   

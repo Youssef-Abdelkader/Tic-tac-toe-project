@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import tictactoe.ui.game.winner.WINNERController;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
@@ -25,7 +26,12 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = new HomeScreen_offline_Controller(stage);
+
+         Parent root = new HomeScreen_offline_Controller(stage);
+
+         //Parent root = new WINNERController(stage);
+
+       
 
         //Parent root = new WINNERController(stage);
         //Signup() - History();

@@ -48,7 +48,11 @@ public class Single_player_sceneController extends Single_Player_Scene {
 
     private void goToHome() {
 
-        HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
+        HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+
+        //HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
 
         Scene scene = new Scene(home);
         stage.setScene(scene);
