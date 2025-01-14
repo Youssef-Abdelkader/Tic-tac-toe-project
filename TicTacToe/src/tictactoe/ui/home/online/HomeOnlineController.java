@@ -8,6 +8,7 @@ package tictactoe.ui.home.online;
 import connection.Connection;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,26 +25,46 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
  */
 public class HomeOnlineController extends HomeOnline {
 
+    static Thread thread;
+
     public HomeOnlineController(Stage stage) {
         super(stage);
         Connection.sendRequest("sendList");
 
-        Thread thread = new Thread(() -> {
-            while (true) {
-                String recieve = Connection.recieveRequest();
-                String rec[] = recieve.split("###");
-
-                if (rec[0].equals("List")) {
-                    String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                    listView.getItems().clear();
-                    for (String player : players) {
-                        listView.getItems().add(player.trim());
+        if (thread == null||!(thread.isAlive())) {
+            thread = new Thread(() -> {
+                while (true) {
+                    String recieve = Connection.recieveRequest();
+                    String rec[] = recieve.split("###");
+                    switch(rec[0])
+                    {
+                       case "List":
+                       {
+                           Platform.runLater(
+                            () -> {
+                                if (rec[0].equals("List")) {
+                                    String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+                                    listView.getItems().clear();
+                                    for (String player : players) {
+                                        listView.getItems().add(player.trim());
+                                    }
+                                }
+                            }
+                    );
+                       }
+                       case "logout":
+                       {
+                           
+                       }
                     }
+                    
+
                 }
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
+            });
+            thread.setDaemon(true);
+            thread.start();
+        }
+
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -56,8 +77,11 @@ public class HomeOnlineController extends HomeOnline {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                Connection.sendRequest("logout");
+                
 
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+                
 
                 // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);

@@ -131,7 +131,7 @@ class UserHandler extends Thread {
                         try {
                             DataAccessLayer.logout(this.name);
                             output.println("logout###success");
-                            clientsVector.remove(this);
+                            removeClient();
                             input.close();
                             output.close();
                             break;
@@ -158,7 +158,7 @@ class UserHandler extends Thread {
             }
         }
         // Cleanup after client disconnects
-        clientsVector.remove(this);
+        removeClient();
         try {
             input.close();
             output.close();
@@ -191,5 +191,12 @@ class UserHandler extends Thread {
 
         }
 
+    }
+    
+    public void removeClient()
+    {
+         clientsVector.remove(this);
+         
+         sendList();
     }
 }
