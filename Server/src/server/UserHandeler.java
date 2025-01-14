@@ -106,7 +106,7 @@ class UserHandler extends Thread {
                     case "sendRequest": {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
-                        user2.output.println(name + " wants to play against you");
+                        user2.output.println("invitation" + "###" + name);
 
                         break;
 
@@ -128,23 +128,35 @@ class UserHandler extends Thread {
                     }
 
                     case "logout": {
-                        try {
-                            DataAccessLayer.logout(this.name);
-                            output.println("logout###success");
-                            removeClient();
-                            input.close();
-                            output.close();
-                            break;
-                        } catch (SQLException ex) {
-                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                            output.println("logout###failure");
-                        } catch (IOException ex) {
-                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                        if (!(this.name.equals(null))) {
+                            try {
+
+                                DataAccessLayer.logout(this.name);
+                                output.println("logout###success");
+                                removeClient();
+                                input.close();
+                                output.close();
+                                break;
+                            } catch (SQLException ex) {
+                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                output.println("logout###failure");
+                            } catch (IOException ex) {
+                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                         break;
                     }
 
                     case "winner": {
+
+                    }
+
+                    case "GetInvitation": {
+
+                    }
+                    case "back": {
+                        input.close();
+                        output.close();
 
                     }
 
@@ -176,7 +188,7 @@ class UserHandler extends Thread {
         Vector<String> available = new Vector<String>();
         for (UserHandler client : clientsVector) {
             if (!client.isPlaying) {
-                available.add(client.name + " - Score: " +client.score);
+                available.add(client.name + " - Score: " + client.score);
             }
         }
         sendListToAll(available);
@@ -185,18 +197,21 @@ class UserHandler extends Thread {
 
     public void sendListToAll(Vector<String> Online) {
         for (UserHandler client : clientsVector) {
-            Vector<String>temp=new Vector<String>(Online);
-            temp.remove(client.name + " - Score: " +client.score);
-            client.output.println("List"+"###"+temp);
+            Vector<String> temp = new Vector<String>(Online);
+            temp.remove(client.name + " - Score: " + client.score);
+            client.output.println("List" + "###" + temp);
 
         }
 
     }
-    
-    public void removeClient()
-    {
-         clientsVector.remove(this);
-         
-         sendList();
+
+    public void removeClient() {
+        clientsVector.remove(this);
+
+        sendList();
+    }
+
+    public void getInvitation() {
+
     }
 }
