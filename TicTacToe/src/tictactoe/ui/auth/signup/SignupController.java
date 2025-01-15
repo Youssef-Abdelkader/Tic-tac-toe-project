@@ -20,6 +20,7 @@ public class SignupController extends Signup {
         super(stage);
 
         signUp.setOnAction(new EventHandler<ActionEvent>() {
+            boolean isRunning = true;
             @Override
             public void handle(ActionEvent event) {
                 //check if text feilds are empty
@@ -39,7 +40,7 @@ public class SignupController extends Signup {
                         @Override
                         public void run() {
                             try {
-                                while (true) {
+                                while (isRunning) {
                                     String message = Connection.ear.readLine();
                                     if ("Duplicated name".equals(message)) {
                                         System.out.println(message);
@@ -50,7 +51,9 @@ public class SignupController extends Signup {
                                                 alert.setTitle("Duplicated Name");
                                                 alert.setContentText("Please retry");
                                                 alert.showAndWait();
+                                                isRunning = false;
                                             });
+                                            
                                         }
                                     } else {
                                         if (Platform.isFxApplicationThread() == false) {
@@ -58,8 +61,11 @@ public class SignupController extends Signup {
                                                 HomeOnlineController home = new HomeOnlineController(stage);
                                                 Scene scene = new Scene(home);
                                                 stage.setScene(scene);
+                                                isRunning = false;
                                             });
+                                            
                                         }
+                                        
                                     }
 
                                 }
