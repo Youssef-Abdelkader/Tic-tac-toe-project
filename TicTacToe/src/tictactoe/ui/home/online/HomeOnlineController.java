@@ -8,16 +8,19 @@ package tictactoe.ui.home.online;
 import Classes.OnlinePlayer;
 import Classes.Player;
 
-import connection.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import javafx.application.Platform;
+
+import connection.Connection;
+import java.util.Vector;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 /**
@@ -26,14 +29,17 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
  * @author habib
  */
 public class HomeOnlineController extends HomeOnline {
-
+    
     Player onl_player = new OnlinePlayer();
+
+    
 
     static Thread thread;
 
     public HomeOnlineController(Stage stage) {
         super(stage);
         Connection.sendRequest("sendList");
+
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
@@ -102,6 +108,8 @@ public class HomeOnlineController extends HomeOnline {
 
                     }
 
+
+       
                 }
             });
             thread.setDaemon(true);
@@ -113,9 +121,11 @@ public class HomeOnlineController extends HomeOnline {
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
 
+                
                 //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
                 //Scene scene = new Scene(history);
                 //stage.setScene(scene);
+
             }
         });
 
@@ -149,7 +159,11 @@ public class HomeOnlineController extends HomeOnline {
         }));
     }
 
+
     /*public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
+
+    
+
         //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
 
@@ -207,5 +221,9 @@ public class HomeOnlineController extends HomeOnline {
             }
         }
         return history;
+
     }*/
-}
+
+    }
+
+

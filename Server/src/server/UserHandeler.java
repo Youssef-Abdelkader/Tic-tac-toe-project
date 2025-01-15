@@ -120,6 +120,9 @@ class UserHandler extends Thread {
 
                     }
 
+
+                    
+
                     /*case "History_request": {
                         try {
                             Vector<Vector<String>> history_list = DataAccessLayer.retriveHistory(data[1]);
@@ -153,11 +156,14 @@ class UserHandler extends Thread {
                         }
                         break;
                     }*/
+
+                    
                     case "move": //will be handeled when the game logic is implemented
                     {
                     }
 
                     case "logout": {
+
                         if (!(this.name.equals(null))) {
                             try {
 
@@ -172,12 +178,14 @@ class UserHandler extends Thread {
                             } catch (IOException ex) {
                                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                             }
+
                             break;
                         }
 
                     }
 
                     case "winner": {
+
 
                     }
 
@@ -187,6 +195,8 @@ class UserHandler extends Thread {
                     case "back": {
                         input.close();
                         output.close();
+
+
 
                     }
 
