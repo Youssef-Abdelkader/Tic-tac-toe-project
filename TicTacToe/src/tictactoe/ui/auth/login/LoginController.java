@@ -121,6 +121,7 @@ public class LoginController extends Login {
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
+                Connection.sendRequest("back");
             }
         });
     }

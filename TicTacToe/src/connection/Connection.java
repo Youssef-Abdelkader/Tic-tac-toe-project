@@ -42,8 +42,20 @@ public class Connection {
         try {
             msg = ear.readLine();
         } catch (IOException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            msg="1###";
+            
         }
         return msg;
+    }
+    public static void closeconnection()
+    {
+        mouth.close();
+        try {
+            ear.close();
+            server.close();
+        } catch (IOException ex) {
+            
+        }
+        
     }
 }
