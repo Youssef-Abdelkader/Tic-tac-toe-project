@@ -114,8 +114,10 @@ public class DataAccessLayer {
 
         return message;
     }
+//Need to somehow communicate with the server from the other project : tic tac toe
 
     public static Vector<String> retriveHistory(String playerName) throws SQLException {
+
         Vector<String> data = new Vector<String>();
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAME WHERE USER_NAME1 = ? OR USER_NAME2 = ?",
@@ -125,15 +127,17 @@ public class DataAccessLayer {
         preparedStatement.setString(2, playerName);
         ResultSet resultSet = preparedStatement.executeQuery();
 
+        //ead
         while (resultSet.next()) {
-            data.add(resultSet.getString("GAME_ID") + "###"
-                    + resultSet.getString("USER_NAME1") + "###"
-                    + resultSet.getString("USER_NAME2") + "###"
-                    + resultSet.getString("WINNER_NAME") + "###"
-                    + resultSet.getString("RECORD"));
+            data.add(resultSet.getString("GAME_ID")); 
+            data.add(resultSet.getString("USER_NAME1")); 
+            data.add(resultSet.getString("USER_NAME2")); 
+            data.add(resultSet.getString("WINNER_NAME")); 
+            data.add(resultSet.getString("RECORD")); 
         }
         return data;
     }
+/////////
 
     public static void addWinner(String winnerName, int id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
@@ -156,5 +160,6 @@ public class DataAccessLayer {
         preparedStatement.setString(2, name);
         preparedStatement.executeQuery();
     }
+
 }
 

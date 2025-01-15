@@ -120,9 +120,39 @@ class UserHandler extends Thread {
 
                     }
 
-                    case "history": {
-                    }
+                    /*case "History_request": {
+                        try {
+                            Vector<Vector<String>> history_list = DataAccessLayer.retriveHistory(data[1]);
+                            StringBuilder historyResponse = new StringBuilder("History_response");
 
+                            historyResponse.append("###Game");
+                            for (String s : history_list.elementAt(0)) {
+                                historyResponse.append("###" + s);
+                            }
+                            historyResponse.append("###PlayerName1");
+                            for (String s : history_list.elementAt(1)) {
+                                historyResponse.append("###" + s);
+                            }
+                            historyResponse.append("###PlayerName2");
+                            for (String s : history_list.elementAt(2)) {
+                                historyResponse.append("###" + s);
+                            }
+                            historyResponse.append("###winner");
+                            for (String s : history_list.elementAt(3)) {
+                                historyResponse.append("###" + s);
+                            }
+                            historyResponse.append("###recording");
+                            for (String s : history_list.elementAt(4)) {
+                                historyResponse.append("###" + s);
+                            }
+
+                            this.output.println(historyResponse.toString());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            this.output.println("Error retrieving history");
+                        }
+                        break;
+                    }*/
                     case "move": //will be handeled when the game logic is implemented
                     {
                     }
@@ -136,15 +166,15 @@ class UserHandler extends Thread {
                                 removeClient();
                                 input.close();
                                 output.close();
-                                break;
                             } catch (SQLException ex) {
                                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                                 output.println("logout###failure");
                             } catch (IOException ex) {
                                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            break;
                         }
-                        break;
+
                     }
 
                     case "winner": {
@@ -165,18 +195,20 @@ class UserHandler extends Thread {
                 //if (request == null) break; // Exit if client disconnects
                 //sendMessageToAll(request);
             } catch (IOException ex) {
-                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                removeClient();
+                try {
+                    input.close();
+                    output.close();
+                } catch (IOException e) {
+                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break; // Exit the loop if an error occurs
             }
+
         }
         // Cleanup after client disconnects
-        removeClient();
-        try {
-            input.close();
-            output.close();
-        } catch (IOException ex) {
-            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     /*void sendMessageToAll(String msg) {

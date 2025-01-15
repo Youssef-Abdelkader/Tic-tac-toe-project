@@ -34,13 +34,12 @@ public class Serverscene2Controller extends Serverscene2Base {
         //this.stage = stage;
         //stopServer();
         stop_server_btn.addEventHandler(ActionEvent.ACTION, (event) -> {
-            serverscene_Controller server = new serverscene_Controller(stage);
+            serverscene server = new serverscene(stage);
             Scene scene = new Scene(server);
             stage.setScene(scene);
             try {
                 //System.out.println("went to scene 2 but not stopped");
                 serverscene_Controller.serverSocket.close();
-                th.stop();
             } catch (IOException ex) {
                 Logger.getLogger(Serverscene2Controller.class.getName()).log(Level.SEVERE, null, ex);
             }

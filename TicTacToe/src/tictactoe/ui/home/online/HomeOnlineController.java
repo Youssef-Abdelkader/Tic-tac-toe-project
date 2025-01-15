@@ -5,23 +5,19 @@
  */
 package tictactoe.ui.home.online;
 
+import Classes.OnlinePlayer;
+import Classes.Player;
+
 import connection.Connection;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import tictactoe.ui.history.HistoryController;
-import tictactoe.ui.home.offline.HomeScreen_offline;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 /**
@@ -30,6 +26,8 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
  * @author habib
  */
 public class HomeOnlineController extends HomeOnline {
+
+    Player onl_player = new OnlinePlayer();
 
     static Thread thread;
 
@@ -40,34 +38,35 @@ public class HomeOnlineController extends HomeOnline {
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
-                    try {
-                        String message = Connection.ear.readLine();
-                        String recieve = Connection.recieveRequest();
-                        String rec[] = recieve.split("###");
-                        switch (rec[0]) {
-                            case "List": {
-                                Platform.runLater(
-                                        () -> {
-                                            if (rec[0].equals("List")) {
-                                                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                                                listView.getItems().clear();
-                                                for (String player : players) {
-                                                    listView.getItems().add(player.trim());
-                                                }
+                    String recieve = Connection.recieveRequest();
+                    String rec[] = recieve.split("###");
+                    switch (rec[0]) {
+                        case "List": {
+                            Platform.runLater(
+                                    () -> {
+                                        if (rec[0].equals("List")) {
+                                            String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+                                            listView.getItems().clear();
+                                            for (String player : players) {
+                                                listView.getItems().add(player.trim());
                                             }
                                         }
-                                );
-                            }
-                            case "logout": {
 
-                            }
-                            case "Accept": {
+                                    });
+                        }
 
-                            }
-                            case "Decline": {
+                        case "logout": {
 
-                            }
-                            case "invitation": {
+                            //Connection.closeconnection();
+
+                        }
+                        case "Accept": {
+
+                        }
+                        case "Decline": {
+
+                        }
+                        /*case "invitation": {
 
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setTitle("Confirmation Dialog");
@@ -92,13 +91,15 @@ public class HomeOnlineController extends HomeOnline {
                                     } else if (result.get() == declineButton) {
                                         System.out.println("You declined!");
                                         Connection.sendRequest("GetInvitation" + "###" + "Refused" + rec[1]);
-                                    }
-                                }
 
-                            }
+                                    }
+                            );
                         }
-                    } catch (IOException ex) {
-                        Logger.getLogger(HomeOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+                        
+
+
+                            }*/
+
                     }
 
                 }
@@ -110,9 +111,11 @@ public class HomeOnlineController extends HomeOnline {
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HistoryController history = new HistoryController(stage);
-                Scene scene = new Scene(history);
-                stage.setScene(scene);
+                //onl_player -> to be implemented;
+
+                //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
+                //Scene scene = new Scene(history);
+                //stage.setScene(scene);
             }
         });
 
@@ -146,4 +149,63 @@ public class HomeOnlineController extends HomeOnline {
         }));
     }
 
+    /*public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
+        //boolean retflag = false;
+        Vector<Vector<String>> history = new Vector<>();
+
+        if (Connection.setConnection()) {
+            Connection.sendRequest("History_request###" + onl_player.getUser_name());
+            String response = Connection.recieveRequest();
+            if (response != null && response.startsWith("History_response")) {
+                String[] historyEntries = response.split("###");
+                Vector<String> gameIds = new Vector<>();
+                Vector<String> player1s = new Vector<>();
+                Vector<String> player2s = new Vector<>();
+                Vector<String> winners = new Vector<>();
+                Vector<String> recordings = new Vector<>();
+                String placeholder = null;
+                for (int i = 1; i < historyEntries.length; i++) { // Skip "History_response"
+                    if ("Game".equals(historyEntries[i])) {
+                        placeholder = "Game";
+                    } else if ("PlayerName1".equals(historyEntries[i])) {
+                        placeholder = "PlayerName1";
+                    } else if ("PlayerName2".equals(historyEntries[i])) {
+                        placeholder = "PlayerName2";
+                    } else if ("winner".equals(historyEntries[i])) {
+                        placeholder = "winner";
+                    } else if ("recording".equals(historyEntries[i])) {
+                        placeholder = "recording";
+                    } else {
+                        switch (placeholder) {
+                            case "Game":
+                                gameIds.add(historyEntries[i]);
+                                break;
+                            case "PlayerName1":
+                                player1s.add(historyEntries[i]);
+                                break;
+                            case "PlayerName2":
+                                player2s.add(historyEntries[i]);
+                                break;
+                            case "winner":
+                                winners.add(historyEntries[i]);
+                                break;
+                            case "recording":
+                                recordings.add(historyEntries[i]);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                history.add(gameIds);
+                history.add(player1s);
+                history.add(player2s);
+                history.add(winners);
+                history.add(recordings);
+                // Update UI with history data
+                //retflag = true;
+            }
+        }
+        return history;
+    }*/
 }
