@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes;
-
-/**
- *
- * @author Menna G
- */
+package tictactoe.ui.game.screen;
+ 
 public class OfflinePlayer extends Player {
 
     public OfflinePlayer() {
     }
+
+   
 
   
 
