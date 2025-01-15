@@ -1,4 +1,3 @@
-
 package tictactoe.ui.auth.signup;
 
 import connection.Connection;
@@ -13,7 +12,6 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 import javafx.scene.control.Alert;
 
-
 public class SignupController extends Signup {
 
     public SignupController(Stage stage) {
@@ -21,6 +19,7 @@ public class SignupController extends Signup {
 
         signUp.setOnAction(new EventHandler<ActionEvent>() {
             boolean isRunning = true;
+
             @Override
             public void handle(ActionEvent event) {
                 //check if text feilds are empty
@@ -40,6 +39,7 @@ public class SignupController extends Signup {
                         @Override
                         public void run() {
                             try {
+
                                 while (isRunning) {
                                     String message = Connection.ear.readLine();
                                     if ("Duplicated name".equals(message)) {
@@ -53,7 +53,6 @@ public class SignupController extends Signup {
                                                 alert.showAndWait();
                                                 isRunning = false;
                                             });
-                                            
                                         }
                                     } else {
                                         if (Platform.isFxApplicationThread() == false) {
@@ -63,12 +62,10 @@ public class SignupController extends Signup {
                                                 stage.setScene(scene);
                                                 isRunning = false;
                                             });
-                                            
                                         }
-                                        
                                     }
-
                                 }
+
                             } catch (IOException ex) {
                                 System.out.println(ex.getMessage());
                             }
@@ -85,6 +82,18 @@ public class SignupController extends Signup {
                 HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
+            }
+        });
+
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+                Connection.sendRequest("back");
             }
         });
 
@@ -105,5 +114,6 @@ public class SignupController extends Signup {
             passwordError.setVisible(false);
         }
         return check;
+
     }
 }

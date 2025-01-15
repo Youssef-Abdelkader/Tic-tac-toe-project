@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -29,5 +31,31 @@ public class Connection {
             });
         }
         return connect;
+    }
+
+    public static void sendRequest(String msg) {
+        mouth.println(msg);
+    }
+
+    public static String recieveRequest() {
+        String msg = null;
+        try {
+            msg = ear.readLine();
+        } catch (IOException ex) {
+            msg="1###";
+            
+        }
+        return msg;
+    }
+    public static void closeconnection()
+    {
+        mouth.close();
+        try {
+            ear.close();
+            server.close();
+        } catch (IOException ex) {
+            
+        }
+        
     }
 }

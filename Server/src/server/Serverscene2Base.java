@@ -52,13 +52,11 @@ public class Serverscene2Base extends AnchorPane {
         // Center the PieChart on the screen (stage)
         this.widthProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
         this.heightProperty().addListener((obs, oldVal, newVal) -> centerPieChart(pieChart));
-        
-       /* stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
+
+        /* stop_server_btn.addEventHandler(ActionEvent.ACTION,(event) -> {
             System.out.println("stop button clicked");
         });*/
     }
-    
-   
 
     // Method to center the PieChart in the middle of the screen
     private void centerPieChart(PieChart pieChart) {
@@ -75,5 +73,5 @@ public class Serverscene2Base extends AnchorPane {
         pieChart.setLayoutX(centerX);
         pieChart.setLayoutY(centerY);
     }
-    
+
 }

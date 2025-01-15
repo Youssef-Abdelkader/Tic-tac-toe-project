@@ -1,5 +1,7 @@
 package tictactoe.ui.history;
 
+import java.util.Vector;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -11,6 +13,7 @@ public abstract class History extends AnchorPane {
 
     protected final AnchorPane labelAnchorPane;
     protected final Label historyLable;
+    //protected final Vector<Vector<String>> hist_vect;
     protected final ListView listview;
     protected final Button history_btn;
 
@@ -55,7 +58,6 @@ public abstract class History extends AnchorPane {
         history_btn.getStylesheets().add("/tictactoe/styles/background.css");
         history_btn.setText("Home");
         history_btn.setFont(new Font("Centaur", 14.0));
-        
 
         labelAnchorPane.getChildren().add(historyLable);
         getChildren().add(labelAnchorPane);
@@ -64,3 +66,5 @@ public abstract class History extends AnchorPane {
 
     }
 }
+
+

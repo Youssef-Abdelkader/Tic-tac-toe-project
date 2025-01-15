@@ -30,11 +30,11 @@ public abstract class game_screenBase extends BorderPane {
     protected final RowConstraints rowConstraints2;
     protected final ImageView imageView;
     protected final ImageView imageView0;
-    protected final Label label; //MENNAAAAAAAAAAAAAAAAAAAAAAAAAA
+    protected final Label label; //mena
     protected final Button recordButton;
     protected final Button forfeitButton;
     protected final Label label0;
-    protected final Label label1; //HABIBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    protected final Label label1; //habiba
     protected final Label label2;
     protected final GridPane gridPane0;
     protected final ColumnConstraints columnConstraints3;
