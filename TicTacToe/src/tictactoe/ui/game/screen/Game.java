@@ -14,9 +14,9 @@ public class Game {
         this.currentPlayerSymbol = 'X';
     }
 
-    Game() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    /*Game() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
 
     public boolean placeXO(int pos) {
         int row = (pos - 1) / 3;
@@ -66,6 +66,14 @@ public class Game {
     public void resetGame() {
         squares = new Board();
         currentPlayerSymbol = 'X';
+    }
+
+    public Board getSquares() {
+        return squares;
+    }
+
+    public void setSquares(Board squares) {
+        this.squares = squares;
     }
     
     

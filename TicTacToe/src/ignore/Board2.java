@@ -1,6 +1,6 @@
 package ignore;
 
-class Board {
+class Board2 {
 
     private static final int rows = 3;
     private static final int cols = 3;

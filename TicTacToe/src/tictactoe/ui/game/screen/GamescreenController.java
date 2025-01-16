@@ -65,7 +65,16 @@ public class GamescreenController extends game_screenBase {
 
     private void handleGridClick(int pos) {
         if (game.placeXO(pos)) {
+            System.out.println("pos " + pos);
             updateGridUI(pos);
+            char[][] ch_ar = game.getSquares().getGrid();
+            for (int i = 0; i < ch_ar.length; i++) {
+                for (int j = 0; j < ch_ar.length; j++) {
+                    System.out.println("row = " + i);
+                    System.out.println("col = " + j);
+                    System.out.println(ch_ar[i][j]);
+                }
+            }
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine(winningPositions);
@@ -84,6 +93,7 @@ public class GamescreenController extends game_screenBase {
         ).toExternalForm()));
     }
 
+    //logical error
     private void drawWinningLine(int[] winningPositions) {
         if (winningPositions == null || winningPositions.length != 3) {
             System.err.println("Invalid winning positions!");
