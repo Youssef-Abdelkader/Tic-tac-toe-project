@@ -94,7 +94,9 @@ public class HomeOnlineController extends HomeOnline {
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HistoryController history = new HistoryController(stage, retrievePlayerHistory((OnlinePlayer) onl_player));
+                //onl_player -> to be implemented;
+                
+                HistoryController history = new HistoryController(stage , retrievePlayerHistory((OnlinePlayer) onl_player));
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 

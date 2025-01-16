@@ -8,6 +8,9 @@ public class x_o_character {
 
     //boolean assigned = false;
 
+    X_OR_O x_char = X_OR_O.X;
+    X_OR_O o_char = X_OR_O.O;
+    
     char c;
     boolean isXAssigned = false;
     boolean isOAssigned = false;
