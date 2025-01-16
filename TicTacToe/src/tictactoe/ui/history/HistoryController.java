@@ -1,46 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe.ui.history;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.Vector;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tictactoe.ui.home.online.HomeOnline;
 import tictactoe.ui.home.online.HomeOnlineController;
 
-/**
- * FXML Controller class
- *
- * @author habib
- */
-public class HistoryController extends History{
+public class HistoryController extends History {
 
-    /**
-     * Initializes the controller class.
-     */
-
-    public HistoryController(Stage stage) {
+    public HistoryController(Stage stage, Vector<Vector<String>> history) {
         super(stage);
-        history_btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeOnlineController home = new HomeOnlineController(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }   
+        populateTable(history); // Populate the table
+        
+        home.addEventHandler(ActionEvent.ACTION, (event) -> {
+            HomeOnlineController cont = new HomeOnlineController(stage);
+            Scene scene = new Scene(cont);
+            stage.setScene(scene);
         });
     }
 
-    /**
-     * Initializes the controller class.
-     */
-      
-    
+    // Method to populate the table with history data
+    public void populateTable(Vector<Vector<String>> history) {
+        ObservableList<HistoryRecord> data = FXCollections.observableArrayList();
+
+        Vector<String> gameIds = history.get(0);
+        Vector<String> player2s = history.get(2); // Player2 is stored here
+        Vector<String> winners = history.get(3);
+        Vector<String> recordings = history.get(4);
+
+        for (int i = 0; i < gameIds.size(); i++) {
+            data.add(new HistoryRecord(
+                    gameIds.get(i),
+                    player2s.get(i),
+                    winners.get(i),
+                    recordings.get(i)
+            ));
+                                System.out.println("data added");
+
+        }
+
+        // Link the table columns to the data fields in the HistoryRecord class
+        GameId_col.setCellValueFactory(new PropertyValueFactory<>("gameId"));
+        Opponent_col.setCellValueFactory(new PropertyValueFactory<>("opponent"));
+        winer_col.setCellValueFactory(new PropertyValueFactory<>("winner"));
+        recording_col.setCellValueFactory(new PropertyValueFactory<>("recording"));
+
+        // Populate the table view
+        tableView.setItems(data);
+    }
 }

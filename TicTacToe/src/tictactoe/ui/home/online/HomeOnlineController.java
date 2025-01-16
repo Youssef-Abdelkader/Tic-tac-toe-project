@@ -51,7 +51,7 @@ public class HomeOnlineController extends HomeOnline {
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
                 
-                HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
+                HistoryController history = new HistoryController(stage , retrievePlayerHistory((OnlinePlayer) onl_player));
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
             }

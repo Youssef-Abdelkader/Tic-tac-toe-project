@@ -100,4 +100,5 @@ class Board {
         // Board.grid = grid;
     }
 
+    char c = '\0';
 }

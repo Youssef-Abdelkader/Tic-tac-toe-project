@@ -7,20 +7,31 @@ package Classes;
  */
 public class OnlinePlayer extends Player{
 
+    String user_name;
+    int score;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
     public OnlinePlayer() {
         
     }
 
     
-    @Override
-    public void playChar() {
 
-    }
-
-    @Override
-    public String RecordGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
    
     

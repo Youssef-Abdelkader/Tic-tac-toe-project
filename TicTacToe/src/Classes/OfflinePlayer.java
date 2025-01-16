@@ -15,13 +15,9 @@ public class OfflinePlayer extends Player {
     }
 
   
+//will implement
+   
 
-    @Override
-    public void playChar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String RecordGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

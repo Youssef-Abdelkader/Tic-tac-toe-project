@@ -8,6 +8,7 @@ public class Game {
     // Board game_board;
     Board squares;
 
+    Recording[] game_record = new Recording[9]; 
     boolean online;
 
     public void startGame() {
@@ -79,5 +80,9 @@ public class Game {
         }
         //return winner;
     }
+    
+    //private Recording recordGame(boolean record){
+    //    Recording recording = new Recording();
+    //}
 
 }
