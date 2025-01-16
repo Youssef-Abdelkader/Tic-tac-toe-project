@@ -96,7 +96,7 @@ public class HomeOnlineController extends HomeOnline {
                 }
             }
         });
-        //thread.setDaemon(true);
+        thread.setDaemon(true);
         thread.start();
 
         
