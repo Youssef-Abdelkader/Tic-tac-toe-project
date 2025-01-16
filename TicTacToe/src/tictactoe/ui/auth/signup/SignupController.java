@@ -18,6 +18,8 @@ public class SignupController extends Signup {
         super(stage);
 
         signUp.setOnAction(new EventHandler<ActionEvent>() {
+            boolean isRunning = true;
+
             @Override
             public void handle(ActionEvent event) {
                 //check if text feilds are empty
@@ -38,25 +40,29 @@ public class SignupController extends Signup {
                         public void run() {
                             try {
 
-                                String message = Connection.ear.readLine();
-                                if ("Duplicated name".equals(message)) {
-                                    System.out.println(message);
-                                    if (Platform.isFxApplicationThread() == false) {
-                                        Platform.runLater(() -> {
-                                            System.out.println(message);
-                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                            alert.setTitle("Duplicated Name");
-                                            alert.setContentText("Please retry");
-                                            alert.showAndWait();
-                                        });
-                                    }
-                                } else {
-                                    if (Platform.isFxApplicationThread() == false) {
-                                        Platform.runLater(() -> {
-                                            HomeOnlineController home = new HomeOnlineController(stage);
-                                            Scene scene = new Scene(home);
-                                            stage.setScene(scene);
-                                        });
+                                while (isRunning) {
+                                    String message = Connection.ear.readLine();
+                                    if ("Duplicated name".equals(message)) {
+                                        System.out.println(message);
+                                        if (Platform.isFxApplicationThread() == false) {
+                                            Platform.runLater(() -> {
+                                                System.out.println(message);
+                                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                                alert.setTitle("Duplicated Name");
+                                                alert.setContentText("Please retry");
+                                                alert.showAndWait();
+                                                isRunning = false;
+                                            });
+                                        }
+                                    } else {
+                                        if (Platform.isFxApplicationThread() == false) {
+                                            Platform.runLater(() -> {
+                                                HomeOnlineController home = new HomeOnlineController(stage);
+                                                Scene scene = new Scene(home);
+                                                stage.setScene(scene);
+                                                isRunning = false;
+                                            });
+                                        }
                                     }
                                 }
 

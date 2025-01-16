@@ -46,11 +46,13 @@ public class GamescreenController extends game_screenBase {
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
+
             if (imageView == null) {
                 System.err.println("ImageView at index " + i + " is null!");
                 continue;
             }
             int pos = i + 1;
+
             imageView.setOnMouseClicked(event -> handleGridClick(pos));
         }
 
@@ -64,6 +66,8 @@ public class GamescreenController extends game_screenBase {
     }
 
     private void handleGridClick(int pos) {
+        System.out.println("posHandle:" + pos);
+        System.out.println("-----------------");
         if (game.placeXO(pos)) {
             System.out.println("pos " + pos);
             updateGridUI(pos);
@@ -75,9 +79,10 @@ public class GamescreenController extends game_screenBase {
                     System.out.println(ch_ar[i][j]);
                 }
             }
+
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
-                drawWinningLine(winningPositions);
+                drawWinningLine(/*winningPositions*/);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
             }
@@ -87,14 +92,17 @@ public class GamescreenController extends game_screenBase {
     private void updateGridUI(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
+        System.out.println("update:");
+        System.out.println(row * 3 + col);
         ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
         imageView.setImage(new Image(getClass().getResource(
-                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
+                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
         ).toExternalForm()));
     }
 
     //logical error
-    private void drawWinningLine(int[] winningPositions) {
+    private void drawWinningLine() {
+        int[] winningPositions = game.calculateWinner();
         if (winningPositions == null || winningPositions.length != 3) {
             System.err.println("Invalid winning positions!");
             return;
@@ -109,6 +117,17 @@ public class GamescreenController extends game_screenBase {
         line.setStroke(Color.RED);
         line.setStrokeWidth(5);
         gridPane0.getChildren().add(line);
+        ////
+        Line line1 = new Line(0, 0, 0, 0);
+        line.setStroke(Color.BLUE);
+        line.setStrokeWidth(5);
+
+        line.endXProperty().bind(gridPane0.widthProperty().subtract(boxOne.getFitWidth() / 2));
+
+        line.setStartY(gridPane0.getHeight() / 2);
+        line.setEndY(gridPane0.getHeight() / 2);
+
+        gridPane0.add(line1, 0, 1); //col //row
     }
 
     private double getCellCenterX(int pos) {
@@ -142,5 +161,51 @@ public class GamescreenController extends game_screenBase {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
             imageView.setImage(null);
         }
+    }
+
+    private void drawLine(int a, int b, int c) {
+        int row = 0;
+        int col = 0;
+
+        if (b == a + 1 && c == a + 2) { //wining in a row
+            switch (a) {
+                case 1:
+                    row = 0;
+                    break;
+                case 4:
+                    row = 1;
+                    break;
+                case 7:
+                    row = 2;
+                    break;
+            }
+        } else if (b == a + 3 && c == a + 6) { //col
+            switch (a) {
+                case 1:
+                    col = 0;
+                    break;
+                case 2:
+                    col = 1;
+                    break;
+                case 3:
+                    col = 2;
+                    break;
+            }
+        } else if (a == 1 && c == 9) { //diagonal on 0,0
+            //row =
+        } else if (a == 3 && c == 7) { //diagonal on 3,0
+
+        }
+        Line line = new Line(0, 0, 0, 0);  // Initially with both x and y endpoints set to 0
+        line.setStroke(Color.RED);
+        line.setStrokeWidth(5);
+
+        line.endXProperty().bind(gridPane0.widthProperty().subtract(boxOne.getFitWidth()));
+
+        line.setStartY(gridPane0.getHeight() / 2);
+        line.setEndY(gridPane0.getHeight() / 2);
+
+        gridPane0.add(line, col, row);
+
     }
 }

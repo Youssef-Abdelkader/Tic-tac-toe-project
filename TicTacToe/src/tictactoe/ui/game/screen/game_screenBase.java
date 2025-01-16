@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -38,15 +40,16 @@ public abstract class game_screenBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
     protected final RowConstraints rowConstraints5;
-    protected final ImageView img_vw_1;
-    protected final ImageView img_vw_9;
-    protected final ImageView img_vw_6;
-    protected final ImageView img_vw_3;
-    protected final ImageView img_vw_8;
-    protected final ImageView img_vw_5;
-    protected final ImageView img_vw_2;
-    protected final ImageView img_vw_7;
-    protected final ImageView img_vw_4;
+
+    protected final ImageView boxOne;
+    protected final ImageView boxTwo;
+    protected final ImageView boxThree;
+    protected final ImageView boxFour;
+    protected final ImageView boxFive;
+    protected final ImageView boxSix;
+    protected final ImageView boxSeven;
+    protected final ImageView boxEight;
+    protected final ImageView boxNine;
 
     public game_screenBase(Stage stage) {
 
@@ -74,15 +77,16 @@ public abstract class game_screenBase extends BorderPane {
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
         rowConstraints5 = new RowConstraints();
-        img_vw_1 = new ImageView();
-        img_vw_9 = new ImageView();
-        img_vw_6 = new ImageView();
-        img_vw_3 = new ImageView();
-        img_vw_8 = new ImageView();
-        img_vw_5 = new ImageView();
-        img_vw_2 = new ImageView();
-        img_vw_7 = new ImageView();
-        img_vw_4 = new ImageView();
+
+        boxOne = new ImageView();
+        boxTwo = new ImageView();
+        boxThree = new ImageView();
+        boxFour = new ImageView();
+        boxFive = new ImageView();
+        boxSix = new ImageView();
+        boxSeven = new ImageView();
+        boxEight = new ImageView();
+        boxNine = new ImageView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -235,96 +239,96 @@ public abstract class game_screenBase extends BorderPane {
         rowConstraints5.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
         gridPane0.setPadding(new Insets(10.0));
 
-        GridPane.setHalignment(img_vw_1, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(img_vw_1, javafx.geometry.VPos.CENTER);
-        img_vw_1.setFitHeight(102.0);
-        img_vw_1.setFitWidth(147.0);
-        img_vw_1.setPickOnBounds(true);
-        img_vw_1.setPreserveRatio(true);
+        GridPane.setHalignment(boxOne, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxOne, javafx.geometry.VPos.CENTER);
+        boxOne.setFitHeight(102.0);
+        boxOne.setFitWidth(147.0);
+        boxOne.setPickOnBounds(true);
+        boxOne.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_9, 2);
-        GridPane.setHalignment(img_vw_9, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_9, 2);
-        GridPane.setValignment(img_vw_9, javafx.geometry.VPos.CENTER);
-        img_vw_9.setFitHeight(100.0);
-        img_vw_9.setFitWidth(144.0);
-        img_vw_9.setLayoutX(25.0);
-        img_vw_9.setLayoutY(-1.0);
-        img_vw_9.setPickOnBounds(true);
-        img_vw_9.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxTwo, 1);
+        GridPane.setHalignment(boxTwo, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxTwo, javafx.geometry.VPos.CENTER);
+        boxTwo.setFitHeight(97.0);
+        boxTwo.setFitWidth(144.0);
+        boxTwo.setLayoutX(25.0);
+        boxTwo.setLayoutY(-1.0);
+        boxTwo.setPickOnBounds(true);
+        boxTwo.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_6, 2);
-        GridPane.setHalignment(img_vw_6, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_6, 1);
-        GridPane.setValignment(img_vw_6, javafx.geometry.VPos.CENTER);
-        img_vw_6.setFitHeight(100.0);
-        img_vw_6.setFitWidth(144.0);
-        img_vw_6.setLayoutX(25.0);
-        img_vw_6.setLayoutY(-1.0);
-        img_vw_6.setPickOnBounds(true);
-        img_vw_6.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxThree, 2);
+        GridPane.setHalignment(boxThree, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxThree, javafx.geometry.VPos.CENTER);
+        boxThree.setFitHeight(102.0);
+        boxThree.setFitWidth(147.0);
+        boxThree.setLayoutX(25.0);
+        boxThree.setLayoutY(-1.0);
+        boxThree.setPickOnBounds(true);
+        boxThree.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_3, 2);
-        GridPane.setHalignment(img_vw_3, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(img_vw_3, javafx.geometry.VPos.CENTER);
-        img_vw_3.setFitHeight(102.0);
-        img_vw_3.setFitWidth(147.0);
-        img_vw_3.setLayoutX(25.0);
-        img_vw_3.setLayoutY(-1.0);
-        img_vw_3.setPickOnBounds(true);
-        img_vw_3.setPreserveRatio(true);
+        GridPane.setHalignment(boxFour, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxFour, 1);
+        GridPane.setValignment(boxFour, javafx.geometry.VPos.CENTER);
+        boxFour.setFitHeight(103.0);
+        boxFour.setFitWidth(145.0);
+        boxFour.setLayoutX(25.0);
+        boxFour.setLayoutY(-1.0);
+        boxFour.setPickOnBounds(true);
+        boxFour.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_8, 1);
-        GridPane.setHalignment(img_vw_8, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_8, 2);
-        GridPane.setValignment(img_vw_8, javafx.geometry.VPos.CENTER);
-        img_vw_8.setFitHeight(101.0);
-        img_vw_8.setFitWidth(146.0);
-        img_vw_8.setLayoutX(25.0);
-        img_vw_8.setLayoutY(-1.0);
-        img_vw_8.setPickOnBounds(true);
-        img_vw_8.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxFive, 1);
+        GridPane.setHalignment(boxFive, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxFive, 1);
+        GridPane.setValignment(boxFive, javafx.geometry.VPos.CENTER);
+        boxFive.setFitHeight(98.0);
+        boxFive.setFitWidth(152.0);
+        boxFive.setLayoutX(25.0);
+        boxFive.setLayoutY(-1.0);
+        boxFive.setPickOnBounds(true);
+        boxFive.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_5, 1);
-        GridPane.setHalignment(img_vw_5, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_5, 1);
-        GridPane.setValignment(img_vw_5, javafx.geometry.VPos.CENTER);
-        img_vw_5.setFitHeight(98.0);
-        img_vw_5.setFitWidth(152.0);
-        img_vw_5.setLayoutX(25.0);
-        img_vw_5.setLayoutY(-1.0);
-        img_vw_5.setPickOnBounds(true);
-        img_vw_5.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxSix, 2);
+        GridPane.setHalignment(boxSix, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxSix, 1);
+        GridPane.setValignment(boxSix, javafx.geometry.VPos.CENTER);
+        boxSix.setFitHeight(100.0);
+        boxSix.setFitWidth(144.0);
+        boxSix.setLayoutX(25.0);
+        boxSix.setLayoutY(-1.0);
+        boxSix.setPickOnBounds(true);
+        boxSix.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(img_vw_2, 1);
-        GridPane.setHalignment(img_vw_2, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(img_vw_2, javafx.geometry.VPos.CENTER);
-        img_vw_2.setFitHeight(97.0);
-        img_vw_2.setFitWidth(144.0);
-        img_vw_2.setLayoutX(25.0);
-        img_vw_2.setLayoutY(-1.0);
-        img_vw_2.setPickOnBounds(true);
-        img_vw_2.setPreserveRatio(true);
+        GridPane.setHalignment(boxSeven, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxSeven, 2);
+        GridPane.setValignment(boxSeven, javafx.geometry.VPos.CENTER);
+        boxSeven.setFitHeight(102.0);
+        boxSeven.setFitWidth(152.0);
+        boxSeven.setLayoutX(25.0);
+        boxSeven.setLayoutY(-1.0);
+        boxSeven.setPickOnBounds(true);
+        boxSeven.setPreserveRatio(true);
 
-        GridPane.setHalignment(img_vw_7, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_7, 2);
-        GridPane.setValignment(img_vw_7, javafx.geometry.VPos.CENTER);
-        img_vw_7.setFitHeight(102.0);
-        img_vw_7.setFitWidth(152.0);
-        img_vw_7.setLayoutX(25.0);
-        img_vw_7.setLayoutY(-1.0);
-        img_vw_7.setPickOnBounds(true);
-        img_vw_7.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxEight, 1);
+        GridPane.setHalignment(boxEight, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxEight, 2);
+        GridPane.setValignment(boxEight, javafx.geometry.VPos.CENTER);
+        boxEight.setFitHeight(101.0);
+        boxEight.setFitWidth(146.0);
+        boxEight.setLayoutX(25.0);
+        boxEight.setLayoutY(-1.0);
+        boxEight.setPickOnBounds(true);
+        boxEight.setPreserveRatio(true);
 
-        GridPane.setHalignment(img_vw_4, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(img_vw_4, 1);
-        GridPane.setValignment(img_vw_4, javafx.geometry.VPos.CENTER);
-        img_vw_4.setFitHeight(103.0);
-        img_vw_4.setFitWidth(145.0);
-        img_vw_4.setLayoutX(25.0);
-        img_vw_4.setLayoutY(-1.0);
-        img_vw_4.setPickOnBounds(true);
-        img_vw_4.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxNine, 2);
+        GridPane.setHalignment(boxNine, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxNine, 2);
+        GridPane.setValignment(boxNine, javafx.geometry.VPos.CENTER);
+        boxNine.setFitHeight(100.0);
+        boxNine.setFitWidth(144.0);
+        boxNine.setLayoutX(25.0);
+        boxNine.setLayoutY(-1.0);
+        boxNine.setPickOnBounds(true);
+        boxNine.setPreserveRatio(true);
         setCenter(gridPane0);
         setPadding(new Insets(10.0));
 
@@ -344,21 +348,24 @@ public abstract class game_screenBase extends BorderPane {
         gridPane.getChildren().add(label0);
         gridPane.getChildren().add(label1);
         gridPane.getChildren().add(label2);
+
         gridPane0.getColumnConstraints().add(columnConstraints3);
         gridPane0.getColumnConstraints().add(columnConstraints4);
         gridPane0.getColumnConstraints().add(columnConstraints5);
         gridPane0.getRowConstraints().add(rowConstraints3);
         gridPane0.getRowConstraints().add(rowConstraints4);
         gridPane0.getRowConstraints().add(rowConstraints5);
-        gridPane0.getChildren().add(img_vw_1);
-        gridPane0.getChildren().add(img_vw_9);
-        gridPane0.getChildren().add(img_vw_6);
-        gridPane0.getChildren().add(img_vw_3);
-        gridPane0.getChildren().add(img_vw_8);
-        gridPane0.getChildren().add(img_vw_5);
-        gridPane0.getChildren().add(img_vw_2);
-        gridPane0.getChildren().add(img_vw_7);
-        gridPane0.getChildren().add(img_vw_4);
 
+        gridPane0.getChildren().add(boxOne);
+        gridPane0.getChildren().add(boxTwo);
+        gridPane0.getChildren().add(boxThree);
+        gridPane0.getChildren().add(boxFour);
+        gridPane0.getChildren().add(boxFive);
+        gridPane0.getChildren().add(boxSix);
+        gridPane0.getChildren().add(boxSeven);
+        gridPane0.getChildren().add(boxEight);
+        gridPane0.getChildren().add(boxNine);
+
+    
     }
 }
