@@ -18,6 +18,7 @@ public class GamescreenController extends game_screenBase {
     private String player1Name;
     private String player2Name;
     private Stage stage;
+    
 
     public GamescreenController(Stage stage, String name) {
         super(stage);
@@ -46,11 +47,13 @@ public class GamescreenController extends game_screenBase {
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
+            
             if (imageView == null) {
                 System.err.println("ImageView at index " + i + " is null!");
                 continue;
             }
             int pos = i + 1;
+            
             imageView.setOnMouseClicked(event -> handleGridClick(pos));
         }
 
@@ -64,6 +67,8 @@ public class GamescreenController extends game_screenBase {
     }
 
     private void handleGridClick(int pos) {
+        System.out.println("posHandle:"+pos);
+        System.out.println("-----------------");
         if (game.placeXO(pos)) {
             updateGridUI(pos);
             int[] winningPositions = game.calculateWinner();
@@ -78,9 +83,11 @@ public class GamescreenController extends game_screenBase {
     private void updateGridUI(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
+        System.out.println("update:");
+        System.out.println(row * 3 + col);
         ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
         imageView.setImage(new Image(getClass().getResource(
-                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
+                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
         ).toExternalForm()));
     }
 
