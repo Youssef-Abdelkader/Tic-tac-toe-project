@@ -118,6 +118,12 @@ class UserHandler extends Thread {
 
                     case "recieveRequest": {
 
+
+                        //LUKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        
+
+                        // sending game data to database + client to initiate the game
+
                     }
 
 
@@ -164,6 +170,14 @@ class UserHandler extends Thread {
 
                     case "logout": {
 
+                        try {
+                            DataAccessLayer.logout(this.name);
+                            output.println("logout###success");
+                            clientsVector.remove(this);
+                            input.close();
+                            output.close();
+
+
                         if (!(this.name.equals(null))) {
                             try {
 
@@ -182,6 +196,11 @@ class UserHandler extends Thread {
                             break;
                         }
 
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     }
 
                     case "winner": {
@@ -213,6 +232,7 @@ class UserHandler extends Thread {
                     case "back": {
                         input.close();
                         output.close();
+
 
 
 
