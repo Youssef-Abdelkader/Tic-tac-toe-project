@@ -1,66 +1,88 @@
 package tictactoe.ui.history;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public abstract class History extends AnchorPane {
+public /*abstract*/ class History extends BorderPane {
 
-    protected final AnchorPane labelAnchorPane;
-    protected final Label historyLable;
-    protected final ListView listview;
-    protected final Button history_btn;
+    protected final Label label;
+    protected final Button home;
+    protected final ScrollPane scrollPane;
+    protected final TableView tableView;
+    protected final TableColumn GameId_col;
+    protected final TableColumn Opponent_col;
+    protected final TableColumn winer_col;
+    protected final TableColumn recording_col;
 
     public History(Stage stage) {
 
-        labelAnchorPane = new AnchorPane();
-        historyLable = new Label();
-        listview = new ListView();
-        history_btn = new Button();
+        label = new Label();
+        home = new Button();
+        scrollPane = new ScrollPane();
+        tableView = new TableView();
+        GameId_col = new TableColumn();
+        Opponent_col = new TableColumn();
+        winer_col = new TableColumn();
+        recording_col = new TableColumn();
 
-        setId("AnchorPane");
+        setMaxHeight(USE_PREF_SIZE);
+        setMaxWidth(USE_PREF_SIZE);
+        setMinHeight(USE_PREF_SIZE);
+        setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-        getStyleClass().add("anchor-pane");
-        getStylesheets().add("/tictactoe/styles/history.css");
+        getStyleClass().add("coverBackground");
+        getStylesheets().add("/tictactoe/ui/history/styles/homeonline.css");
 
-        labelAnchorPane.setLayoutX(235.0);
-        labelAnchorPane.setLayoutY(14.0);
-        labelAnchorPane.getStyleClass().add("labelAnchorPane");
-        labelAnchorPane.getStylesheets().add("/tictactoe/styles/background.css");
+        BorderPane.setAlignment(label, javafx.geometry.Pos.CENTER);
+        label.setText("History");
+        label.setTextFill(javafx.scene.paint.Color.valueOf("#1e9413"));
+        BorderPane.setMargin(label, new Insets(0.0, 0.0, 20.0, 0.0));
+        label.setFont(new Font("Berlin Sans FB Demi Bold", 36.0));
+        setTop(label);
 
-        historyLable.setAlignment(javafx.geometry.Pos.CENTER);
-        historyLable.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
-        historyLable.setPrefWidth(130.0);
-        historyLable.getStylesheets().add("/tictactoe/styles/history.css");
-        historyLable.setText("History");
-        historyLable.setTextFill(javafx.scene.paint.Color.valueOf("#1e9413"));
-        historyLable.setFont(new Font("Berlin Sans FB Bold", 36.0));
+        BorderPane.setAlignment(home, javafx.geometry.Pos.CENTER);
+        home.setMnemonicParsing(false);
+        home.setText("Home");
+        BorderPane.setMargin(home, new Insets(10.0, 0.0, 0.0, 0.0));
+        home.setFont(new Font("Centaur", 16.0));
+        setBottom(home);
 
-        listview.setLayoutX(111.0);
-        listview.setLayoutY(78.0);
-        listview.setOpacity(0.9);
-        listview.setPrefHeight(245.0);
-        listview.setPrefWidth(380.0);
-        listview.getStyleClass().add("listview");
-        listview.getStylesheets().add("/tictactoe/styles/background.css");
+        BorderPane.setAlignment(scrollPane, javafx.geometry.Pos.CENTER);
+        scrollPane.setStyle("-fx-background-radius: 20;");
 
-        history_btn.setLayoutX(274.0);
-        history_btn.setLayoutY(344.0);
-        history_btn.setMnemonicParsing(false);
-        history_btn.getStyleClass().add("history_btn");
-        history_btn.getStylesheets().add("/tictactoe/styles/background.css");
-        history_btn.setText("Home");
-        history_btn.setFont(new Font("Centaur", 14.0));
-        
+        tableView.setMaxHeight(Double.MAX_VALUE);
+        tableView.setMaxWidth(Double.MAX_VALUE);
+        tableView.setPrefHeight(263.0);
+        tableView.setPrefWidth(557.0);
 
-        labelAnchorPane.getChildren().add(historyLable);
-        getChildren().add(labelAnchorPane);
-        getChildren().add(listview);
-        getChildren().add(history_btn);
+        GameId_col.setPrefWidth(75.0);
+        GameId_col.setText("Game ID");
+
+        Opponent_col.setPrefWidth(115.0);
+        Opponent_col.setText("Player 2");
+
+        winer_col.setPrefWidth(113.0);
+        winer_col.setText("Winner");
+
+        recording_col.setPrefWidth(116.0);
+        recording_col.setText("Recording");
+        scrollPane.setContent(tableView);
+        setCenter(scrollPane);
+        setOpaqueInsets(new Insets(20.0));
+        setPadding(new Insets(20.0));
+
+        tableView.getColumns().add(GameId_col);
+        tableView.getColumns().add(Opponent_col);
+        tableView.getColumns().add(winer_col);
+        tableView.getColumns().add(recording_col);
 
     }
 }

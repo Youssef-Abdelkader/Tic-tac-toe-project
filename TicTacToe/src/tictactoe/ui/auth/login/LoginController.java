@@ -28,6 +28,10 @@ public class LoginController extends Login {
             }
         });
 
+        //get the player username
+        //find that player's data from the database
+        //use this data to initialize player object
+        //pass it to homeonline screen
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -117,6 +121,7 @@ public class LoginController extends Login {
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
+                Connection.sendRequest("back");
             }
         });
     }

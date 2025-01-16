@@ -13,15 +13,18 @@ import java.util.logging.Logger;
 import org.apache.derby.jdbc.ClientDriver;
 import templates.Game;
 
+
 public class DataAccessLayer {
 
     public static Connection connection;
     public static int gameId = 1;
 
+    private String url = "jdbc:derby://localhost:1527/x-o"; //url
+    
     static {
         try {
             DriverManager.registerDriver(new ClientDriver());
-            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/Game", "root", "root");
+            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/x-o", "root", "root");
         } catch (SQLException ex) {
             Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,39 +117,55 @@ public class DataAccessLayer {
 
         return message;
     }
+//Need to somehow communicate with the server from the other project : tic tac toe
 
-    public static Vector<String> retriveHistory(String playerName) throws SQLException {
-        Vector<String> data = new Vector<String>();
+    public static Vector<Vector<String>> retriveHistory(String playerName) throws SQLException {
+        Vector<Vector<String>> history_2d_vector = new Vector<>();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAME WHERE USER_NAME1 = ? OR USER_NAME2 = ?",
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT * FROM GAME WHERE USER_NAME1 = ? OR USER_NAME2 = ?",
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY
+        );
 
         preparedStatement.setString(1, playerName);
         preparedStatement.setString(2, playerName);
         ResultSet resultSet = preparedStatement.executeQuery();
 
+        Vector<String> gameIds = new Vector<>();
+        Vector<String> u_names1 = new Vector<>();
+        Vector<String> u_names2 = new Vector<>();
+        Vector<String> winners = new Vector<>();
+        Vector<String> records = new Vector<>();
+
         while (resultSet.next()) {
-            data.add(resultSet.getString("GAME_ID") + "###"
-                    + resultSet.getString("USER_NAME1") + "###"
-                    + resultSet.getString("USER_NAME2") + "###"
-                    + resultSet.getString("WINNER_NAME") + "###"
-                    + resultSet.getString("RECORD"));
+            gameIds.add(resultSet.getString("GAME_ID"));
+            u_names1.add(resultSet.getString("USER_NAME1"));
+            u_names2.add(resultSet.getString("USER_NAME2"));
+            winners.add(resultSet.getString("WINNER_NAME"));
+            records.add(resultSet.getString("RECORD"));
         }
-        return data;
+
+        history_2d_vector.add(gameIds);
+        history_2d_vector.add(u_names1);
+        history_2d_vector.add(u_names2);
+        history_2d_vector.add(winners);
+        history_2d_vector.add(records);
+
+        return history_2d_vector;
     }
+/////////
 
     public static void addWinner(String winnerName, int id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-            "UPDATE GAME SET WINNER_NAME = ? WHERE GAME_ID = ?",
-            ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY
+                "UPDATE GAME SET WINNER_NAME = ? WHERE GAME_ID = ?",
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY
         );
 
         preparedStatement.setString(1, winnerName);
         preparedStatement.setString(2, String.valueOf(id)); // Convert int to String
         preparedStatement.executeUpdate();
     }
-
-
 
     public static void updateStatus(String name, int status) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PLAYER SET USER_STATUS = ? WHERE USER_NAME = ?",
@@ -156,5 +175,5 @@ public class DataAccessLayer {
         preparedStatement.setString(2, name);
         preparedStatement.executeQuery();
     }
-}
 
+}

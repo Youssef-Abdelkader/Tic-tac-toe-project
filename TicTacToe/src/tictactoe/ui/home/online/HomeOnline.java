@@ -18,7 +18,7 @@ public abstract class HomeOnline extends AnchorPane {
     protected final Button backButton;
     protected final AnchorPane playerBackground;
     protected final Label playerLabel;
-    protected final ListView<String> listView;
+    protected static ListView<String> listView;
     protected final Label scoreLabel;
 
     public HomeOnline(Stage stage) {
