@@ -106,7 +106,7 @@ class UserHandler extends Thread {
                     case "sendRequest": {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
-                        user2.output.println(name + " wants to play against you");
+                        user2.output.println("invitation" + "###" + name);
 
                         break;
 
@@ -120,7 +120,10 @@ class UserHandler extends Thread {
 
                     }
 
-                    case "History_request": {
+
+                    
+
+                    /*case "History_request": {
                         try {
                             Vector<Vector<String>> history_list = DataAccessLayer.retriveHistory(data[1]);
                             StringBuilder historyResponse = new StringBuilder("History_response");
@@ -152,30 +155,67 @@ class UserHandler extends Thread {
                             this.output.println("Error retrieving history");
                         }
                         break;
-                    }
+                    }*/
 
+                    
                     case "move": //will be handeled when the game logic is implemented
                     {
                     }
 
                     case "logout": {
-                        try {
-                            DataAccessLayer.logout(this.name);
-                            output.println("logout###success");
-                            clientsVector.remove(this);
-                            input.close();
-                            output.close();
+
+                        if (!(this.name.equals(null))) {
+                            try {
+
+                                DataAccessLayer.logout(this.name);
+                                output.println("logout###success");
+                                removeClient();
+                                input.close();
+                                output.close();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                output.println("logout###failure");
+                            } catch (IOException ex) {
+                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
                             break;
-                        } catch (SQLException ex) {
-                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                            output.println("logout###failure");
-                        } catch (IOException ex) {
-                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        break;
+
                     }
 
                     case "winner": {
+
+
+                        try {
+                            // Extract the winner's name and game ID from the message
+                            String winnerName = data[1]; // winnerName is the second part of the message
+                            int gameId = Integer.parseInt(data[2]); // gameId is the third part of the message
+
+                            // Call the DataAccessLayer to update the database
+                            DataAccessLayer.addWinner(winnerName, gameId);
+
+                            // Notify the client that the winner was recorded successfully
+                            output.println("winner###success");
+                        } catch (SQLException ex) {
+                            // Log the error and notify the client if the database update fails
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            output.println("winner###failure");
+                        }
+                        break;
+
+
+                    }
+
+                    case "GetInvitation": {
+
+                    }
+                    case "back": {
+                        input.close();
+                        output.close();
+
+
+
 
                     }
 
@@ -184,18 +224,20 @@ class UserHandler extends Thread {
                 //if (request == null) break; // Exit if client disconnects
                 //sendMessageToAll(request);
             } catch (IOException ex) {
-                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                removeClient();
+                try {
+                    input.close();
+                    output.close();
+                } catch (IOException e) {
+                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break; // Exit the loop if an error occurs
             }
+
         }
         // Cleanup after client disconnects
-        clientsVector.remove(this);
-        try {
-            input.close();
-            output.close();
-        } catch (IOException ex) {
-            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     /*void sendMessageToAll(String msg) {
@@ -205,13 +247,32 @@ class UserHandler extends Thread {
         }*/
     public void sendList() {
         Vector<String> available = new Vector<String>();
-        for (UserHandler user : clientsVector) {
-            if (!user.isPlaying && !(user.name.equals(name))) {
-                available.add(user.name + " - Score: " + score);
+        for (UserHandler client : clientsVector) {
+            if (!client.isPlaying) {
+                available.add(client.name + " - Score: " + client.score);
             }
         }
+        sendListToAll(available);
 
-        output.println("List" + "###" + available);
+    }
+
+    public void sendListToAll(Vector<String> Online) {
+        for (UserHandler client : clientsVector) {
+            Vector<String> temp = new Vector<String>(Online);
+            temp.remove(client.name + " - Score: " + client.score);
+            client.output.println("List" + "###" + temp);
+
+        }
+
+    }
+
+    public void removeClient() {
+        clientsVector.remove(this);
+
+        sendList();
+    }
+
+    public void getInvitation() {
 
     }
 }

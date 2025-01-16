@@ -1,4 +1,10 @@
-package Classes;
+package ignore;
+
+import oracle.jrockit.jfr.Recording;
+import tictactoe.ui.game.screen.OfflinePlayer;
+import tictactoe.ui.game.screen.OnlinePlayer;
+import tictactoe.ui.game.screen.Player;
+import tictactoe.ui.game.screen.X_OR_O;
 
 public class Game {
 

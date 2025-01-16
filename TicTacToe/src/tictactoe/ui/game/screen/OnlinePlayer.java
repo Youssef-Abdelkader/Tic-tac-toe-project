@@ -1,13 +1,14 @@
 
-package Classes;
+package tictactoe.ui.game.screen;
 
 /**
  *
  * @author Menna G
  */
 public class OnlinePlayer extends Player{
+ private String user_name;
 
-    String user_name;
+   // String user_name;
     int score;
 
     public String getUser_name() {
@@ -33,6 +34,7 @@ public class OnlinePlayer extends Player{
 
   
 
-   
     
 }
+    
+

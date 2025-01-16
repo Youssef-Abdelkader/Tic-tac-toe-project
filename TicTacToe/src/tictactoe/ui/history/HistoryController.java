@@ -8,6 +8,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.Vector;
 import javafx.event.ActionEvent;
+import java.util.Vector;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.home.online.HomeOnlineController;
@@ -17,7 +20,7 @@ public class HistoryController extends History {
     public HistoryController(Stage stage, Vector<Vector<String>> history) {
         super(stage);
         populateTable(history); // Populate the table
-        
+
         home.addEventHandler(ActionEvent.ACTION, (event) -> {
             HomeOnlineController cont = new HomeOnlineController(stage);
             Scene scene = new Scene(cont);
@@ -41,7 +44,7 @@ public class HistoryController extends History {
                     winners.get(i),
                     recordings.get(i)
             ));
-                                System.out.println("data added");
+            System.out.println("data added");
 
         }
 
@@ -55,3 +58,5 @@ public class HistoryController extends History {
         tableView.setItems(data);
     }
 }
+
+

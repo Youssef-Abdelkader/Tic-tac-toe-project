@@ -1,4 +1,4 @@
-package Classes;
+package ignore;
 
 class Board {
 

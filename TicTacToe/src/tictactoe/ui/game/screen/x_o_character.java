@@ -1,4 +1,4 @@
-package Classes;
+package tictactoe.ui.game.screen;
 
 /**
  *

@@ -1,4 +1,4 @@
-package Classes;
+package tictactoe.ui.game.screen;
 
 /**
  *
@@ -29,7 +29,7 @@ public abstract class Player {
 
     public void playChar(int pos){
        if(pos>0&&pos<10){
-           game.placeXO(pos, character.getCharacter());
+           game.placeXO(pos/*, character.getCharacter()*/); //from game that exoists in the same package.
        }
     }
 
@@ -46,7 +46,7 @@ public abstract class Player {
    //to delete 
     public void playOnSquare(int position, x_o_character x_o) {
         char c = x_o.getCharacter(); 
-        game.placeXO(position, c);
+        game.placeXO(position); // may result into a logical error
     }
     //
     public void assignXorO(X_OR_O xo){
@@ -54,5 +54,15 @@ public abstract class Player {
     }
     public char getPlayerCharacter(){
         return character.getCharacter();
+    }
+
+    
+
+    public String getPlayerName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void assignXorO(char c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

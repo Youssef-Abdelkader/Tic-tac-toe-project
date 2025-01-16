@@ -1,5 +1,5 @@
 
-package Classes;
+package tictactoe.ui.game.screen;
 
 class Recording {
     

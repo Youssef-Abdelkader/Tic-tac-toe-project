@@ -5,6 +5,9 @@
  */
 package server;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,9 +37,19 @@ public class Serverscene2Controller extends Serverscene2Base {
             serverscene server = new serverscene(stage);
             Scene scene = new Scene(server);
             stage.setScene(scene);
-            //System.out.println("went to scene 2 but not stopped");
-            th.stop();
+            try {
+                //System.out.println("went to scene 2 but not stopped");
+                serverscene_Controller.serverSocket.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Serverscene2Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             System.out.println("server stopped ");
+        });
+        
+        stage.setOnCloseRequest((event)->{
+            
+             serverscene_Controller.closeServer();
         });
     }
 }
