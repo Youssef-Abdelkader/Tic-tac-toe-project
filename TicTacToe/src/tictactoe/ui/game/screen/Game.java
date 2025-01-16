@@ -35,14 +35,12 @@ public class Game {
                 return new int[]{row * 3 + 1, row * 3 + 2, row * 3 + 3};
             }
         }
-
         // Check columns
         for (int col = 0; col < 3; col++) {
             if (mygrid[0][col] != 0 && mygrid[0][col] == mygrid[1][col] && mygrid[1][col] == mygrid[2][col]) {
                 return new int[]{col + 1, col + 4, col + 7};
             }
         }
-
         // Check diagonals
         if (mygrid[0][0] != 0 && mygrid[0][0] == mygrid[1][1] && mygrid[1][1] == mygrid[2][2]) {
             return new int[]{1, 5, 9};

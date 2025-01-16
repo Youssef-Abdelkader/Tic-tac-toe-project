@@ -89,7 +89,6 @@ public class GamescreenController extends game_screenBase {
             System.err.println("Invalid winning positions!");
             return;
         }
-
         double startX = getCellCenterX(winningPositions[0]);
         double startY = getCellCenterY(winningPositions[0]);
         double endX = getCellCenterX(winningPositions[2]);

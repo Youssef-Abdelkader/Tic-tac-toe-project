@@ -85,21 +85,12 @@ public class HomeOnlineController extends HomeOnline {
 
 
                             }*/
-
-                    
-
-
-       
                 }
-            }
-            
-                 
+            }     
         } );
         thread.setDaemon(true);
         thread.start();
     }
-
-
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -113,10 +104,8 @@ public class HomeOnlineController extends HomeOnline {
                 //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
                 //Scene scene = new Scene(history);
                 //stage.setScene(scene);
-
             }
         });
-
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -140,11 +129,6 @@ public class HomeOnlineController extends HomeOnline {
             th.start();
         }));
     }
-
-
-   
-
-
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
     
