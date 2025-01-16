@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -38,6 +40,7 @@ public abstract class game_screenBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
     protected final RowConstraints rowConstraints5;
+
     protected final ImageView boxOne;
     protected final ImageView boxTwo;
     protected final ImageView boxThree;
@@ -74,6 +77,7 @@ public abstract class game_screenBase extends BorderPane {
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
         rowConstraints5 = new RowConstraints();
+
         boxOne = new ImageView();
         boxTwo = new ImageView();
         boxThree = new ImageView();
@@ -165,7 +169,7 @@ public abstract class game_screenBase extends BorderPane {
         GridPane.setRowIndex(recordButton, 2);
         recordButton.setMnemonicParsing(false);
         recordButton.getStyleClass().add("record_btn");
-        recordButton.getStylesheets().add("/tictactoe/ui/game/screen/../../../styles/background.css");
+        recordButton.getStylesheets().add("/tictactoe/styles/background.css");
         recordButton.setText("Record");
         recordButton.setTranslateX(200.0);
         recordButton.setFont(new Font("Centaur", 14.0));
@@ -174,7 +178,7 @@ public abstract class game_screenBase extends BorderPane {
         GridPane.setRowIndex(forfeitButton, 2);
         forfeitButton.setMnemonicParsing(false);
         forfeitButton.getStyleClass().add("forfiet_btn");
-        forfeitButton.getStylesheets().add("/tictactoe/ui/game/screen/../../../styles/background.css");
+        forfeitButton.getStylesheets().add("/tictactoe/styles/background.css");
         forfeitButton.setText("Forfeit");
         forfeitButton.setTranslateX(120.0);
         forfeitButton.setFont(new Font("Centaur", 14.0));
@@ -208,7 +212,7 @@ public abstract class game_screenBase extends BorderPane {
         gridPane0.setPrefWidth(400.0);
         gridPane0.setStyle("-fx-opacity: .8; -fx-border-radius: 20;");
         gridPane0.getStyleClass().add("game_grid");
-        gridPane0.getStylesheets().add("/tictactoe/ui/game/screen/../../../styles/background.css");
+        gridPane0.getStylesheets().add("/tictactoe/styles/background.css");
 
         columnConstraints3.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints3.setMinWidth(10.0);
@@ -344,12 +348,14 @@ public abstract class game_screenBase extends BorderPane {
         gridPane.getChildren().add(label0);
         gridPane.getChildren().add(label1);
         gridPane.getChildren().add(label2);
+
         gridPane0.getColumnConstraints().add(columnConstraints3);
         gridPane0.getColumnConstraints().add(columnConstraints4);
         gridPane0.getColumnConstraints().add(columnConstraints5);
         gridPane0.getRowConstraints().add(rowConstraints3);
         gridPane0.getRowConstraints().add(rowConstraints4);
         gridPane0.getRowConstraints().add(rowConstraints5);
+
         gridPane0.getChildren().add(boxOne);
         gridPane0.getChildren().add(boxTwo);
         gridPane0.getChildren().add(boxThree);
@@ -360,5 +366,6 @@ public abstract class game_screenBase extends BorderPane {
         gridPane0.getChildren().add(boxEight);
         gridPane0.getChildren().add(boxNine);
 
+    
     }
 }

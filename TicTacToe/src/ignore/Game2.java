@@ -6,13 +6,13 @@ import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
 import tictactoe.ui.game.screen.X_OR_O;
 
-public class Game {
+public class Game2 {
 
     Player player1 = null;
     Player player2 = null;
 
     // Board game_board;
-    Board squares;
+    Board2 squares;
 
     Recording[] game_record = new Recording[9]; 
     boolean online;
@@ -34,20 +34,20 @@ public class Game {
         boolean placed = false;
         
         if (pos > 0 && pos < 4) {
-            Board.setCols(pos - 1);
-            Board.setRows(0);
-            Board.setGrid(Board.getRows(), Board.getCols(), c);
+            Board2.setCols(pos - 1);
+            Board2.setRows(0);
+            Board2.setGrid(Board2.getRows(), Board2.getCols(), c);
             placed = true;
 
         } else if (pos > 3 && pos < 7) {
-            Board.setCols(pos - 4);
-            Board.setRows(1);
-            Board.setGrid(Board.getRows(), Board.getCols(), c);
+            Board2.setCols(pos - 4);
+            Board2.setRows(1);
+            Board2.setGrid(Board2.getRows(), Board2.getCols(), c);
             placed = true;
         } else if (pos > 6 && pos < 10) {
-            Board.setCols(pos - 7);
-            Board.setRows(2);
-            Board.setGrid(Board.getRows(), Board.getCols(), c);
+            Board2.setCols(pos - 7);
+            Board2.setRows(2);
+            Board2.setGrid(Board2.getRows(), Board2.getCols(), c);
             placed = true;
         }
 
@@ -56,7 +56,7 @@ public class Game {
 
     public Player calculateWinner() {
         Player winner;
-        char mygrid[][] = Board.getGrid();
+        char mygrid[][] = Board2.getGrid();
         char winning_char = 0 ;
         //String gameplay;
         for (int rows = 0, cols = 0; rows < 3 && cols < 3; rows++, cols++) {

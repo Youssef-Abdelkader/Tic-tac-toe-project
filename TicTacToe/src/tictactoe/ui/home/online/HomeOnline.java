@@ -100,6 +100,7 @@ public abstract class HomeOnline extends AnchorPane {
         listView.setPrefHeight(243.0);
         listView.setPrefWidth(474.0);
         listView.getStyleClass().add("listView");
+        listView.getItems().add("item 1" + " - Score: " + "0"); //**********************************
 
         scoreLabel.setAlignment(javafx.geometry.Pos.CENTER);
         scoreLabel.setLayoutX(291.0);
