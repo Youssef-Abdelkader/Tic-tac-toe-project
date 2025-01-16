@@ -67,6 +67,8 @@ public class GamescreenController extends game_screenBase {
     }
 
     private void handleGridClick(int pos) {
+        System.out.println("posHandle:"+pos);
+        System.out.println("-----------------");
         if (game.placeXO(pos)) {
             updateGridUI(pos);
             int[] winningPositions = game.calculateWinner();
