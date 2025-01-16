@@ -163,49 +163,76 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
-    private void drawLine(int a, int b, int c) {
-        int row = 0;
-        int col = 0;
+private void drawLine(int a, int b, int c) {
+    int row = 0;
+    int col = 0;
 
-        if (b == a + 1 && c == a + 2) { //wining in a row
-            switch (a) {
-                case 1:
-                    row = 0;
-                    break;
-                case 4:
-                    row = 1;
-                    break;
-                case 7:
-                    row = 2;
-                    break;
-            }
-        } else if (b == a + 3 && c == a + 6) { //col
-            switch (a) {
-                case 1:
-                    col = 0;
-                    break;
-                case 2:
-                    col = 1;
-                    break;
-                case 3:
-                    col = 2;
-                    break;
-            }
-        } else if (a == 1 && c == 9) { //diagonal on 0,0
-            //row =
-        } else if (a == 3 && c == 7) { //diagonal on 3,0
-
+    // Check if it's a winning row
+    if (b == a + 1 && c == a + 2) { 
+        switch (a) {
+            case 1: row = 0; break;
+            case 4: row = 1; break;
+            case 7: row = 2; break;
         }
-        Line line = new Line(0, 0, 0, 0);  // Initially with both x and y endpoints set to 0
-        line.setStroke(Color.RED);
-        line.setStrokeWidth(5);
+        drawRowLine(row);
+    } 
 
-        line.endXProperty().bind(gridPane0.widthProperty().subtract(boxOne.getFitWidth()));
-
-        line.setStartY(gridPane0.getHeight() / 2);
-        line.setEndY(gridPane0.getHeight() / 2);
-
-        gridPane0.add(line, col, row);
-
+    else if (b == a + 3 && c == a + 6) { 
+        switch (a) {
+            case 1: col = 0; break;
+            case 2: col = 1; break;
+            case 3: col = 2; break;
+        }
+        drawColumnLine(col);
+    } 
+    else if (a == 1 && c == 9) {
+        drawDiagonalLine(1);  
+    } 
+    else if (a == 3 && c == 7) {
+        drawDiagonalLine(2);  
     }
+}
+
+// Method to draw a line in a row
+private void drawRowLine(int row) {
+    Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
+    line.setStroke(Color.RED);
+    line.setStrokeWidth(5);
+    
+    line.setStartY((row * (gridPane0.getHeight() / 3)) + (gridPane0.getHeight() / 6)); // Middle of row
+    line.setEndY(line.getStartY());
+    
+    gridPane0.add(line, 0, row);
+}
+
+private void drawColumnLine(int col) {
+    Line line = new Line(0, 0, 0, gridPane0.getHeight());  // Vertical line
+    line.setStroke(Color.RED);
+    line.setStrokeWidth(5);
+    
+    line.setStartX((col * (gridPane0.getWidth() / 3)) + (gridPane0.getWidth() / 6)); // Middle of column
+    line.setEndX(line.getStartX());
+    
+    gridPane0.add(line, col, 0);
+}
+
+private void drawDiagonalLine(int diagonalType) {
+    Line line = new Line(0, 0, 0, 0);
+    line.setStroke(Color.RED);
+    line.setStrokeWidth(5);
+
+    if (diagonalType == 1) {
+        line.setStartX(0);
+        line.setStartY(0);
+        line.setEndX(gridPane0.getWidth());
+        line.setEndY(gridPane0.getHeight());
+    } else if (diagonalType == 2) {
+        line.setStartX(gridPane0.getWidth());
+        line.setStartY(0);
+        line.setEndX(0);
+        line.setEndY(gridPane0.getHeight());
+    }
+
+    gridPane0.add(line, 0, 0);
+}
 }
