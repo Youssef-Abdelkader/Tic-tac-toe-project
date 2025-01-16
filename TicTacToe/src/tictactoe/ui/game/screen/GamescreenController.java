@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -82,7 +83,8 @@ public class GamescreenController extends game_screenBase {
 
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
-                drawWinningLine(/*winningPositions*/);
+                //drawWinningLine(/*winningPositions*/);
+                drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
             }
@@ -166,73 +168,65 @@ public class GamescreenController extends game_screenBase {
 private void drawLine(int a, int b, int c) {
     int row = 0;
     int col = 0;
+    double startX = 0, startY = 0, endX = 0, endY = 0;
 
-    // Check if it's a winning row
-    if (b == a + 1 && c == a + 2) { 
+    if (b == a + 1 && c == a + 2) { // Winning in a row
         switch (a) {
-            case 1: row = 0; break;
-            case 4: row = 1; break;
-            case 7: row = 2; break;
+            case 1:
+                row = 0;
+                break;
+            case 4:
+                row = 1;
+                break;
+            case 7:
+                row = 2;
+                break;
         }
-        drawRowLine(row);
-    } 
-
-    else if (b == a + 3 && c == a + 6) { 
+        startX = 0; // Start at the beginning of the row
+        startY = gridPane0.getHeight() * row / 3 + gridPane0.getHeight() / 6; // Center of the row
+        endX = gridPane0.getWidth(); // End at the far-right of the row
+        endY = startY; // Same Y-coordinate
+    } else if (b == a + 3 && c == a + 6) { // Winning in a column
         switch (a) {
-            case 1: col = 0; break;
-            case 2: col = 1; break;
-            case 3: col = 2; break;
+            case 1:
+                col = 0;
+                break;
+            case 2:
+                col = 1;
+                break;
+            case 3:
+                col = 2;
+                break;
         }
-        drawColumnLine(col);
-    } 
-    else if (a == 1 && c == 9) {
-        drawDiagonalLine(1);  
-    } 
-    else if (a == 3 && c == 7) {
-        drawDiagonalLine(2);  
-    }
-}
-
-// Method to draw a line in a row
-private void drawRowLine(int row) {
-    Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
-    line.setStroke(Color.RED);
-    line.setStrokeWidth(5);
-    
-    line.setStartY((row * (gridPane0.getHeight() / 3)) + (gridPane0.getHeight() / 6)); // Middle of row
-    line.setEndY(line.getStartY());
-    
-    gridPane0.add(line, 0, row);
-}
-
-private void drawColumnLine(int col) {
-    Line line = new Line(0, 0, 0, gridPane0.getHeight());  // Vertical line
-    line.setStroke(Color.RED);
-    line.setStrokeWidth(5);
-    
-    line.setStartX((col * (gridPane0.getWidth() / 3)) + (gridPane0.getWidth() / 6)); // Middle of column
-    line.setEndX(line.getStartX());
-    
-    gridPane0.add(line, col, 0);
-}
-
-private void drawDiagonalLine(int diagonalType) {
-    Line line = new Line(0, 0, 0, 0);
-    line.setStroke(Color.RED);
-    line.setStrokeWidth(5);
-
-    if (diagonalType == 1) {
-        line.setStartX(0);
-        line.setStartY(0);
-        line.setEndX(gridPane0.getWidth());
-        line.setEndY(gridPane0.getHeight());
-    } else if (diagonalType == 2) {
-        line.setStartX(gridPane0.getWidth());
-        line.setStartY(0);
-        line.setEndX(0);
-        line.setEndY(gridPane0.getHeight());
+        startX = gridPane0.getWidth() * col / 3 + gridPane0.getWidth() / 6; // Center of the column
+        startY = 0; // Start at the top of the column
+        endX = startX; // Same X-coordinate
+        endY = gridPane0.getHeight(); // End at the bottom of the column
+    } else if (a == 1 && c == 9) { // Diagonal from top-left to bottom-right
+        startX = 0;
+        startY = 0;
+        endX = gridPane0.getWidth();
+        endY = gridPane0.getHeight();
+    } else if (a == 3 && c == 7) { // Diagonal from top-right to bottom-left
+        startX = gridPane0.getWidth();
+        startY = 0;
+        endX = 0;
+        endY = gridPane0.getHeight();
+    } else {
+        // No valid win condition
+        return;
     }
 
-    gridPane0.add(line, 0, 0);
+    // Create the line and set its properties
+    Line line = new Line();
+    line.setStartX(startX);
+    line.setStartY(startY);
+    line.setEndX(endX);
+    line.setEndY(endY);
+    line.setStroke(Color.RED);
+    line.setStrokeWidth(5);
+
+    // Add the line to the gridPane's parent container
+    ((Pane) gridPane0.getParent()).getChildren().add(line);
 }
 }
