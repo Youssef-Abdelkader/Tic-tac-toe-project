@@ -1,5 +1,4 @@
 package tictactoe.ui.game.screen;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,12 +12,12 @@ import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 
 public class GamescreenController extends game_screenBase {
-
+            
     private Game game;
+   
     private String player1Name;
     private String player2Name;
     private Stage stage;
-    
 
     public GamescreenController(Stage stage, String name) {
         super(stage);
@@ -47,13 +46,13 @@ public class GamescreenController extends game_screenBase {
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
-            
+
             if (imageView == null) {
                 System.err.println("ImageView at index " + i + " is null!");
                 continue;
             }
             int pos = i + 1;
-            
+
             imageView.setOnMouseClicked(event -> handleGridClick(pos));
         }
 
@@ -67,7 +66,7 @@ public class GamescreenController extends game_screenBase {
     }
 
     private void handleGridClick(int pos) {
-        System.out.println("posHandle:"+pos);
+        System.out.println("posHandle:" + pos);
         System.out.println("-----------------");
         if (game.placeXO(pos)) {
             updateGridUI(pos);
