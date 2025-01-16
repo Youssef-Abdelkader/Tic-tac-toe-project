@@ -166,48 +166,31 @@ public class GamescreenController extends game_screenBase {
     }
 
 private void drawLine(int a, int b, int c) {
-    int row = 0;
-    int col = 0;
     double startX = 0, startY = 0, endX = 0, endY = 0;
 
-    if (b == a + 1 && c == a + 2) { // Winning in a row
-        switch (a) {
-            case 1:
-                row = 0;
-                break;
-            case 4:
-                row = 1;
-                break;
-            case 7:
-                row = 2;
-                break;
-        }
-        startX = 0; // Start at the beginning of the row
-        startY = gridPane0.getHeight() * row / 3 + gridPane0.getHeight() / 6; // Center of the row
-        endX = gridPane0.getWidth(); // End at the far-right of the row
-        endY = startY; // Same Y-coordinate
-    } else if (b == a + 3 && c == a + 6) { // Winning in a column
-        switch (a) {
-            case 1:
-                col = 0;
-                break;
-            case 2:
-                col = 1;
-                break;
-            case 3:
-                col = 2;
-                break;
-        }
-        startX = gridPane0.getWidth() * col / 3 + gridPane0.getWidth() / 6; // Center of the column
-        startY = 0; // Start at the top of the column
-        endX = startX; // Same X-coordinate
-        endY = gridPane0.getHeight(); // End at the bottom of the column
-    } else if (a == 1 && c == 9) { // Diagonal from top-left to bottom-right
+    // Calculate the start and end points based on the winning positions
+    if (b == a + 1 && c == a + 2) { 
+        // Winning in a row
+        int row = (a - 1) / 3;
+        startX = 0;
+        startY = (row * gridPane0.getHeight() / 3) + (gridPane0.getHeight() / 6);
+        endX = gridPane0.getWidth();
+        endY = startY;
+    } else if (b == a + 3 && c == a + 6) { 
+        // Winning in a column
+        int col = (a - 1) % 3;
+        startX = (col * gridPane0.getWidth() / 3) + (gridPane0.getWidth() / 6);
+        startY = 0;
+        endX = startX;
+        endY = gridPane0.getHeight();
+    } else if (a == 1 && c == 9) { 
+        // Diagonal from top-left to bottom-right
         startX = 0;
         startY = 0;
         endX = gridPane0.getWidth();
         endY = gridPane0.getHeight();
-    } else if (a == 3 && c == 7) { // Diagonal from top-right to bottom-left
+    } else if (a == 3 && c == 7) { 
+        // Diagonal from top-right to bottom-left
         startX = gridPane0.getWidth();
         startY = 0;
         endX = 0;
@@ -218,15 +201,10 @@ private void drawLine(int a, int b, int c) {
     }
 
     // Create the line and set its properties
-    Line line = new Line();
-    line.setStartX(startX);
-    line.setStartY(startY);
-    line.setEndX(endX);
-    line.setEndY(endY);
+    Line line = new Line(startX, startY, endX, endY);
     line.setStroke(Color.RED);
     line.setStrokeWidth(5);
 
-    // Add the line to the gridPane's parent container
-    ((Pane) gridPane0.getParent()).getChildren().add(line);
-}
-}
+    // Add the line to the gridPane0
+    gridPane0.getChildren().add(line);
+}}

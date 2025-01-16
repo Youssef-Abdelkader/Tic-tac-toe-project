@@ -19,15 +19,7 @@ class Recording {
     
     //public Recording 
     
-    //i am hurt
-    //i am struggling
-    //i am behind
-    //i need help
-    //but i don't have the courage to ask
-    //i got here to learn
-    //but i learnt that im behind
-    //now, i am starting to doubt myself more than before
-
+   
     public int getPosition() {
         return position;
     }
