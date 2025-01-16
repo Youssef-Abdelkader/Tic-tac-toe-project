@@ -56,7 +56,7 @@ class UserHandler extends Thread {
                     case "login": {
                         try {
                             Player player = login(data[1], data[2]);
-                            name=data[1];
+                            name = data[1];
                             System.out.println(player.getPassword());
                             System.out.println(data[2]);
                             if (player.getName() != null) {
@@ -66,12 +66,12 @@ class UserHandler extends Thread {
                                 } else {
                                     this.output.println("incorrect password");
                                 }
-                            }else{
+                            } else {
                                 this.output.println("this name is not exist");
                             }
                         } catch (SQLException ex) {
                             System.out.println(ex.getMessage());
-                            
+
                         }
                     }
                     break;
@@ -80,7 +80,7 @@ class UserHandler extends Thread {
                         boolean signedUp = false;
                         Player player = new Player();
                         player.setName(data[1]);
-                        name=data[1];
+                        name = data[1];
                         player.setPassword(data[2]);
                         player.setScore(0);
                         player.setStatus(1);
@@ -105,22 +105,23 @@ class UserHandler extends Thread {
 
                     case "sendRequest": {
 
-
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
                         user2.output.println(name + " wants to play against you");
 
                         break;
 
-
                         //UserHandler user = UserHandler.getUserHandler(data[1]); //sender
 //                        UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
 //                       user2.output.println(data[1] + " wants to play against you");
                         //user2.input.readLine(); (will be handeled in client page)
-
                     }
 
                     case "recieveRequest": {
+
+                        //LUKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                         
+
+                        // sending game data to database + client to initiate the game
                     }
 
                     case "history": {
@@ -131,7 +132,7 @@ class UserHandler extends Thread {
                     }
 
                     case "logout": {
-                          try {
+                        try {
                             DataAccessLayer.logout(this.name);
                             output.println("logout###success");
                             clientsVector.remove(this);
@@ -146,12 +147,9 @@ class UserHandler extends Thread {
                         }
                         break;
                     }
-                        
-                        
-                    
 
                     case "winner": {
-                        
+
                     }
 
                 }
