@@ -3,9 +3,6 @@ package tictactoe.ui.game.screen;
 
 class Recording {
     
-    //private enum Positions{
-    //one .. nine
-//}
     
     private int position;
     private X_OR_O played_char;
@@ -15,9 +12,6 @@ class Recording {
         this.position = position;
         this.played_char = played_char;
     }
-    
-    
-    //public Recording 
     
    
     public int getPosition() {
@@ -36,5 +30,13 @@ class Recording {
         this.played_char = played_char;
     }
     
+    public int[] getRowAndCol (){
+        int ar[] = new int[2];
+        int row = (position - 1) / 3;
+        int col = (position - 1) % 3;
+        ar[0] = row;
+        ar[1] = col;
+        return ar;
+    }
     
 }
