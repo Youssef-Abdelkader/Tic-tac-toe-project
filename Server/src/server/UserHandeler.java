@@ -36,7 +36,7 @@ class UserHandler extends Thread {
     public static UserHandler getUserHandler(String nameFound) {
         UserHandler userFound = null;
         for (UserHandler user : clientsVector) {
-            if (user.name == nameFound) {
+            if (user.name.equals(nameFound)) {
                 userFound = user;
             }
         }
@@ -119,7 +119,12 @@ class UserHandler extends Thread {
                     case "sendRequest": {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
-                        //user2.output.println("invitation" + "###" + name);
+                        System.out.println(user2);
+                         System.out.println(data[1]);
+                        user2.output.println("invitation" + "###" + name);
+
+                        
+
 
                         break;
 

@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public /*abstract*/ class History extends BorderPane {
+public abstract class History extends BorderPane {
 
     protected final Label label;
     protected final Button home;
