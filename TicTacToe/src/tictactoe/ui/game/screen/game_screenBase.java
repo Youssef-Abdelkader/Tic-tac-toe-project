@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 
 public abstract class game_screenBase extends BorderPane {
 
@@ -30,9 +31,9 @@ public abstract class game_screenBase extends BorderPane {
     protected final Label label;
     protected final Button recordButton;
     protected final Button forfeitButton;
-    protected final Label label0;
+    protected final Label scoreOne;
     protected final Label label1;
-    protected final Label label2;
+    protected final Label scoreTwo;
     protected final GridPane gridPane0;
     protected final ColumnConstraints columnConstraints3;
     protected final ColumnConstraints columnConstraints4;
@@ -67,9 +68,9 @@ public abstract class game_screenBase extends BorderPane {
         label = new Label();
         recordButton = new Button();
         forfeitButton = new Button();
-        label0 = new Label();
+        scoreOne = new Label();
         label1 = new Label();
-        label2 = new Label();
+        scoreTwo = new Label();
         gridPane0 = new GridPane();
         columnConstraints3 = new ColumnConstraints();
         columnConstraints4 = new ColumnConstraints();
@@ -183,12 +184,12 @@ public abstract class game_screenBase extends BorderPane {
         forfeitButton.setTranslateX(120.0);
         forfeitButton.setFont(new Font("Centaur", 14.0));
 
-        GridPane.setColumnIndex(label0, 3);
-        GridPane.setRowIndex(label0, 2);
-        label0.setText("Score  40");
-        label0.setTextFill(javafx.scene.paint.Color.WHITE);
-        label0.setTranslateY(15.0);
-        label0.setFont(new Font("Cambria Bold", 18.0));
+        GridPane.setColumnIndex(scoreOne, 3);
+        GridPane.setRowIndex(scoreOne, 2);
+        scoreOne.setText("Score  40");
+        scoreOne.setTextFill(javafx.scene.paint.Color.WHITE);
+        scoreOne.setTranslateY(15.0);
+        scoreOne.setFont(new Font("Cambria Bold", 18.0));
 
         GridPane.setColumnIndex(label1, 1);
         GridPane.setRowSpan(label1, 2);
@@ -198,13 +199,18 @@ public abstract class game_screenBase extends BorderPane {
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setFont(new Font("Comic Sans MS Bold", 34.0));
 
-        GridPane.setColumnIndex(label2, 1);
-        GridPane.setRowIndex(label2, 3);
-        label2.setText("Score  40");
-        label2.setTextFill(javafx.scene.paint.Color.WHITE);
-        label2.setFont(new Font("Cambria Bold", 18.0));
+        GridPane.setColumnIndex(scoreTwo, 1);
+        GridPane.setRowIndex(scoreTwo, 3);
+        scoreTwo.setText("Score  40");
+        scoreTwo.setTextFill(javafx.scene.paint.Color.WHITE);
+        scoreTwo.setFont(new Font("Cambria Bold", 18.0));
         BorderPane.setMargin(gridPane, new Insets(10.0));
         setTop(gridPane);
+        
+        if(TicTacToe.online ==false){
+            scoreOne.setVisible(false);
+            scoreTwo.setVisible(false);
+        }
 
         BorderPane.setAlignment(gridPane0, javafx.geometry.Pos.CENTER);
         gridPane0.setAlignment(javafx.geometry.Pos.CENTER);
@@ -345,9 +351,9 @@ public abstract class game_screenBase extends BorderPane {
         gridPane.getChildren().add(label);
         gridPane.getChildren().add(recordButton);
         gridPane.getChildren().add(forfeitButton);
-        gridPane.getChildren().add(label0);
+        gridPane.getChildren().add(scoreOne);
         gridPane.getChildren().add(label1);
-        gridPane.getChildren().add(label2);
+        gridPane.getChildren().add(scoreTwo);
 
         gridPane0.getColumnConstraints().add(columnConstraints3);
         gridPane0.getColumnConstraints().add(columnConstraints4);

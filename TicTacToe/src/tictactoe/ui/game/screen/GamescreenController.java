@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 
@@ -26,6 +27,7 @@ public class GamescreenController extends game_screenBase {
 
 
     public GamescreenController(Stage stage, String name) {
+        
         super(stage);
         this.stage = stage;
         this.player1Name = name;
