@@ -1,10 +1,14 @@
 package tictactoe.ui.game.screen;
 
+import java.io.File;
+
+
 public class Game {
 
     private Player player1;
     private Player player2;
 
+    
     public boolean isRec_flag() {
         return rec_flag;
     }
@@ -17,8 +21,8 @@ public class Game {
     private char currentPlayerSymbol;
     private Recording[] rec = new Recording[9];
     private boolean rec_flag;
-    private int counter =0;
-    
+    private int counter = 0;
+
     public Game(boolean online) {
         this.online = online;
         this.squares = new Board();
@@ -37,8 +41,6 @@ public class Game {
     /*Game() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
-
-
     public boolean placeXO(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
@@ -47,18 +49,23 @@ public class Game {
             //System.out.println("row:"+row);
             //System.out.println("col:"+col);
             //System.out.println(currentPlayerSymbol);
-            
+
             squares.setGrid(row, col, currentPlayerSymbol);
-            
-            
-            if(rec_flag){
+
+            if (rec_flag) {
                 Recording r = new Recording(pos, X_OR_O.getEnum(currentPlayerSymbol));
-                System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
+                //issue is in: each time the method is called a file is chosen
+                FileHandler.writeToFile("recording object "+r.getPosition()+r.getPlayed_char().toChar());
+                //File file = FileHandler.initializeFile();
+                //FileHandler.writeToFile(file, "recording object "+r.getPosition()+r.getPlayed_char().toChar());
+                
+//solution: create another method that initializes the file and then create a method that writes into that file
+// System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
                 rec[counter] = r;
-                counter ++;
+                counter++;
             }
             switchPlayer();
-            
+
             return true;
         }
         return false;
@@ -111,13 +118,13 @@ public class Game {
         return rec;
     }
 
-    public String recToString(){
+    public String recToString() {
         String s = null;
-        for(int i=0;i<rec.length;i++){
-           String carxo = rec[i].getPlayed_char().toString()+"###";
-           String rowcol = String.valueOf(rec[i].getPosition())+"###";
-           s = carxo + rowcol+"---";
-            System.out.println("recording "+s);
+        for (int i = 0; i < rec.length; i++) {
+            String carxo = rec[i].getPlayed_char().toString() + "###";
+            String rowcol = String.valueOf(rec[i].getPosition()) + "###";
+            s = carxo + rowcol + "---";
+            System.out.println("recording " + s);
         }
         return s;
     }
@@ -125,7 +132,5 @@ public class Game {
     /*public void setRec(Recording[] rec) {
         this.rec = rec;
     }*/
-    
-    
-    
+
 }

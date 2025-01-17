@@ -45,23 +45,22 @@ class Recording {
         return ar;
     }
 
-    public static boolean writeToFile(String s) {
+    /*    public static boolean writeToFile(String s) {
     boolean flag = false;
     try {
-        FileChooser fc = new FileChooser();
-        File file = fc.showSaveDialog(null);
-        if (file != null) {
-
-            FileOutputStream fos = new FileOutputStream(file, true); // Enable appending
-            DataOutputStream output = new DataOutputStream(fos);
-            output.writeUTF(s);
-            flag = true; // Indicate success
-        }
-    } catch (IOException ex) {
-        Logger.getLogger(Recording.class.getName()).log(Level.SEVERE, null, ex);
+    FileChooser fc = new FileChooser();
+    File file = fc.showSaveDialog(null);
+    if (file != null) {
+    
+    FileOutputStream fos = new FileOutputStream(file, true); // Enable appending
+    DataOutputStream output = new DataOutputStream(fos);
+    output.writeUTF(s);
+    flag = true;
     }
-
+    } catch (IOException ex) {
+    Logger.getLogger(Recording.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
     return flag;
-}
-
+    }*/
 }

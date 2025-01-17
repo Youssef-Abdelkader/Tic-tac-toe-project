@@ -27,19 +27,17 @@ import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.home.online.HomeOnlineController;
 
 public class GamescreenController extends game_screenBase {
-            
+
     private Game game;
-   
+
     private String player1Name;
     private String player2Name;
     private Stage stage;
 
-
     private Line winningLine;
 
-
     public GamescreenController(Stage stage, String name) {
-        
+
         super(stage);
         this.stage = stage;
         this.player1Name = name;
@@ -84,7 +82,10 @@ public class GamescreenController extends game_screenBase {
 
         //recordButton.setOnAction(event -> recordButton.setDisable(true));
         recordButton.addEventHandler(ActionEvent.ACTION, (event) -> {
+            FileHandler.initializeFile();
+
             game.setRec_flag(true);
+            //create file
             recordButton.setDisable(true);
         });
     }
@@ -144,7 +145,6 @@ public class GamescreenController extends game_screenBase {
 
         Bounds bounds1 = imageview.localToScene(imageview.getBoundsInLocal());
         Bounds bounds2 = imageview1.localToScene(imageview1.getBoundsInLocal());
-
 
         double startX = bounds1.getMinX() + bounds1.getWidth() / 2;
         double startY = bounds1.getMinY() + bounds1.getHeight() / 2;
@@ -275,34 +275,34 @@ public class GamescreenController extends game_screenBase {
         //gridPane0.add(line, col, row);
     }
 
-private void sendRecToServer(String recToString) {
-    try {
-        Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
-        System.out.println("Connected to server");
+    private void sendRecToServer(String recToString) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
+            System.out.println("Connected to server");
 
-        PrintWriter mouth = new PrintWriter(socket.getOutputStream(), true);
-        BufferedReader ear = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter mouth = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader ear = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        mouth.println("Recording###"+recToString);
+            mouth.println("Recording###" + recToString);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String message;
-                    while ((message = ear.readLine()) != null) {
-                        System.out.println("Received from server: " + message);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String message;
+                        while ((message = ear.readLine()) != null) {
+                            System.out.println("Received from server: " + message);
+                        }
+                    } catch (IOException ex) {
+                        System.out.println("Error while listening to server: " + ex.getMessage());
                     }
-                } catch (IOException ex) {
-                    System.out.println("Error while listening to server: " + ex.getMessage());
                 }
-            }
-        }).start();
+            }).start();
 
-    } catch (IOException ex) {
-        System.out.println("Error while connecting to server: " + ex.getMessage());}}
-        
-
+        } catch (IOException ex) {
+            System.out.println("Error while connecting to server: " + ex.getMessage());
+        }
+    }
 
     private void drawLine(int a, int b, int c) {
         int row = 0;
@@ -373,8 +373,8 @@ private void sendRecToServer(String recToString) {
         gridPane0.add(line, col, row);
     }
 // Method to draw a line in a row
-    
-        private void drawRowLine(int row) {
+
+    private void drawRowLine(int row) {
         Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
         line.setStroke(Color.RED);
         line.setStrokeWidth(5);
