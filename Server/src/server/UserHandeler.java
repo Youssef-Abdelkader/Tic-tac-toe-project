@@ -104,7 +104,8 @@ class UserHandler extends Thread {
                         }
 
                         if (signedUp) {
-                            this.output.println("Signed up successfully###0");
+                            
+                            this.output.println("Signed up successfully###"+0);
                         }
                     }
                     break;

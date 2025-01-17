@@ -34,7 +34,7 @@ public class Serverscene2Controller extends Serverscene2Base {
         //this.stage = stage;
         //stopServer();
         stop_server_btn.addEventHandler(ActionEvent.ACTION, (event) -> {
-            serverscene server = new serverscene(stage);
+            serverscene_Controller server = new serverscene_Controller(stage);
             Scene scene = new Scene(server);
             stage.setScene(scene);
             try {

@@ -63,7 +63,7 @@ public class LoginController extends Login {
                                     String message = Connection.ear.readLine();
                                     switch (message) {
                                         case "this name is not exist":
-                                            System.out.println(message);
+//                                            System.out.println(message);
                                              {
                                                 if (Platform.isFxApplicationThread() == false) {
                                                     Platform.runLater(() -> {
@@ -86,7 +86,7 @@ public class LoginController extends Login {
                                                     alert.showAndWait();
                                                 });
                                             }
-                                            System.out.println(message);
+//                                            System.out.println(message);
                                             isRunning = false;
                                             break;
                                         }
@@ -94,7 +94,7 @@ public class LoginController extends Login {
                                         default: {
                                             if (Platform.isFxApplicationThread() == false) {
                                                 Platform.runLater(() -> {
-                                                    System.out.println(message);
+//                                                    System.out.println(message);
                                                     HomeOnlineController home = new HomeOnlineController(stage,name,message);
                                                     Scene scene = new Scene(home);
                                                     stage.setScene(scene);

@@ -35,6 +35,7 @@ public class HomeOnlineController extends HomeOnline {
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
         
+        
          listView.setOnMouseClicked(((event) -> {
 
 

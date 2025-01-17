@@ -45,10 +45,10 @@ public class SignupController extends Signup {
                                     String message = Connection.ear.readLine();
                                     String[] data = message.split("###");
                                     if ("Duplicated name".equals(data[0])) {
-                                        System.out.println(message);
+                                        
                                         if (Platform.isFxApplicationThread() == false) {
                                             Platform.runLater(() -> {
-                                                System.out.println(message);
+                                                
                                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                                 alert.setTitle("Duplicated Name");
                                                 alert.setContentText("Please retry");
@@ -56,9 +56,10 @@ public class SignupController extends Signup {
                                                 isRunning = false;
                                             });
                                         }
-                                    } else {
+                                    } else if ("Signed up successfully".equals(data[0])){
                                         if (Platform.isFxApplicationThread() == false) {
                                             Platform.runLater(() -> {
+                                                
                                                 HomeOnlineController home = new HomeOnlineController(stage,name,data[1]);
                                                 Scene scene = new Scene(home);
                                                 stage.setScene(scene);
