@@ -17,7 +17,8 @@ import tictactoe.ui.game.looser.LOSERController;
 public class GamescreenController extends game_screenBase {
             
     private Game game;
-   
+    private String score1;
+    private String score2;
     private String player1Name;
     private String player2Name;
     private Stage stage;
@@ -40,6 +41,16 @@ public class GamescreenController extends game_screenBase {
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
+        initializeGame();
+    }
+    
+     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
+        super(stage);
+        this.stage = stage;
+        this.player1Name = name1;
+        this.player2Name = name2;
+        this.score1 = score1;
+        this.score2 = score2;
         initializeGame();
     }
 

@@ -96,7 +96,7 @@ public class DataAccessLayer {
         int recieverScore=0;
 
         PreparedStatement preparedStatementOne = connection.prepareStatement("SELECT * FROM PLAYER WHERE USER_NAME = ?",
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         preparedStatementOne.setString(1, senderName);
         ResultSet resultSet = preparedStatementOne.executeQuery();

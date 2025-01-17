@@ -21,7 +21,7 @@ public class HistoryController extends History {
     String score = "11";
     public HistoryController(Stage stage, Vector<Vector<String>> history) {
         super(stage);
-        populateTable(history); // Populate the table
+        //populateTable(history); // Populate the table
 
         home.addEventHandler(ActionEvent.ACTION, (event) -> {
             HomeOnlineController cont = new HomeOnlineController(stage,name,score);

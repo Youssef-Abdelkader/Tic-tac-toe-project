@@ -31,6 +31,8 @@ public class HomeOnlineController extends HomeOnline {
 
     Player onl_player = new OnlinePlayer();
     static Thread thread;
+    String oppName;
+    String oppScore;
 
     public HomeOnlineController(Stage stage, String userName, String userScore) {
         super(stage);
@@ -43,12 +45,12 @@ public class HomeOnlineController extends HomeOnline {
 
             System.out.println(Arrays.toString(player));
 
-            String name = player[0];
-            String score = player[1];
-            System.out.println("Name: " + name);
-            System.out.println("Score: " + score);
+            oppName = player[0];
+            oppScore = player[1];
+            System.out.println("Name: " + oppName);
+            System.out.println("Score: " + oppScore);
             Thread th = new Thread(() -> {
-                Connection.sendRequest("sendRequest" + "###" + name);
+                Connection.sendRequest("sendRequest" + "###" + oppName);
             });
             th.setDaemon(true);
             th.start();
@@ -161,13 +163,17 @@ public class HomeOnlineController extends HomeOnline {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Challenge Accepted");
                                     alert.setContentText("Challenge has been accepted");
+                                    alert.initOwner(stage);
                                     alert.showAndWait();
+                                    System.out.println(rec[3] + rec[1] + rec[2] + rec[4]);
+                                    System.out.println("------------------------------");
+                                    game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4]);
+
+                                    Scene scene = new Scene(game);
+                                    stage.setScene(scene);
                                 });
+
                             }
-                            
-                             game_screenBase game = new GamescreenController(stage,name, player2_textfield.getText());
-                             Scene scene = new Scene(game);
-                            stage.setScene(scene);
 
                             break;
 
@@ -205,6 +211,11 @@ public class HomeOnlineController extends HomeOnline {
                                         if (result.get() == acceptButton) {
                                             System.out.println("You accepted!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
+                                            game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
+                                            System.out.println(playerLabel.getText() + oppName + scoreLabel.getText() + oppScore);
+                                            Scene scene = new Scene(game);
+                                            stage.setScene(scene);
+
                                         } else if (result.get() == declineButton) {
                                             System.out.println("You declined!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
@@ -261,8 +272,9 @@ public class HomeOnlineController extends HomeOnline {
 
         //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
-        if (Connection.setConnection()) {
-            Connection.sendRequest("History_request###" + onl_player.getUser_name());
+
+        Connection.sendRequest("History_request###" + onl_player.getUser_name());
+        Thread th = new Thread(() -> {
             String response = Connection.recieveRequest();
             if (response != null && response.startsWith("History_response")) {
                 String[] historyEntries = response.split("###");
@@ -311,7 +323,9 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(winners);
                 history.add(recordings);
             }
-        }
+        });
+        
+        th.start();
         return history;
 
     }

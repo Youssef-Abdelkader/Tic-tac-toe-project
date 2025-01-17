@@ -62,6 +62,7 @@ class UserHandler extends Thread {
                             System.out.println(data[2]);
                             if (player.getName() != null) {
                                 if (player.getPassword().equals(data[2])) {
+                                    score=player.getScore();
                                     this.output.println(player.getScore());
                                     DataAccessLayer.updateStatus(data[1], 1);
                                     try {
@@ -121,7 +122,7 @@ class UserHandler extends Thread {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
                         System.out.println(user2);
-                        user2.output.println("invitation" + "###" + name);
+                        user2.output.println("invitation" + "###" + name + "###" + score);
 
                         
 
@@ -233,7 +234,7 @@ class UserHandler extends Thread {
 
                     }
                     
-                     ΄//Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
+                     //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
                     case "GetInvitation": {
                         getInvitation();
@@ -276,6 +277,7 @@ class UserHandler extends Thread {
         }*/
     public void sendList() {
         Vector<String> available = new Vector<String>();
+        System.out.println(clientsVector.size());
         for (UserHandler client : clientsVector) {
             if (!client.isPlaying) {
                 available.add(client.name + " - Score: " + client.score);
@@ -312,7 +314,7 @@ class UserHandler extends Thread {
 
     }
     
-    ΄//Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1])
+    //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1])
 
     public void getInvitation() {
         
@@ -321,8 +323,14 @@ class UserHandler extends Thread {
             this.isPlaying=true;
             UserHandler opp = getUserHandler(data[2]);
             opp.isPlaying=true;
+            this.oppoName = data[2];
+            opp.oppoName=this.name;
+            
             try {
                 opp.output.println("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
+                System.out.println(this.name + this.oppoName);
+                System.out.println("-----------------");
+                System.out.println(DataAccessLayer.acceptRequest(this.name, this.oppoName));
             } catch (SQLException ex) {
                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
