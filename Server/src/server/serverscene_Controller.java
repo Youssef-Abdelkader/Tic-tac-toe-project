@@ -12,13 +12,8 @@ import javafx.stage.Stage;
 
 public class serverscene_Controller extends serverscene {
 
-
-
     static Thread th;
     static ServerSocket serverSocket;
-
-    
-
 
     public serverscene_Controller(Stage stage) {
         super(stage);

@@ -27,9 +27,9 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 public class HomeOnlineController extends HomeOnline {
 
-    OnlinePlayer onl_player = new OnlinePlayer();
     static Thread thread;
-
+    public static OnlinePlayer onl_player;
+    
     public HomeOnlineController(Stage stage, String userName, String userScore/*,OnlinePlayer on_pla*/) {
         super(stage);
         playerLabel.setText(userName);
@@ -50,12 +50,12 @@ public class HomeOnlineController extends HomeOnline {
             });
             th.setDaemon(true);
             th.start();
-
+//clear list view when history
         }));
 
         Connection.sendRequest("sendList");
 
-        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
+        Thread thread2 = new Thread(() -> { 
             String recieve = Connection.recieveRequest();
 
             System.out.println(recieve + "\n"); //NOT PRINTED*******************
@@ -165,6 +165,9 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
+                
+                // Assuming listView is your ListView instance
+                listView.getItems().clear();
 
                 HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer())); //initializes a new online player
                 Scene scene = new Scene(history);
@@ -251,10 +254,10 @@ public class HomeOnlineController extends HomeOnline {
 
     }
 
-    public void SetPlayer(OnlinePlayer player){
+    public static void SetPlayer(OnlinePlayer player){
         onl_player = player;
     }
-    public OnlinePlayer GetPlayer(){
+    public static OnlinePlayer GetPlayer(){
         return onl_player;
     }
             

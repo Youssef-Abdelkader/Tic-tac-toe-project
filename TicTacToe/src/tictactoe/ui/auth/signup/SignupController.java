@@ -33,7 +33,7 @@ public class SignupController extends Signup {
 
                     player.setUser_name(name);
                     player.setPassword(password);
-                    
+                    HomeOnlineController.SetPlayer(player);
                     //organize the message that will be sent to server
                     String message = "signup###" + name + "###" + password;
 
