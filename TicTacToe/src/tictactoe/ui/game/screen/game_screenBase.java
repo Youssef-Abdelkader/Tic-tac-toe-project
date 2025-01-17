@@ -161,7 +161,7 @@ public abstract class game_screenBase extends BorderPane {
         label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label.setLayoutX(160.0);
         label.setLayoutY(17.0);
-        label.setText("Menna");
+        label.setText("Pc");
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font("Comic Sans MS Bold", 34.0));
 

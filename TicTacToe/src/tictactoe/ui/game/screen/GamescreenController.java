@@ -1,5 +1,4 @@
 package tictactoe.ui.game.screen;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -15,12 +14,16 @@ import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 
 public class GamescreenController extends game_screenBase {
-
+            
     private Game game;
+   
     private String player1Name;
     private String player2Name;
     private Stage stage;
+
+
     private Line winningLine;
+
 
     public GamescreenController(Stage stage, String name) {
         super(stage);
@@ -111,16 +114,22 @@ public class GamescreenController extends game_screenBase {
 
             return;
         }
+
+        double startX = getCellCenterX(winningPositions[0]);
+        double startY = getCellCenterY(winningPositions[0]);
+        double endX = getCellCenterX(winningPositions[2]);
+        double endY = getCellCenterY(winningPositions[2]);
         ImageView imageview = getImageView(winningPositions[0]);
         ImageView imageview1 = getImageView(winningPositions[2]);
 
         Bounds bounds1 = imageview.localToScene(imageview.getBoundsInLocal());
         Bounds bounds2 = imageview1.localToScene(imageview1.getBoundsInLocal());
 
-        double startX = bounds1.getMinX() + bounds1.getWidth() / 2;
-        double startY = bounds1.getMinY() + bounds1.getHeight() / 2;
-        double endX = bounds2.getMinX() + bounds2.getWidth() / 2;
-        double endY = bounds2.getMinY() + bounds2.getHeight() / 2;
+
+        //double startX = bounds1.getMinX() + bounds1.getWidth() / 2;
+        //double startY = bounds1.getMinY() + bounds1.getHeight() / 2;
+        //double endX = bounds2.getMinX() + bounds2.getWidth() / 2;
+        //double endY = bounds2.getMinY() + bounds2.getHeight() / 2;
 
         winningLine = new Line(startX, startY, endX, endY);
 
@@ -186,6 +195,8 @@ public class GamescreenController extends game_screenBase {
             imageView.setImage(null);
         }
     }
+
+
 
     private void drawLine(int a, int b, int c) {
         int row = 0;
@@ -267,4 +278,5 @@ public class GamescreenController extends game_screenBase {
 
         gridPane0.add(line, 0, 0);
     }
+
 }

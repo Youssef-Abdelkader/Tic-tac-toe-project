@@ -117,13 +117,13 @@ public class HomeOnlineController extends HomeOnline {
 
                             }*/
 
-                    }
                 }
+            }     
+        } );
+        thread.setDaemon(true);
+        thread.start();
+    }
 
-            });
-            thread.setDaemon(true);
-            thread.start();
-        }
 
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -140,7 +140,6 @@ public class HomeOnlineController extends HomeOnline {
                 //stage.setScene(scene);
             }
         });
-
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
