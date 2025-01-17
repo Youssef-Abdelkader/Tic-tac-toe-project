@@ -1,5 +1,9 @@
 package server;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,18 +17,23 @@ import javafx.stage.Stage;
 public class Serverscene2Base extends AnchorPane {
 
     Button stop_server_btn = new Button("Stop");
+    public static PieChart pieChart;
+    public static ObservableList<PieChart.Data> pieData;
 
     public Serverscene2Base(Stage stage) {
 
         setStyle("-fx-background-color: #Bb8141;"); // Background color
 
         // Create PieChart
-        PieChart pieChart = new PieChart();
-        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
-                new PieChart.Data("Online people", 40),
-                new PieChart.Data("Offline people", 35),
-                new PieChart.Data("Available for play", 25)
-        );
+        pieChart = new PieChart();
+        try {
+            pieData = FXCollections.observableArrayList(
+                    new PieChart.Data("Online people", DataAccessLayer.getOnlineMemberCount()),
+                    new PieChart.Data("Offline people", DataAccessLayer.getOfflineMemberCount())
+            );
+        } catch (SQLException ex) {
+            Logger.getLogger(Serverscene2Base.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         pieChart.setData(pieData);
         pieChart.setTitle("Friends Status");
@@ -72,6 +81,22 @@ public class Serverscene2Base extends AnchorPane {
 
         pieChart.setLayoutX(centerX);
         pieChart.setLayoutY(centerY);
+    }
+
+    public static void updatePiechart(int onLine, int offLine) {
+        new Thread(() -> {
+
+            Platform.runLater(() -> {
+                pieData.get(0).setPieValue(onLine);
+                pieData.get(1).setPieValue(offLine);
+                
+
+                
+
+            });
+
+        }).start();
+
     }
 
 }

@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public /*abstract*/ class History extends BorderPane {
+public abstract class History extends BorderPane {
 
     protected final Label label;
     protected final Button home;
@@ -38,18 +38,20 @@ public /*abstract*/ class History extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
-        getStyleClass().add("coverBackground");
-        getStylesheets().add("/tictactoe/ui/history/styles/homeonline.css");
+        getStyleClass().add("anchor-pane");
+        getStylesheets().add("/tictactoe/styles/history.css");
 
         BorderPane.setAlignment(label, javafx.geometry.Pos.CENTER);
         label.setText("History");
         label.setTextFill(javafx.scene.paint.Color.valueOf("#1e9413"));
         BorderPane.setMargin(label, new Insets(0.0, 0.0, 20.0, 0.0));
         label.setFont(new Font("Berlin Sans FB Demi Bold", 36.0));
+        label.getStyleClass().add("labelAnchorPane");
         setTop(label);
 
         BorderPane.setAlignment(home, javafx.geometry.Pos.CENTER);
         home.setMnemonicParsing(false);
+        home.getStyleClass().add("home");
         home.setText("Home");
         BorderPane.setMargin(home, new Insets(10.0, 0.0, 0.0, 0.0));
         home.setFont(new Font("Centaur", 16.0));
@@ -61,6 +63,7 @@ public /*abstract*/ class History extends BorderPane {
         tableView.setMaxHeight(Double.MAX_VALUE);
         tableView.setMaxWidth(Double.MAX_VALUE);
         tableView.setPrefHeight(263.0);
+        tableView.getStyleClass().add("tableview");
         tableView.setPrefWidth(557.0);
 
         GameId_col.setPrefWidth(75.0);

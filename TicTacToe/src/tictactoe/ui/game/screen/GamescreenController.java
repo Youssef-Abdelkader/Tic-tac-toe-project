@@ -9,6 +9,9 @@ import java.net.Socket;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,18 +21,25 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.home.online.HomeOnlineController;
 
 public class GamescreenController extends game_screenBase {
-
+            
     private Game game;
+   
     private String player1Name;
     private String player2Name;
     private Stage stage;
 
+
+    private Line winningLine;
+
+
     public GamescreenController(Stage stage, String name) {
+        
         super(stage);
         this.stage = stage;
         this.player1Name = name;
@@ -121,29 +131,56 @@ public class GamescreenController extends game_screenBase {
         int[] winningPositions = game.calculateWinner();
         if (winningPositions == null || winningPositions.length != 3) {
             System.err.println("Invalid winning positions!");
+
             return;
         }
 
-        double startX = getCellCenterX(winningPositions[0]);
-        double startY = getCellCenterY(winningPositions[0]);
-        double endX = getCellCenterX(winningPositions[2]);
-        double endY = getCellCenterY(winningPositions[2]);
+//        double startX = getCellCenterX(winningPositions[0]);
+//        double startY = getCellCenterY(winningPositions[0]);
+//        double endX = getCellCenterX(winningPositions[2]);
+//        double endY = getCellCenterY(winningPositions[2]);
+        ImageView imageview = getImageView(winningPositions[0]);
+        ImageView imageview1 = getImageView(winningPositions[2]);
 
-        Line line = new Line(startX, startY, endX, endY);
-        line.setStroke(Color.RED);
-        line.setStrokeWidth(5);
-        gridPane0.getChildren().add(line);
-        ////
-        Line line1 = new Line(0, 0, 0, 0);
-        line.setStroke(Color.BLUE);
-        line.setStrokeWidth(5);
+        Bounds bounds1 = imageview.localToScene(imageview.getBoundsInLocal());
+        Bounds bounds2 = imageview1.localToScene(imageview1.getBoundsInLocal());
 
-        line.endXProperty().bind(gridPane0.widthProperty().subtract(boxOne.getFitWidth() / 2));
 
-        line.setStartY(gridPane0.getHeight() / 2);
-        line.setEndY(gridPane0.getHeight() / 2);
+        double startX = bounds1.getMinX() + bounds1.getWidth() / 2;
+        double startY = bounds1.getMinY() + bounds1.getHeight() / 2;
+        double endX = bounds2.getMinX() + bounds2.getWidth() / 2;
+        double endY = bounds2.getMinY() + bounds2.getHeight() / 2;
 
-        gridPane0.add(line1, 0, 1); //col //row
+        winningLine = new Line(startX, startY, endX, endY);
+
+        winningLine.setStroke(Color.RED);
+        winningLine.setStrokeWidth(5);
+
+        this.getChildren().add(winningLine);
+
+    }
+
+    private ImageView getImageView(int x) {
+        if (x == 1) {
+            return boxOne;
+        } else if (x == 2) {
+            return boxTwo;
+        } else if (x == 3) {
+            return boxThree;
+        } else if (x == 4) {
+            return boxFour;
+        } else if (x == 5) {
+            return boxFive;
+        } else if (x == 6) {
+            return boxSix;
+        } else if (x == 7) {
+            return boxSeven;
+        } else if (x == 8) {
+            return boxEight;
+        } else if (x == 9) {
+            return boxNine;
+        }
+        return null;
     }
 
     private double getCellCenterX(int pos) {
@@ -179,7 +216,8 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
-    private void drawLine(int a, int b, int c) {
+//<<<<<<< HEAD
+    private void drawLine1(int a, int b, int c) {
         double startX = 0, startY = 0, endX = 0, endY = 0;
         ImageView img_st = null;
         ImageView img_end = null;
@@ -262,10 +300,49 @@ private void sendRecToServer(String recToString) {
         }).start();
 
     } catch (IOException ex) {
-        System.out.println("Error while connecting to server: " + ex.getMessage());
-    }
-}
+        System.out.println("Error while connecting to server: " + ex.getMessage());}}
+        
 
+
+    private void drawLine(int a, int b, int c) {
+        int row = 0;
+        int col = 0;
+
+        // Check if it's a winning row
+        if (b == a + 1 && c == a + 2) {
+            switch (a) {
+                case 1:
+                    row = 0;
+                    break;
+                case 4:
+                    row = 1;
+                    break;
+                case 7:
+                    row = 2;
+                    break;
+            }
+            drawRowLine(row);
+        } else if (b == a + 3 && c == a + 6) {
+            switch (a) {
+                case 1:
+                    col = 0;
+                    break;
+                case 2:
+                    col = 1;
+                    break;
+                case 3:
+                    col = 2;
+                    break;
+            }
+            drawColumnLine(col);
+        } else if (a == 1 && c == 9) {
+            drawDiagonalLine(1);
+        } else if (a == 3 && c == 7) {
+            drawDiagonalLine(2);
+        }
+    }
+
+//<<<<<<< HEAD
     private void drawHorizontalLine(int row, int col) {
         Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
         line.setStroke(Color.BLUEVIOLET);
@@ -294,6 +371,49 @@ private void sendRecToServer(String recToString) {
 
         // Add the line to the grid
         gridPane0.add(line, col, row);
+    }
+// Method to draw a line in a row
+    
+        private void drawRowLine(int row) {
+        Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
+        line.setStroke(Color.RED);
+        line.setStrokeWidth(5);
+
+        line.setStartY((row * (gridPane0.getHeight() / 3)) + (gridPane0.getHeight() / 6)); // Middle of row
+        line.setEndY(line.getStartY());
+
+        gridPane0.add(line, 0, row);
+    }
+
+    private void drawColumnLine(int col) {
+        Line line = new Line(0, 0, 0, gridPane0.getHeight());  // Vertical line
+        line.setStroke(Color.RED);
+        line.setStrokeWidth(5);
+
+        line.setStartX((col * (gridPane0.getWidth() / 3)) + (gridPane0.getWidth() / 6)); // Middle of column
+        line.setEndX(line.getStartX());
+
+        gridPane0.add(line, col, 0);
+    }
+
+    private void drawDiagonalLine(int diagonalType) {
+        Line line = new Line(0, 0, 0, 0);
+        line.setStroke(Color.RED);
+        line.setStrokeWidth(5);
+
+        if (diagonalType == 1) {
+            line.setStartX(0);
+            line.setStartY(0);
+            line.setEndX(gridPane0.getWidth());
+            line.setEndY(gridPane0.getHeight());
+        } else if (diagonalType == 2) {
+            line.setStartX(gridPane0.getWidth());
+            line.setStartY(0);
+            line.setEndX(0);
+            line.setEndY(gridPane0.getHeight());
+        }
+
+        gridPane0.add(line, 0, 0);
     }
 
 }

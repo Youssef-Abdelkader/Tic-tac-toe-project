@@ -7,6 +7,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
+import tictactoe.ui.game.screen.Game_Screen_Controller_pc;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.game.screen.game_screenBase;
@@ -23,6 +24,7 @@ public class LOSERController extends LOSERBase {
     public LOSERController(Stage stage, String name) {
         super();
 
+        String score = "11";
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -31,10 +33,12 @@ public class LOSERController extends LOSERBase {
         btnPA.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                game_screenBase game = new GamescreenController(stage, name);
-                Scene scene = new Scene(game);
-                stage.setScene(scene);
-                mediaPlayer.pause();
+              
+                    game_screenBase game = new Game_Screen_Controller_pc(stage, name);
+                    Scene scene = new Scene(game);
+                    stage.setScene(scene);
+                    mediaPlayer.pause();
+                
             }
         });
 
@@ -43,16 +47,12 @@ public class LOSERController extends LOSERBase {
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
 
-                    HomeScreen_offline home = new  HomeScreen_offline_Controller(stage);
-
-
-                    
-
+                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
 
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
-                } else { 
-                    HomeOnline home = new HomeOnlineController(stage);
+                } else {
+                    HomeOnlineController home = new HomeOnlineController(stage,name,score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }
@@ -65,6 +65,7 @@ public class LOSERController extends LOSERBase {
     public LOSERController(Stage stage, String name1, String name2) {
         super();
 
+        String score = "11";
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -86,13 +87,11 @@ public class LOSERController extends LOSERBase {
                 if (TicTacToe.online == false) {
                     HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
-                   // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
-
-
+                    // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnline home = new HomeOnlineController(stage);
+                    HomeOnlineController home = new HomeOnlineController(stage,name1,score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }

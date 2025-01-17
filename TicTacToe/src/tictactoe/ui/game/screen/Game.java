@@ -34,6 +34,10 @@ public class Game {
     }
 
 
+    /*Game() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
 
     public boolean placeXO(int pos) {
         int row = (pos - 1) / 3;
@@ -55,14 +59,6 @@ public class Game {
             }
             switchPlayer();
             
-            for(int i = 0; i<squares.getGrid().length;i++){
-                for(int j = 0; j<squares.getGrid().length;j++){
-                    System.out.println("rowGrid:"+i);
-                    System.out.println("colGrid:"+j);
-                    System.out.println(squares.getGrid()[i][j]);
-                    System.out.println("---------------------------");
-                }
-            }
             return true;
         }
         return false;

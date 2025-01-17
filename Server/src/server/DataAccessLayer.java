@@ -20,6 +20,7 @@ public class DataAccessLayer {
     public static int gameId = 1;
 
     private String url = "jdbc:derby://localhost:1527/x-o"; //url change /x-o to the db name
+
     
     static {
         try {
@@ -173,7 +174,43 @@ public class DataAccessLayer {
 
         preparedStatement.setInt(1, status);
         preparedStatement.setString(2, name);
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
+    
+    public static int getOnlineMemberCount() throws SQLException {
+    String query = "SELECT COUNT(*) AS onlineCount FROM PLAYER WHERE USER_STATUS = 1";
+    PreparedStatement preparedStatement = connection.prepareStatement(query,
+            ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    
+    ResultSet resultSet = preparedStatement.executeQuery();
+    
+    int onlineCount = 0;
+    if (resultSet.next()) {
+        onlineCount = resultSet.getInt("onlineCount");
+    }
+    
+    resultSet.close();
+    preparedStatement.close();
+    
+    return onlineCount;
+}
+    public static int getOfflineMemberCount() throws SQLException {
+    String query = "SELECT COUNT(*) AS offlineCount FROM PLAYER WHERE USER_STATUS = 0";
+    PreparedStatement preparedStatement = connection.prepareStatement(query,
+            ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    
+    ResultSet resultSet = preparedStatement.executeQuery();
+    
+    int offlineCount = 0;
+    if (resultSet.next()) {
+        offlineCount = resultSet.getInt("offlineCount");
+    }
+    
+    // Clean up resources
+    resultSet.close();
+    preparedStatement.close();
+    
+    return offlineCount;
+}
 
 }

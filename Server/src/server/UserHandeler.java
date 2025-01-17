@@ -25,7 +25,7 @@ class UserHandler extends Thread {
         try {
             input = new DataInputStream(socket.getInputStream());
             output = new PrintStream(socket.getOutputStream());
-            clientsVector.add(this);
+            addClient();
             //System.out.println(input.readLine());
             start(); // Start the thread for this user
         } catch (IOException ex) {
@@ -36,7 +36,7 @@ class UserHandler extends Thread {
     public static UserHandler getUserHandler(String nameFound) {
         UserHandler userFound = null;
         for (UserHandler user : clientsVector) {
-            if (user.name == nameFound) {
+            if (user.name.equals(nameFound)) {
                 userFound = user;
             }
         }
@@ -63,6 +63,12 @@ class UserHandler extends Thread {
                                 if (player.getPassword().equals(data[2])) {
                                     this.output.println(player.getScore());
                                     DataAccessLayer.updateStatus(data[1], 1);
+                                    try {
+                                        Serverscene2Base.updatePiechart(DataAccessLayer.getOnlineMemberCount(), DataAccessLayer.getOfflineMemberCount());
+
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 } else {
                                     this.output.println("incorrect password");
                                 }
@@ -87,12 +93,19 @@ class UserHandler extends Thread {
 
                         try {
                             signedUp = DataAccessLayer.signUp(player);
+                            try {
+                                Serverscene2Base.updatePiechart(DataAccessLayer.getOnlineMemberCount(), DataAccessLayer.getOfflineMemberCount());
+
+                            } catch (SQLException ex) {
+                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         } catch (SQLException ex) {
-                            this.output.println("Duplicated name");
+                            this.output.println("Duplicated name###");
                         }
 
                         if (signedUp) {
-                            this.output.println("Signed up successfully");
+                            
+                            this.output.println("Signed up successfully###"+0);
                         }
                     }
                     break;
@@ -106,7 +119,12 @@ class UserHandler extends Thread {
                     case "sendRequest": {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
+                        System.out.println(user2);
+                         System.out.println(data[1]);
                         user2.output.println("invitation" + "###" + name);
+
+                        
+
 
                         break;
 
@@ -118,10 +136,9 @@ class UserHandler extends Thread {
 
                     case "recieveRequest": {
 
+                        //LUKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        // sending game data to database + client to initiate the game
                     }
-
-
-                    
 
                     case "History_request": {
                         try {
@@ -156,7 +173,6 @@ class UserHandler extends Thread {
                         }
                         break;
                     }
-
                     
                     case "move": //will be handeled when the game logic is implemented
                     {
@@ -164,28 +180,39 @@ class UserHandler extends Thread {
 
                     case "logout": {
 
-                        if (!(this.name.equals(null))) {
-                            try {
+                        try {
+                            DataAccessLayer.logout(this.name);
+                            output.println("logout###success");
+                            clientsVector.remove(this);
+                            input.close();
+                            output.close();
 
-                                DataAccessLayer.logout(this.name);
-                                output.println("logout###success");
-                                removeClient();
-                                input.close();
-                                output.close();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                                output.println("logout###failure");
-                            } catch (IOException ex) {
-                                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                            if (!(this.name.equals(null))) {
+                                try {
+
+                                    DataAccessLayer.logout(this.name);
+                                    output.println("logout###success");
+                                    removeClient();
+                                    input.close();
+                                    output.close();
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                    output.println("logout###failure");
+                                } catch (IOException ex) {
+                                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                break;
                             }
 
-                            break;
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
-
                     }
 
                     case "winner": {
-
 
                         try {
                             // Extract the winner's name and game ID from the message
@@ -204,7 +231,6 @@ class UserHandler extends Thread {
                         }
                         break;
 
-
                     }
 
                     case "GetInvitation": {
@@ -213,9 +239,6 @@ class UserHandler extends Thread {
                     case "back": {
                         input.close();
                         output.close();
-
-
-
 
                     }
 
@@ -270,9 +293,21 @@ class UserHandler extends Thread {
         clientsVector.remove(this);
 
         sendList();
+
+        try {
+            Serverscene2Base.updatePiechart(DataAccessLayer.getOnlineMemberCount(), DataAccessLayer.getOfflineMemberCount());
+        } catch (SQLException ex) {
+            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addClient() {
+        clientsVector.add(this);
+
     }
 
     public void getInvitation() {
 
     }
+
 }

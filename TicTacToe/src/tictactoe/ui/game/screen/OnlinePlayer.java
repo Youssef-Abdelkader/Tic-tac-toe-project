@@ -10,6 +10,15 @@ public class OnlinePlayer extends Player{
 
    // String user_name;
     int score;
+    String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUser_name() {
         return user_name;

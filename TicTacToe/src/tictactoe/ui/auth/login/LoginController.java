@@ -8,7 +8,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.auth.signup.SignupController;
+import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 
@@ -16,6 +18,8 @@ public class LoginController extends Login {
 
     private Thread thread;
 
+    OnlinePlayer player = new OnlinePlayer();
+    
     public LoginController(Stage stage) {
         super(stage);
 
@@ -45,7 +49,9 @@ public class LoginController extends Login {
                     //get username and password from 
                     String name = nameText.getText();
                     String password = passwordText.getText();
-
+                    
+                    player.setUser_name(name);
+                    player.setPassword(password);
                     //organize the message that will be sent to server
                     String message = "login###" + name + "###" + password;
 
@@ -62,7 +68,7 @@ public class LoginController extends Login {
                                     String message = Connection.ear.readLine();
                                     switch (message) {
                                         case "this name is not exist":
-                                            System.out.println(message);
+//                                            System.out.println(message);
                                              {
                                                 if (Platform.isFxApplicationThread() == false) {
                                                     Platform.runLater(() -> {
@@ -85,7 +91,7 @@ public class LoginController extends Login {
                                                     alert.showAndWait();
                                                 });
                                             }
-                                            System.out.println(message);
+//                                            System.out.println(message);
                                             isRunning = false;
                                             break;
                                         }
@@ -93,8 +99,9 @@ public class LoginController extends Login {
                                         default: {
                                             if (Platform.isFxApplicationThread() == false) {
                                                 Platform.runLater(() -> {
-                                                    System.out.println(message);
-                                                    HomeOnlineController home = new HomeOnlineController(stage);
+//                                                    System.out.println(message);
+                                                    HomeOnlineController home = new HomeOnlineController(stage,name,message);
+                                                    home.SetPlayer(player);
                                                     Scene scene = new Scene(home);
                                                     stage.setScene(scene);
                                                 });
@@ -118,6 +125,7 @@ public class LoginController extends Login {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                TicTacToe.online = false;
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);
