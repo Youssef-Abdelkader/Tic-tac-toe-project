@@ -12,9 +12,11 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 import javafx.scene.control.Alert;
 import tictactoe.TicTacToe;
+import tictactoe.ui.game.screen.OnlinePlayer;
 
 public class SignupController extends Signup {
 
+    OnlinePlayer player;
     public SignupController(Stage stage) {
         super(stage);
 
@@ -29,6 +31,9 @@ public class SignupController extends Signup {
                     String name = nameText.getText();
                     String password = passwordText.getText();
 
+                    player.setUser_name(name);
+                    player.setPassword(password);
+                    HomeOnlineController.SetPlayer(player);
                     //organize the message that will be sent to server
                     String message = "signup###" + name + "###" + password;
 
@@ -59,8 +64,10 @@ public class SignupController extends Signup {
                                     } else if ("Signed up successfully".equals(data[0])){
                                         if (Platform.isFxApplicationThread() == false) {
                                             Platform.runLater(() -> {
+                                                //instead create a method in homeOnline controller
                                                 
-                                                HomeOnlineController home = new HomeOnlineController(stage,name,data[1]);
+                                                HomeOnlineController home = new HomeOnlineController(stage,name,data[1]/*,player*/);
+                                                home.SetPlayer(player);
                                                 Scene scene = new Scene(home);
                                                 stage.setScene(scene);
                                                 isRunning = false;

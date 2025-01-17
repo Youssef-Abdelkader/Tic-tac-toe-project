@@ -1,12 +1,16 @@
-
 package tictactoe.ui.game.screen;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
+
 class Recording {
-    
-    //private enum Positions{
-    //one .. nine
-//}
-    
+
     private int position;
     private X_OR_O played_char;
     //private char = played_char.
@@ -15,18 +19,6 @@ class Recording {
         this.position = position;
         this.played_char = played_char;
     }
-    
-    
-    //public Recording 
-    
-    //i am hurt
-    //i am struggling
-    //i am behind
-    //i need help
-    //but i don't have the courage to ask
-    //i got here to learn
-    //but i learnt that im behind
-    //now, i am starting to doubt myself more than before
 
     public int getPosition() {
         return position;
@@ -43,6 +35,32 @@ class Recording {
     public void setPlayed_char(X_OR_O played_char) {
         this.played_char = played_char;
     }
+
+    public int[] getRowAndCol() {
+        int ar[] = new int[2];
+        int row = (position - 1) / 3;
+        int col = (position - 1) % 3;
+        ar[0] = row;
+        ar[1] = col;
+        return ar;
+    }
+
+    /*    public static boolean writeToFile(String s) {
+    boolean flag = false;
+    try {
+    FileChooser fc = new FileChooser();
+    File file = fc.showSaveDialog(null);
+    if (file != null) {
     
+    FileOutputStream fos = new FileOutputStream(file, true); // Enable appending
+    DataOutputStream output = new DataOutputStream(fos);
+    output.writeUTF(s);
+    flag = true;
+    }
+    } catch (IOException ex) {
+    Logger.getLogger(Recording.class.getName()).log(Level.SEVERE, null, ex);
+    }
     
+    return flag;
+    }*/
 }

@@ -19,7 +19,8 @@ public class DataAccessLayer {
     public static Connection connection;
     public static int gameId = 1;
 
-    private String url = "jdbc:derby://localhost:1527/Game"; //url
+    private String url = "jdbc:derby://localhost:1527/Game"; //url change /x-o to the db name
+
     
     static {
         try {

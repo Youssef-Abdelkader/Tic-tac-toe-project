@@ -29,12 +29,17 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 public class HomeOnlineController extends HomeOnline {
 
-    Player onl_player = new OnlinePlayer();
     static Thread thread;
+
     String oppName;
     String oppScore;
+    public static OnlinePlayer onl_player;
 
     public HomeOnlineController(Stage stage, String userName, String userScore) {
+
+    
+    
+ 
         super(stage);
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
@@ -45,94 +50,29 @@ public class HomeOnlineController extends HomeOnline {
 
             System.out.println(Arrays.toString(player));
 
+
             oppName = player[0];
             oppScore = player[1];
             System.out.println("Name: " + oppName);
             System.out.println("Score: " + oppScore);
+
+           
             Thread th = new Thread(() -> {
                 Connection.sendRequest("sendRequest" + "###" + oppName);
             });
             th.setDaemon(true);
             th.start();
-
+//clear list view when history
         }));
 
-        //Habiba w Malak
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    //boolean isRunning = true;
-//                    while (true) {
-//                        String message = Connection.ear.readLine();
-//                        System.out.println(message + "\n");
-//                        String[] data = message.split("###");
-//                        if (data[1].equals(" wants to play against you")) { // Use equals() for string comparison
-//
-//                           if (!Platform.isFxApplicationThread()) {
-//                                Platform.runLater(() -> {
-//                                    System.out.println("Inside Platform.runLater()");  // Debugging line NOT PRINTED*******************
-//                                    System.out.println(message); // NOT PRINTED*******************
-//                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                                    alert.setTitle("Confirmation Dialog");
-//                                    alert.setHeaderText("Challenge Request");
-//                                    alert.setContentText("Are you sure you want to play against " + data[0]);
-//
-//                                    // Set custom button types
-//                                    alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.NO);
-//
-//                                    // Show the alert and handle the response
-//                                    alert.showAndWait().ifPresent(response -> {
-//                                        if (response == ButtonType.OK) {
-//                                            System.out.println("User chose OK.");
-//                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "200OK");
-//                                        } else if (response == ButtonType.NO) {
-//                                            System.out.println("User chose NO.");
-//                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "404NO");
-//                                        }
-//                                    });
-//                                });
-//                            }
-//
-//                            //isRunning = false; // Stop the loop after handling the request
-//                        }
-//                        
-//                    }
-//                } catch (IOException ex) {
-//                    System.out.println(ex.getMessage());
-//                }
-//            }
-//        });
-//        //thread.setDaemon(true);
-//        thread.start();
         Connection.sendRequest("sendList");
-//
-//        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
-//            String recieve = Connection.recieveRequest();
-//            
-//            System.out.println(recieve + "\n"); //NOT PRINTED*******************
-//            
-//            String rec[] = recieve.split("###");
-//            
-//            System.out.println(Arrays.toString(rec)); //NOT PRINTED*******************
-//
-//            if (rec[0].equals("List")) {
-//                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-//                listView.getItems().clear();
-//                for (String player : players) {
-//                    listView.getItems().add(player.trim());
-//                }
-//            }
-//        });
-//        thread2.setDaemon(true);
-//        thread2.start();
+
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
                     String recieve = Connection.recieveRequest();
-                    //System.out.println(recieve + "\n");
-                    //System.out.println("--------------------");
+
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -155,6 +95,7 @@ public class HomeOnlineController extends HomeOnline {
                             //Connection.closeconnection();
                             break;
                         }
+
                         case "Accepted": {
 
                             if (Platform.isFxApplicationThread() == false) {
@@ -172,14 +113,12 @@ public class HomeOnlineController extends HomeOnline {
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
-
+                                  
                             }
-
-                            break;
-
+                              break;
                         }
+                            
                         case "Refused": {
-
                             break;
 
                         }
@@ -211,10 +150,12 @@ public class HomeOnlineController extends HomeOnline {
                                         if (result.get() == acceptButton) {
                                             System.out.println("You accepted!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
+
                                             game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
                                             System.out.println(playerLabel.getText() + oppName + scoreLabel.getText() + oppScore);
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
+
 
                                         } else if (result.get() == declineButton) {
                                             System.out.println("You declined!");
@@ -242,8 +183,11 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
+                
+                // Assuming listView is your ListView instance
+                listView.getItems().clear();
 
-                HistoryController history = new HistoryController(stage, retrievePlayerHistory((OnlinePlayer) onl_player));
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer())); //initializes a new online player
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
@@ -267,6 +211,7 @@ public class HomeOnlineController extends HomeOnline {
         });
 
     }
+
 
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
@@ -330,4 +275,11 @@ public class HomeOnlineController extends HomeOnline {
 
     }
 
+    public static void SetPlayer(OnlinePlayer player){
+        onl_player = player;
+    }
+    public static OnlinePlayer GetPlayer(){
+        return onl_player;
+    }
+            
 }
