@@ -106,6 +106,7 @@ class UserHandler extends Thread {
                     case "sendRequest": {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
+                        System.out.println(user2);
                         user2.output.println("invitation" + "###" + name);
 
                         break;
