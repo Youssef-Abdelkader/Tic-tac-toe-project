@@ -19,6 +19,7 @@ class UserHandler extends Thread {
     String oppoName;
     boolean isPlaying = false;
     int score;
+    String[] data;
     static Vector<UserHandler> clientsVector = new Vector<>();
 
     public UserHandler(Socket socket) {
@@ -49,7 +50,7 @@ class UserHandler extends Thread {
             try {
                 String request = input.readLine();
 
-                String[] data = request.split("###");
+                data = request.split("###");
 
                 switch (data[0]) {
 
@@ -120,7 +121,6 @@ class UserHandler extends Thread {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
                         System.out.println(user2);
-                         System.out.println(data[1]);
                         user2.output.println("invitation" + "###" + name);
 
                         
@@ -232,13 +232,19 @@ class UserHandler extends Thread {
                         break;
 
                     }
+                    
+                     ΄//Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
                     case "GetInvitation": {
-
+                        getInvitation();
+                        
+                        break;
                     }
                     case "back": {
                         input.close();
                         output.close();
+                        
+                         break;
 
                     }
 
@@ -305,8 +311,27 @@ class UserHandler extends Thread {
         clientsVector.add(this);
 
     }
+    
+    ΄//Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1])
 
     public void getInvitation() {
+        
+        if(data[1].equals("Accepted")){
+            
+            this.isPlaying=true;
+            UserHandler opp = getUserHandler(data[2]);
+            opp.isPlaying=true;
+            try {
+                opp.output.println("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
+            } catch (SQLException ex) {
+                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            sendList();
+        }
+        else if(data[1].equals("Refused")){
+            UserHandler opp = getUserHandler(data[2]);
+            opp.output.println("Refused");
+        }
 
     }
 

@@ -20,8 +20,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
+import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
+import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
@@ -30,20 +32,16 @@ public class HomeOnlineController extends HomeOnline {
     Player onl_player = new OnlinePlayer();
     static Thread thread;
 
-    public HomeOnlineController(Stage stage,String userName,String userScore) {
+    public HomeOnlineController(Stage stage, String userName, String userScore) {
         super(stage);
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
-        
-        
-         listView.setOnMouseClicked(((event) -> {
 
-
+        listView.setOnMouseClicked(((event) -> {
 
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
 
             System.out.println(Arrays.toString(player));
-
 
             String name = player[0];
             String score = player[1];
@@ -57,12 +55,7 @@ public class HomeOnlineController extends HomeOnline {
 
         }));
 
-         
-         
-        
-        
-         //Habiba w Malak
-        
+        //Habiba w Malak
 //        Thread thread = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -110,9 +103,6 @@ public class HomeOnlineController extends HomeOnline {
 //        });
 //        //thread.setDaemon(true);
 //        thread.start();
-
-        
-
         Connection.sendRequest("sendList");
 //
 //        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
@@ -135,13 +125,12 @@ public class HomeOnlineController extends HomeOnline {
 //        thread2.setDaemon(true);
 //        thread2.start();
 
-
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
                     String recieve = Connection.recieveRequest();
-                     //System.out.println(recieve + "\n");
-                     //System.out.println("--------------------");
+                    //System.out.println(recieve + "\n");
+                    //System.out.println("--------------------");
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -162,72 +151,81 @@ public class HomeOnlineController extends HomeOnline {
                         case "logout": {
 
                             //Connection.closeconnection();
-                             break;
+                            break;
                         }
-                        case "Accept": {
+                        case "Accepted": {
+
+                            if (Platform.isFxApplicationThread() == false) {
+                                Platform.runLater(() -> {
+                                    System.out.println("Challenge has been accepted");
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Challenge Accepted");
+                                    alert.setContentText("Challenge has been accepted");
+                                    alert.showAndWait();
+                                });
+                            }
                             
-                             break;
+                             game_screenBase game = new GamescreenController(stage,name, player2_textfield.getText());
+                             Scene scene = new Scene(game);
+                            stage.setScene(scene);
+
+                            break;
 
                         }
-                        case "Decline": {
-                            
-                             break;
+                        case "Refused": {
+
+                            break;
 
                         }
-                        
-                        
-                       
-                                  
+
                         case "invitation": {
 
-                                if (!Platform.isFxApplicationThread()) {
+                            if (!Platform.isFxApplicationThread()) {
                                 Platform.runLater(() -> {
-                                System.out.println(rec[1]);
-                                System.out.println("--------------------");
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("Confirmation Dialog");
-                                alert.setHeaderText("Challenge Request");
-                                alert.setContentText(rec[1] + " Wants to Play Against You");
-                                alert.initOwner(stage);
+                                    System.out.println(rec[1]);
+                                    System.out.println("--------------------");
+                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                    alert.setTitle("Confirmation Dialog");
+                                    alert.setHeaderText("Challenge Request");
+                                    alert.setContentText(rec[1] + " Wants to Play Against You");
+                                    alert.initOwner(stage);
 
-                                // Customize the buttons
-                                ButtonType acceptButton = new ButtonType("Accept");
-                                ButtonType declineButton = new ButtonType("Decline");
-                        
+                                    // Customize the buttons
+                                    ButtonType acceptButton = new ButtonType("Accept");
+                                    ButtonType declineButton = new ButtonType("Decline");
 
-                                // Add the buttons to the alert
-                                alert.getButtonTypes().setAll(acceptButton, declineButton);
+                                    // Add the buttons to the alert
+                                    alert.getButtonTypes().setAll(acceptButton, declineButton);
 
-                                // Show the alert and wait for a response
-                                Optional<ButtonType> result = alert.showAndWait();
+                                    // Show the alert and wait for a response
+                                    Optional<ButtonType> result = alert.showAndWait();
 
-                                // Handle button clicks
-                                if (result.isPresent()) {
-                                    if (result.get() == acceptButton) {
-                                        System.out.println("You accepted!");
-                                        Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
-                                    } else if (result.get() == declineButton) {
-                                        System.out.println("You declined!");
-                                        Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
+                                    // Handle button clicks
+                                    if (result.isPresent()) {
+                                        if (result.get() == acceptButton) {
+                                            System.out.println("You accepted!");
+                                            Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
+                                        } else if (result.get() == declineButton) {
+                                            System.out.println("You declined!");
+                                            Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
+
+                                        }
 
                                     }
-                            
-                        }
-                        
-                                     });
-                                }
-                                
-                                 break;
 
-                            } //END OF CASE INVITATION
+                                });
+                            }
 
+                            break;
+
+                        } //END OF CASE INVITATION
+
+                    }
                 }
-            }     
-        } );
-        thread.setDaemon(true);
-        thread.start();
-    }
-
+            });
+            thread.setDaemon(true);
+            thread.start();
+        }
 
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -256,7 +254,6 @@ public class HomeOnlineController extends HomeOnline {
                 stage.setScene(scene);
             }
         });
-
 
     }
 
