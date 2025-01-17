@@ -89,6 +89,17 @@
          </padding>
          <children>
 <<<<<<< HEAD
+            <ImageView fitHeight="102.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="100.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="100.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="102.0" fitWidth="147.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="101.0" fitWidth="146.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="98.0" fitWidth="152.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="97.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="102.0" fitWidth="152.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="103.0" fitWidth="145.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+=======
+<<<<<<< HEAD
             <ImageView fx:id="img_vw_1" fitHeight="102.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <ImageView fx:id="img_vw_9" fitHeight="100.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <ImageView fx:id="img_vw_6" fitHeight="100.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -109,6 +120,7 @@
             <ImageView fx:id="boxEight" fitHeight="101.0" fitWidth="146.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <ImageView fx:id="boxNine" fitHeight="100.0" fitWidth="144.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 >>>>>>> 0121a9a20dac560868a52716f216c8e8e1e4fb05
+>>>>>>> d245953f4bd20ccbccf3296f1894d4f1a4eb9110
          </children>
       </GridPane>
    </center>

@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 
-
 import java.util.Vector;
 import javafx.application.Platform;
 import connection.Connection;
@@ -20,20 +19,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
 import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
+
 public class HomeOnlineController extends HomeOnline {
 
     Player onl_player = new OnlinePlayer();
     static Thread thread;
-    public HomeOnlineController(Stage stage) {
+
+    public HomeOnlineController(Stage stage,String userName,String userScore) {
         super(stage);
+        playerLabel.setText(userName);
+        scoreLabel.setText(userScore);
+        
         
          listView.setOnMouseClicked(((event) -> {
+
+
+
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
+
             System.out.println(Arrays.toString(player));
+
+
             String name = player[0];
             String score = player[1];
             System.out.println("Name: " + name);
@@ -45,6 +56,7 @@ public class HomeOnlineController extends HomeOnline {
             th.start();
 
         }));
+
          
          
         
@@ -100,6 +112,7 @@ public class HomeOnlineController extends HomeOnline {
 //        thread.start();
 
         
+
         Connection.sendRequest("sendList");
 //
 //        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
@@ -123,8 +136,6 @@ public class HomeOnlineController extends HomeOnline {
 //        thread2.start();
 
 
- 
-                       
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
@@ -151,7 +162,6 @@ public class HomeOnlineController extends HomeOnline {
                         case "logout": {
 
                             //Connection.closeconnection();
-
                         }
                         case "Accept": {
 
@@ -203,44 +213,34 @@ public class HomeOnlineController extends HomeOnline {
 
                             } //END OF CASE INVITATION
 
-                    
-
-
-       
                 }
-            }
-            
-                 
+            }     
         } );
         thread.setDaemon(true);
         thread.start();
     }
 
 
-
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
-                
-                HistoryController history = new HistoryController(stage , retrievePlayerHistory((OnlinePlayer) onl_player));
+
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory((OnlinePlayer) onl_player));
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
                 //onl_player -> to be implemented;
-
-                
                 //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
                 //Scene scene = new Scene(history);
                 //stage.setScene(scene);
-
             }
         });
-
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
+                TicTacToe.online = false;
                 Connection.sendRequest("logout");
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
@@ -250,17 +250,9 @@ public class HomeOnlineController extends HomeOnline {
         });
 
 
-       
-
     }
 
-
-   
-
-
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
-
-    
 
         //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
@@ -319,10 +311,4 @@ public class HomeOnlineController extends HomeOnline {
 
     }
 
-    }
-
-
-
-
-
-
+}

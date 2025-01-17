@@ -14,27 +14,16 @@ public class Game {
         this.currentPlayerSymbol = 'X';
     }
 
+
     /*Game() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
+
 
     public boolean placeXO(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
 
-//        System.out.println("pos:"+pos);
-//        if(pos <= 3){
-//            row = 0;
-//            col = pos -1;
-//        }
-//        else if(pos >= 4 && pos <= 6){
-//            row = 1;
-//            col = pos - 4;
-//        }
-//        else if (pos >= 7 && pos <= 9){
-//            row = 2;
-//            col = pos - 7;
-//        }
         
         if (pos >= 1 && pos <= 9 && squares.isCellEmpty(row, col)) {
             System.out.println("row:"+row);
@@ -44,14 +33,6 @@ public class Game {
             squares.setGrid(row, col, currentPlayerSymbol);
             switchPlayer();
             
-            for(int i = 0; i<squares.getGrid().length;i++){
-                for(int j = 0; j<squares.getGrid().length;j++){
-                    System.out.println("rowGrid:"+i);
-                    System.out.println("colGrid:"+j);
-                    System.out.println(squares.getGrid()[i][j]);
-                    System.out.println("---------------------------");
-                }
-            }
             return true;
         }
         return false;

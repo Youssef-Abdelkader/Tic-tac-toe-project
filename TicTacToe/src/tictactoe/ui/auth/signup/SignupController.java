@@ -11,6 +11,7 @@ import tictactoe.ui.home.offline.HomeScreen_offline;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 import javafx.scene.control.Alert;
+import tictactoe.TicTacToe;
 
 public class SignupController extends Signup {
 
@@ -42,11 +43,12 @@ public class SignupController extends Signup {
 
                                 while (isRunning) {
                                     String message = Connection.ear.readLine();
-                                    if ("Duplicated name".equals(message)) {
-                                        System.out.println(message);
+                                    String[] data = message.split("###");
+                                    if ("Duplicated name".equals(data[0])) {
+                                        
                                         if (Platform.isFxApplicationThread() == false) {
                                             Platform.runLater(() -> {
-                                                System.out.println(message);
+                                                
                                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                                 alert.setTitle("Duplicated Name");
                                                 alert.setContentText("Please retry");
@@ -54,10 +56,11 @@ public class SignupController extends Signup {
                                                 isRunning = false;
                                             });
                                         }
-                                    } else {
+                                    } else if ("Signed up successfully".equals(data[0])){
                                         if (Platform.isFxApplicationThread() == false) {
                                             Platform.runLater(() -> {
-                                                HomeOnlineController home = new HomeOnlineController(stage);
+                                                
+                                                HomeOnlineController home = new HomeOnlineController(stage,name,data[1]);
                                                 Scene scene = new Scene(home);
                                                 stage.setScene(scene);
                                                 isRunning = false;
@@ -76,19 +79,12 @@ public class SignupController extends Signup {
             }
         });
 
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
-                Scene scene = new Scene(home);
-                stage.setScene(scene);
-            }
-        });
 
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
+                TicTacToe.online = false;
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
                 Scene scene = new Scene(home);
