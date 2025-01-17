@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="coverBackground" stylesheets="@../../../styles/homeonline.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="coverBackground" stylesheets="@../../../styles/homeonline.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.ui.history.HistoryController">
    <top>
       <Label text="History" textFill="#1e9413" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -34,13 +33,12 @@
    <center>
       <ScrollPane style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <content>
-            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="263.0" prefWidth="557.0">
+            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="263.0" prefWidth="563.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Game ID" />
-                <TableColumn prefWidth="126.0" text="Player 1" />
-                  <TableColumn prefWidth="115.0" text="Player 2" />
-                  <TableColumn prefWidth="113.0" text="Winner" />
-                  <TableColumn prefWidth="116.0" text="Recording" />
+                <TableColumn prefWidth="124.0" text="Game ID" />
+                  <TableColumn prefWidth="159.0" text="Oponent" />
+                  <TableColumn prefWidth="121.0" text="Winner" />
+                  <TableColumn prefWidth="143.0" text="Recording" />
               </columns>
             </TableView>
          </content>

@@ -39,13 +39,14 @@ public class HomeOnlineController extends HomeOnline {
          listView.setOnMouseClicked(((event) -> {
 
 
+
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
 
             System.out.println(Arrays.toString(player));
 
+
             String name = player[0];
             String score = player[1];
-
             System.out.println("Name: " + name);
             System.out.println("Score: " + score);
             Thread th = new Thread(() -> {
@@ -56,12 +57,91 @@ public class HomeOnlineController extends HomeOnline {
 
         }));
 
+         
+         
+        
+        
+         //Habiba w Malak
+        
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    //boolean isRunning = true;
+//                    while (true) {
+//                        String message = Connection.ear.readLine();
+//                        System.out.println(message + "\n");
+//                        String[] data = message.split("###");
+//                        if (data[1].equals(" wants to play against you")) { // Use equals() for string comparison
+//
+//                           if (!Platform.isFxApplicationThread()) {
+//                                Platform.runLater(() -> {
+//                                    System.out.println("Inside Platform.runLater()");  // Debugging line NOT PRINTED*******************
+//                                    System.out.println(message); // NOT PRINTED*******************
+//                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                                    alert.setTitle("Confirmation Dialog");
+//                                    alert.setHeaderText("Challenge Request");
+//                                    alert.setContentText("Are you sure you want to play against " + data[0]);
+//
+//                                    // Set custom button types
+//                                    alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.NO);
+//
+//                                    // Show the alert and handle the response
+//                                    alert.showAndWait().ifPresent(response -> {
+//                                        if (response == ButtonType.OK) {
+//                                            System.out.println("User chose OK.");
+//                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "200OK");
+//                                        } else if (response == ButtonType.NO) {
+//                                            System.out.println("User chose NO.");
+//                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "404NO");
+//                                        }
+//                                    });
+//                                });
+//                            }
+//
+//                            //isRunning = false; // Stop the loop after handling the request
+//                        }
+//                        
+//                    }
+//                } catch (IOException ex) {
+//                    System.out.println(ex.getMessage());
+//                }
+//            }
+//        });
+//        //thread.setDaemon(true);
+//        thread.start();
+
+        
+
         Connection.sendRequest("sendList");
+//
+//        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
+//            String recieve = Connection.recieveRequest();
+//            
+//            System.out.println(recieve + "\n"); //NOT PRINTED*******************
+//            
+//            String rec[] = recieve.split("###");
+//            
+//            System.out.println(Arrays.toString(rec)); //NOT PRINTED*******************
+//
+//            if (rec[0].equals("List")) {
+//                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
+//                listView.getItems().clear();
+//                for (String player : players) {
+//                    listView.getItems().add(player.trim());
+//                }
+//            }
+//        });
+//        thread2.setDaemon(true);
+//        thread2.start();
+
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
                     String recieve = Connection.recieveRequest();
+                     //System.out.println(recieve + "\n");
+                     //System.out.println("--------------------");
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -76,28 +156,44 @@ public class HomeOnlineController extends HomeOnline {
                                         }
 
                                     });
+                            break;
                         }
 
                         case "logout": {
 
                             //Connection.closeconnection();
+                             break;
                         }
                         case "Accept": {
+                            
+                             break;
 
                         }
                         case "Decline": {
+                            
+                             break;
 
                         }
-                        /*case "invitation": {
+                        
+                        
+                       
+                                  
+                        case "invitation": {
 
+                                if (!Platform.isFxApplicationThread()) {
+                                Platform.runLater(() -> {
+                                System.out.println(rec[1]);
+                                System.out.println("--------------------");
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setTitle("Confirmation Dialog");
-                                alert.setHeaderText("Please Confirm");
+                                alert.setHeaderText("Challenge Request");
                                 alert.setContentText(rec[1] + " Wants to Play Against You");
+                                alert.initOwner(stage);
 
                                 // Customize the buttons
                                 ButtonType acceptButton = new ButtonType("Accept");
                                 ButtonType declineButton = new ButtonType("Decline");
+                        
 
                                 // Add the buttons to the alert
                                 alert.getButtonTypes().setAll(acceptButton, declineButton);
@@ -109,18 +205,21 @@ public class HomeOnlineController extends HomeOnline {
                                 if (result.isPresent()) {
                                     if (result.get() == acceptButton) {
                                         System.out.println("You accepted!");
-                                        Connection.sendRequest("GetInvitation" + "###" + "Accepted" + rec[1]);
+                                        Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
                                     } else if (result.get() == declineButton) {
                                         System.out.println("You declined!");
-                                        Connection.sendRequest("GetInvitation" + "###" + "Refused" + rec[1]);
+                                        Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
 
                                     }
-                            );
+                            
                         }
                         
+                                     });
+                                }
+                                
+                                 break;
 
-
-                            }*/
+                            } //END OF CASE INVITATION
 
                 }
             }     
@@ -157,6 +256,7 @@ public class HomeOnlineController extends HomeOnline {
                 stage.setScene(scene);
             }
         });
+
 
     }
 
