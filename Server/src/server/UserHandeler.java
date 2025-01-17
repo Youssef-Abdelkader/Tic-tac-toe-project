@@ -88,11 +88,11 @@ class UserHandler extends Thread {
                         try {
                             signedUp = DataAccessLayer.signUp(player);
                         } catch (SQLException ex) {
-                            this.output.println("Duplicated name");
+                            this.output.println("Duplicated name###");
                         }
 
                         if (signedUp) {
-                            this.output.println("Signed up successfully");
+                            this.output.println("Signed up successfully###0");
                         }
                     }
                     break;

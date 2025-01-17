@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
 import tictactoe.ui.history.HistoryController;
@@ -28,8 +29,10 @@ public class HomeOnlineController extends HomeOnline {
 
     Player onl_player = new OnlinePlayer();
     static Thread thread;
-    public HomeOnlineController(Stage stage) {
+    public HomeOnlineController(Stage stage,String userName,String userScore) {
         super(stage);
+        playerLabel.setText(userName);
+        scoreLabel.setText(userScore);
         
          listView.setOnMouseClicked(((event) -> {
 
@@ -214,6 +217,7 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
 
+                TicTacToe.online = false;
                 Connection.sendRequest("logout");
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 

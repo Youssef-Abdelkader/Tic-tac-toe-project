@@ -17,12 +17,14 @@ import tictactoe.ui.home.online.HomeOnlineController;
 
 public class HistoryController extends History {
 
+    String name = "player";
+    String score = "11";
     public HistoryController(Stage stage, Vector<Vector<String>> history) {
         super(stage);
         populateTable(history); // Populate the table
 
         home.addEventHandler(ActionEvent.ACTION, (event) -> {
-            HomeOnlineController cont = new HomeOnlineController(stage);
+            HomeOnlineController cont = new HomeOnlineController(stage,name,score);
             Scene scene = new Scene(cont);
             stage.setScene(scene);
         });

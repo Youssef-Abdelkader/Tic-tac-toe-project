@@ -24,6 +24,7 @@ public class LOSERController extends LOSERBase {
     public LOSERController(Stage stage, String name) {
         super();
 
+        String score = "11";
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -51,7 +52,7 @@ public class LOSERController extends LOSERBase {
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnline home = new HomeOnlineController(stage);
+                    HomeOnlineController home = new HomeOnlineController(stage,name,score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }
@@ -64,6 +65,7 @@ public class LOSERController extends LOSERBase {
     public LOSERController(Stage stage, String name1, String name2) {
         super();
 
+        String score = "11";
         Media media = new Media(getClass().getResource("/resources/loser.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         videoView.setMediaPlayer(mediaPlayer);
@@ -89,7 +91,7 @@ public class LOSERController extends LOSERBase {
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnline home = new HomeOnlineController(stage);
+                    HomeOnlineController home = new HomeOnlineController(stage,name1,score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }
