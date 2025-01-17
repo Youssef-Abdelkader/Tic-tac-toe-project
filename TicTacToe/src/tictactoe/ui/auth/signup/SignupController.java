@@ -78,6 +78,7 @@ public class SignupController extends Signup {
             }
         });
 
+
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

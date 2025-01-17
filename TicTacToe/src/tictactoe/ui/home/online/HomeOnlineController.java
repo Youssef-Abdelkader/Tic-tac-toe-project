@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 
-
 import java.util.Vector;
 import javafx.application.Platform;
 import connection.Connection;
@@ -25,10 +24,12 @@ import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
 import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
+
 public class HomeOnlineController extends HomeOnline {
 
     Player onl_player = new OnlinePlayer();
     static Thread thread;
+
     public HomeOnlineController(Stage stage,String userName,String userScore) {
         super(stage);
         playerLabel.setText(userName);
@@ -36,10 +37,11 @@ public class HomeOnlineController extends HomeOnline {
         
          listView.setOnMouseClicked(((event) -> {
 
+
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
-            
+
             System.out.println(Arrays.toString(player));
-            
+
             String name = player[0];
             String score = player[1];
 
@@ -52,78 +54,8 @@ public class HomeOnlineController extends HomeOnline {
             th.start();
 
         }));
-        
-        
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //boolean isRunning = true;
-                    while (true) {
-                        String message = Connection.ear.readLine();
-                        System.out.println(message + "\n");
-                        String[] data = message.split("###");
-                        if (data[1].equals(" wants to play against you")) { // Use equals() for string comparison
 
-                           if (!Platform.isFxApplicationThread()) {
-                                Platform.runLater(() -> {
-                                    System.out.println("Inside Platform.runLater()");  // Debugging line NOT PRINTED*******************
-                                    System.out.println(message); // NOT PRINTED*******************
-                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                    alert.setTitle("Confirmation Dialog");
-                                    alert.setHeaderText("Challenge Request");
-                                    alert.setContentText("Are you sure you want to play against " + data[0]);
-
-                                    // Set custom button types
-                                    alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.NO);
-
-                                    // Show the alert and handle the response
-                                    alert.showAndWait().ifPresent(response -> {
-                                        if (response == ButtonType.OK) {
-                                            System.out.println("User chose OK.");
-                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "200OK");
-                                        } else if (response == ButtonType.NO) {
-                                            System.out.println("User chose NO.");
-                                            Connection.mouth.println("recieveRequest" + "###" + data[0] + "###" + playerLabel.getText() + "###" + "404NO");
-                                        }
-                                    });
-                                });
-                            }
-
-                            //isRunning = false; // Stop the loop after handling the request
-                        }
-                        
-                    }
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
-
-        
         Connection.sendRequest("sendList");
-
-        Thread thread2 = new Thread(() -> { // REMEMBER TO CHECK IF THIS THREAD IS NEEDED OR NOT *******************************
-            String recieve = Connection.recieveRequest();
-            
-            System.out.println(recieve + "\n"); //NOT PRINTED*******************
-            
-            String rec[] = recieve.split("###");
-            
-            System.out.println(Arrays.toString(rec)); //NOT PRINTED*******************
-
-            if (rec[0].equals("List")) {
-                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                listView.getItems().clear();
-                for (String player : players) {
-                    listView.getItems().add(player.trim());
-                }
-            }
-        });
-        thread2.setDaemon(true);
-        thread2.start();
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
@@ -148,7 +80,6 @@ public class HomeOnlineController extends HomeOnline {
                         case "logout": {
 
                             //Connection.closeconnection();
-
                         }
                         case "Accept": {
 
@@ -189,6 +120,7 @@ public class HomeOnlineController extends HomeOnline {
 
 
                             }*/
+
                 }
             }     
         } );
@@ -196,18 +128,17 @@ public class HomeOnlineController extends HomeOnline {
         thread.start();
     }
 
+
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
-                
-                HistoryController history = new HistoryController(stage , retrievePlayerHistory((OnlinePlayer) onl_player));
+
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory((OnlinePlayer) onl_player));
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
                 //onl_player -> to be implemented;
-
-                
                 //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
                 //Scene scene = new Scene(history);
                 //stage.setScene(scene);
@@ -226,24 +157,9 @@ public class HomeOnlineController extends HomeOnline {
             }
         });
 
-
-        listView.setOnMouseClicked(((event) -> {
-            String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
-            String name = player[0];
-            String score = player[1];
-            System.out.println("Name: " + name);
-            System.out.println("Score: " + score);
-            Thread th = new Thread(() -> {
-                Connection.sendRequest("sendRequest" + "###" + name);
-            });
-            th.setDaemon(true);
-            th.start();
-        }));
-
     }
-    public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
-    
+    public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
         //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
@@ -302,10 +218,4 @@ public class HomeOnlineController extends HomeOnline {
 
     }
 
-    }
-
-
-
-
-
-
+}

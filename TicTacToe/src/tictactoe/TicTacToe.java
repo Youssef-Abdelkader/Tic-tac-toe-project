@@ -1,5 +1,6 @@
 package tictactoe;
 
+import connection.Connection;
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -45,6 +46,11 @@ public class TicTacToe extends Application {
         primaryStage.show();
 
     }*/
+        
+        stage.setOnCloseRequest(e->{
+            Connection.sendRequest("logout");
+            
+        });
 
     }
 
