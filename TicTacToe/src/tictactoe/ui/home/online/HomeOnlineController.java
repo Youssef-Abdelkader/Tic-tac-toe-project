@@ -162,11 +162,16 @@ public class HomeOnlineController extends HomeOnline {
                         case "logout": {
 
                             //Connection.closeconnection();
+                             break;
                         }
                         case "Accept": {
+                            
+                             break;
 
                         }
                         case "Decline": {
+                            
+                             break;
 
                         }
                         
@@ -183,6 +188,7 @@ public class HomeOnlineController extends HomeOnline {
                                 alert.setTitle("Confirmation Dialog");
                                 alert.setHeaderText("Challenge Request");
                                 alert.setContentText(rec[1] + " Wants to Play Against You");
+                                alert.initOwner(stage);
 
                                 // Customize the buttons
                                 ButtonType acceptButton = new ButtonType("Accept");
@@ -210,6 +216,8 @@ public class HomeOnlineController extends HomeOnline {
                         
                                      });
                                 }
+                                
+                                 break;
 
                             } //END OF CASE INVITATION
 
