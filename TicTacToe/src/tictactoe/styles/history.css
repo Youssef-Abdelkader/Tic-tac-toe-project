@@ -10,13 +10,14 @@
 
         -fx-background-radius:15;
     }
-    .listview
+    .tableview
     {
         -fx-background-radius:15;
 
     }
 
-    .history_btn 
+    
+    .home 
     {
         -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
         -fx-text-fill: white; /* White text color */

@@ -135,7 +135,7 @@ class UserHandler extends Thread {
                         // sending game data to database + client to initiate the game
                     }
 
-                    /*case "History_request": {
+                    case "History_request": {
                         try {
                             Vector<Vector<String>> history_list = DataAccessLayer.retriveHistory(data[1]);
                             StringBuilder historyResponse = new StringBuilder("History_response");
@@ -167,7 +167,8 @@ class UserHandler extends Thread {
                             this.output.println("Error retrieving history");
                         }
                         break;
-                    }*/
+                    }
+                    
                     case "move": //will be handeled when the game logic is implemented
                     {
                     }
