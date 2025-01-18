@@ -175,9 +175,7 @@ public class HomeOnlineController extends HomeOnline {
 
                         }
                         
-                        
-                       
-                                  
+                               
                         case "invitation": {
 
                                 if (!Platform.isFxApplicationThread()) {
