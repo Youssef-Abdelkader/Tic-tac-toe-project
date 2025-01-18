@@ -19,8 +19,8 @@ public class Connection {
         boolean connect = false;
         try {
             server = new Socket("127.0.0.1", 5005);
-            ear = new DataInputStream(server.getInputStream());
-            mouth = new PrintStream(server.getOutputStream());
+            ear = new DataInputStream(server.getInputStream()); //in
+            mouth = new PrintStream(server.getOutputStream()); //out
             connect = true;
         } catch (IOException ex) {
             Platform.runLater(() -> {

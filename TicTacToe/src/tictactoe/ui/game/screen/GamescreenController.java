@@ -39,6 +39,10 @@ public class GamescreenController extends game_screenBase {
 
     private Line winningLine;
 
+    private String me;
+    private String opponent;
+    
+    
     public GamescreenController(Stage stage, String name) {
 
         super(stage);
@@ -55,15 +59,23 @@ public class GamescreenController extends game_screenBase {
         this.player2Name = name2;
         initializeGame();
     }
-    
-     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
+//online
+    public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
         super(stage);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
         this.score1 = score1;
         this.score2 = score2;
+        this.me = HomeOnlineController.me;
+        if(me.equals(name1)){
+            opponent = name2;
+        }
+        else{
+             opponent = name1;
+        }
         initializeGame();
+        listenForMoves();
     }
 
     private void initializeGame() {
@@ -117,14 +129,24 @@ public class GamescreenController extends game_screenBase {
                     System.out.println(ch_ar[i][j]);
                 }
             }
+            int row = (pos - 1) / 3;
+            int col = (pos - 1) % 3;
+            
+            char c = ch_ar[row][col];
+            // Thread th = new Thread(() -> {
+           // player1Name
+           
+            Connection.sendRequest("Move" + "###" + pos+c+ "###"+ opponent); 
+            
+            // });
+            // th.setDaemon(true);
+            // th.start();
 
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine();
-                //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
-                //sendMoveToServer(game.recToString());
             }
         }
     }
@@ -149,10 +171,6 @@ public class GamescreenController extends game_screenBase {
             return;
         }
 
-//        double startX = getCellCenterX(winningPositions[0]);
-//        double startY = getCellCenterY(winningPositions[0]);
-//        double endX = getCellCenterX(winningPositions[2]);
-//        double endY = getCellCenterY(winningPositions[2]);
         ImageView imageview = getImageView(winningPositions[0]);
         ImageView imageview1 = getImageView(winningPositions[2]);
 
@@ -170,7 +188,6 @@ public class GamescreenController extends game_screenBase {
         winningLine.setStrokeWidth(5);
 
         this.getChildren().add(winningLine);
-        //FileHandler.closeResources();
 
     }
 
@@ -199,12 +216,12 @@ public class GamescreenController extends game_screenBase {
 
     private double getCellCenterX(int pos) {
         int col = (pos - 1) % 3;
-        return col * 100 + 50; // Assuming each cell is 100x100 pixels
+        return col * 100 + 50;
     }
 
     private double getCellCenterY(int pos) {
         int row = (pos - 1) / 3;
-        return row * 100 + 50; // Assuming each cell is 100x100 pixels
+        return row * 100 + 50;
     }
 
     private void showWinner(String winnerName) {
@@ -230,9 +247,6 @@ public class GamescreenController extends game_screenBase {
             imageView.setImage(null);
         }
     }
-
-    
-
 
     private void drawLine(int a, int b, int c) {
         int row = 0;
@@ -271,38 +285,6 @@ public class GamescreenController extends game_screenBase {
             drawDiagonalLine(2);
         }
     }
-
-//<<<<<<< HEAD
-//    private void drawHorizontalLine(int row, int col) {
-//        Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
-//        line.setStroke(Color.BLUEVIOLET);
-//        line.setStrokeWidth(5);
-//
-//        line.endXProperty().bind(gridPane0.widthProperty());
-//
-//        gridPane0.add(line, col, row);
-//    }
-//
-//    private void drawVerticalLine(int row, int col) {
-//        // Calculate the start and end positions of the line based on the grid cell size
-//        double startX = col * gridPane0.getColumnConstraints().get(col).getPrefWidth();
-//        double startY = row * gridPane0.getRowConstraints().get(row).getPrefHeight();
-//        double endX = startX;
-//        double endY = startY + gridPane0.getRowConstraints().get(row).getPrefHeight();
-//
-//        // Create the line with the calculated coordinates
-//        Line line = new Line(startX, startY, endX, endY);
-//        line.setStroke(Color.BLUEVIOLET);
-//        line.setStrokeWidth(5);
-//
-//        // Optionally, bind to the width and height if you want the line to adjust dynamically
-//        // line.endXProperty().bind(gridPane0.widthProperty());
-//        line.endYProperty().bind(gridPane0.heightProperty());
-//
-//        // Add the line to the grid
-//        gridPane0.add(line, col, row);
-//    }
-// Method to draw a line in a row
 
     private void drawRowLine(int row) {
         Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
@@ -345,6 +327,44 @@ public class GamescreenController extends game_screenBase {
 
         gridPane0.add(line, 0, 0);
     }
+//////////////////////////
 
+    private void listenForMoves() {
+        new Thread(() -> {
+            try {
+               
+                while (true) {
+                    //it doesn't read 
+                    String message = Connection.ear.readLine();
+                    System.out.println("--mesage "+ message);
+                    if (message != null && message.startsWith("Move###")) {
+                        String[] parts = message.split("###");
+                        if (parts.length > 1) {
+                            String move = parts[1];
+                            System.out.println("Move from listen method "+move);
+                            Platform.runLater(() -> handleOpponentMove(move));
+                        }
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("Error while listening to server: " + ex.getMessage());
+            }
+        }).start();
+    }
+
+    private void handleOpponentMove(String move) {
+        int position = Integer.parseInt(move.substring(0, 1));
+        char symbol = move.charAt(1);
+        updateGridUI(position, symbol);
+    }
+
+    private void updateGridUI(int position, char symbol) {
+        int row = (position - 1) / 3;
+        int col = (position - 1) % 3;
+        ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
+        imageView.setImage(new Image(getClass().getResource(
+                symbol == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
+        ).toExternalForm()));
+    }
 }
 //

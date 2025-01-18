@@ -19,13 +19,13 @@ public class DataAccessLayer {
     public static Connection connection;
     public static int gameId = 1;
 
-    private String url = "jdbc:derby://localhost:1527/Game"; //url change /x-o to the db name
+    private String url = "jdbc:derby://localhost:1527/x-o"; //url change /x-o to the db name
 
     
     static {
         try {
             DriverManager.registerDriver(new ClientDriver());
-            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/Game", "root", "root");
+            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/x-o", "root", "root");
         } catch (SQLException ex) {
             Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
         }

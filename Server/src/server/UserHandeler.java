@@ -9,6 +9,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static server.DataAccessLayer.login;
+import sun.misc.Queue;
 import templates.Player;
 
 class UserHandler extends Thread {
@@ -21,6 +22,7 @@ class UserHandler extends Thread {
     int score;
     String[] data;
     static Vector<UserHandler> clientsVector = new Vector<>();
+    Queue<String> moves_queu = new Queue<>();
 
     public UserHandler(Socket socket) {
         try {
@@ -62,7 +64,7 @@ class UserHandler extends Thread {
                             System.out.println(data[2]);
                             if (player.getName() != null) {
                                 if (player.getPassword().equals(data[2])) {
-                                    score=player.getScore();
+                                    score = player.getScore();
                                     this.output.println(player.getScore());
                                     DataAccessLayer.updateStatus(data[1], 1);
                                     try {
@@ -106,8 +108,8 @@ class UserHandler extends Thread {
                         }
 
                         if (signedUp) {
-                            
-                            this.output.println("Signed up successfully###"+0);
+
+                            this.output.println("Signed up successfully###" + 0);
                         }
                     }
                     break;
@@ -124,21 +126,8 @@ class UserHandler extends Thread {
                         System.out.println(user2);
                         user2.output.println("invitation" + "###" + name + "###" + score);
 
-                        
-
-
                         break;
 
-                        //UserHandler user = UserHandler.getUserHandler(data[1]); //sender
-//                        UserHandler user2 = UserHandler.getUserHandler(data[2]); //reciever
-//                       user2.output.println(data[1] + " wants to play against you");
-                        //user2.input.readLine(); (will be handeled in client page)
-                    }
-
-                    case "recieveRequest": {
-
-                        //LUKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        // sending game data to database + client to initiate the game
                     }
 
                     case "History_request": {
@@ -173,10 +162,6 @@ class UserHandler extends Thread {
                             this.output.println("Error retrieving history");
                         }
                         break;
-                    }
-
-                    case "move": //will be handeled when the game logic is implemented
-                    {
                     }
 
                     case "logout": {
@@ -216,41 +201,54 @@ class UserHandler extends Thread {
                     case "winner": {
 
                         try {
-                            // Extract the winner's name and game ID from the message
                             String winnerName = data[1]; // winnerName is the second part of the message
                             int gameId = Integer.parseInt(data[2]); // gameId is the third part of the message
 
-                            // Call the DataAccessLayer to update the database
                             DataAccessLayer.addWinner(winnerName, gameId);
 
-                            // Notify the client that the winner was recorded successfully
                             output.println("winner###success");
                         } catch (SQLException ex) {
-                            // Log the error and notify the client if the database update fails
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                             output.println("winner###failure");
                         }
                         break;
 
                     }
-                    
-                     //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
+                    //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
                     case "GetInvitation": {
                         getInvitation();
-                        
+
                         break;
                     }
                     case "back": {
                         input.close();
                         output.close();
-                        
-                         break;
+
+                        break;
 
                     }
 
+                    case "Move": {
+                        //if the game is on
+                        if (this.isPlaying) {
+                            UserHandler opponent = getUserHandler(this.oppoName);
+                            if (opponent != null) {
+                                System.out.println("Move###" + data[1] + " " + data[2] + oppoName);
+                                opponent.output.println("Move###" + data[1] + " " + data[2]/*+" "+data[3]*/);
+                                System.out.println(opponent.output);
+                            }
+
+                            System.out.println(data[1]);
+                            //data[1] is move
+                            //data[2] is opponent
+                        }
+                        break;
+
+                    }
                 }
 
+                //now i need to send the queue to the other player
                 //if (request == null) break; // Exit if client disconnects
                 //sendMessageToAll(request);
             } catch (IOException ex) {
@@ -270,11 +268,6 @@ class UserHandler extends Thread {
 
     }
 
-    /*void sendMessageToAll(String msg) {
-        System.out.println("Broadcasting message: " + msg); // Debug log
-        for (UserHandler user : clientsVector) {
-            user.output.println(msg); // Send to each client
-        }*/
     public void sendList() {
         Vector<String> available = new Vector<String>();
         System.out.println(clientsVector.size());
@@ -313,21 +306,20 @@ class UserHandler extends Thread {
         clientsVector.add(this);
 
     }
-    
-    //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1])
 
+    //Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1])
     public void getInvitation() {
-        
-        if(data[1].equals("Accepted")){
-            
-            this.isPlaying=true;
+
+        if (data[1].equals("Accepted")) {
+
+            this.isPlaying = true;
             UserHandler opp = getUserHandler(data[2]);
-            opp.isPlaying=true;
+            opp.isPlaying = true;
             this.oppoName = data[2];
-            opp.oppoName=this.name;
-            
+            opp.oppoName = this.name;
+
             try {
-                opp.output.println("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
+                opp.output.println("Accepted###" + DataAccessLayer.acceptRequest(this.name, this.oppoName));
                 System.out.println(this.name + this.oppoName);
                 System.out.println("-----------------");
                 System.out.println(DataAccessLayer.acceptRequest(this.name, this.oppoName));
@@ -335,8 +327,7 @@ class UserHandler extends Thread {
                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             sendList();
-        }
-        else if(data[1].equals("Refused")){
+        } else if (data[1].equals("Refused")) {
             UserHandler opp = getUserHandler(data[2]);
             opp.output.println("Refused");
         }

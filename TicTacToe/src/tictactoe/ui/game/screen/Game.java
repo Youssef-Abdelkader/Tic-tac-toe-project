@@ -1,5 +1,6 @@
 package tictactoe.ui.game.screen;
 
+import connection.Connection;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +60,8 @@ public class Game {
                     rec[counter] = r;
                     counter++;
                 } else if (online) {
-                    sendMoveToServer("recording object " + r.getPosition() + r.getPlayed_char().toChar());
+                    //parameter socket
+                   //sendMoveToServer(""+r.getPosition() + r.getPlayed_char().toChar()+"###",Connection.server);
                 }
             }
             switchPlayer();
@@ -131,15 +133,16 @@ public class Game {
         this.rec = rec;
     }*/
 
-        private void sendMoveToServer(String recToString) {
+        private void sendMoveToServer(String recToString,Socket socket) {
         try {
-            Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
-            System.out.println("Connected to server");
+            //no need for new connection
+           // Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
+            //System.out.println("Connected to server");
 
             PrintWriter mouth = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader ear = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            mouth.println("Recording###" + recToString);
+            mouth.println("Move###" + recToString);
 
             new Thread(new Runnable() {
                 @Override

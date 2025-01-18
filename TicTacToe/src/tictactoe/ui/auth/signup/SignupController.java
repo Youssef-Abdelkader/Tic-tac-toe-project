@@ -31,8 +31,8 @@ public class SignupController extends Signup {
                     String name = nameText.getText();
                     String password = passwordText.getText();
 
-                    player.setUser_name(name);
-                    player.setPassword(password);
+                    //player.setUser_name(name);
+                    //player.setPassword(password);
                     HomeOnlineController.SetPlayer(player);
                     //organize the message that will be sent to server
                     String message = "signup###" + name + "###" + password;

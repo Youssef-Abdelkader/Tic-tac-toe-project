@@ -30,17 +30,16 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 public class HomeOnlineController extends HomeOnline {
 
     static Thread thread;
-
+    boolean isOnHome = true;
     String oppName;
     String oppScore;
     public static OnlinePlayer onl_player;
+    public static String me;
 
     public HomeOnlineController(Stage stage, String userName, String userScore) {
 
-    
-    
- 
         super(stage);
+        me = userName;
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
 
@@ -50,13 +49,11 @@ public class HomeOnlineController extends HomeOnline {
 
             System.out.println(Arrays.toString(player));
 
-
             oppName = player[0];
             oppScore = player[1];
             System.out.println("Name: " + oppName);
             System.out.println("Score: " + oppScore);
 
-           
             Thread th = new Thread(() -> {
                 Connection.sendRequest("sendRequest" + "###" + oppName);
             });
@@ -67,12 +64,11 @@ public class HomeOnlineController extends HomeOnline {
 
         Connection.sendRequest("sendList");
 
-
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
-                while (true) {
+                while (isOnHome) {
                     String recieve = Connection.recieveRequest();
-
+                    System.out.println("recieve " + recieve);
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -97,12 +93,7 @@ public class HomeOnlineController extends HomeOnline {
                         }
 
                         case "Accepted": {
-
-
-                        }
-                        
-                               
-
+                            isOnHome = false;
                             if (Platform.isFxApplicationThread() == false) {
                                 Platform.runLater(() -> {
                                     System.out.println("Challenge has been accepted");
@@ -118,16 +109,15 @@ public class HomeOnlineController extends HomeOnline {
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
-                                  
+
                             }
-                              break;
-                        
-                            
+                            break;
+                        }
+
                         case "Refused": {
                             break;
 
                         }
-
 
                         case "invitation": {
 
@@ -155,13 +145,13 @@ public class HomeOnlineController extends HomeOnline {
                                     if (result.isPresent()) {
                                         if (result.get() == acceptButton) {
                                             System.out.println("You accepted!");
+                                            isOnHome = false;
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
                                             game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
                                             System.out.println(playerLabel.getText() + oppName + scoreLabel.getText() + oppScore);
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
-
 
                                         } else if (result.get() == declineButton) {
                                             System.out.println("You declined!");
@@ -189,7 +179,7 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
-                
+
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
 
@@ -217,7 +207,6 @@ public class HomeOnlineController extends HomeOnline {
         });
 
     }
-
 
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
@@ -275,17 +264,18 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(recordings);
             }
         });
-        
+
         th.start();
         return history;
 
     }
 
-    public static void SetPlayer(OnlinePlayer player){
+    public static void SetPlayer(OnlinePlayer player) {
         onl_player = player;
     }
-    public static OnlinePlayer GetPlayer(){
+
+    public static OnlinePlayer GetPlayer() {
         return onl_player;
     }
-            
+
 }
