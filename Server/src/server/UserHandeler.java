@@ -174,7 +174,7 @@ class UserHandler extends Thread {
                         }
                         break;
                     }
-                    
+
                     case "move": //will be handeled when the game logic is implemented
                     {
                     }

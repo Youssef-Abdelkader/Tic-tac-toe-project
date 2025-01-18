@@ -33,9 +33,9 @@ public class HistoryController extends History {
         ObservableList<HistoryRecord> data = FXCollections.observableArrayList();
 
         Vector<String> gameIds = history.get(0);
-        Vector<String> player2s = history.get(2); // Player2 is stored here
-        Vector<String> winners = history.get(3);
-        Vector<String> recordings = history.get(4);
+        Vector<String> player2s = history.get(1); // Player2 is stored here
+        Vector<String> winners = history.get(2);
+        Vector<String> recordings = history.get(3);
 
         for (int i = 0; i < gameIds.size(); i++) {
             data.add(new HistoryRecord(

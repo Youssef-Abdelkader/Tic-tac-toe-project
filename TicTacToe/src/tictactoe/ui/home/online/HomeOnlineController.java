@@ -99,6 +99,11 @@ public class HomeOnlineController extends HomeOnline {
 
                         case "Accepted": {
 
+
+                        }
+                        
+                               
+
                             if (Platform.isFxApplicationThread() == false) {
                                 Platform.runLater(() -> {
                                     System.out.println("Challenge has been accepted");
@@ -117,12 +122,13 @@ public class HomeOnlineController extends HomeOnline {
                                   
                             }
                               break;
-                        }
+                        
                             
                         case "Refused": {
                             break;
 
                         }
+
 
                         case "invitation": {
 
