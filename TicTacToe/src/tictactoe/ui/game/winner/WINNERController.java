@@ -8,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
 import tictactoe.ui.game.screen.GamescreenController;
+import tictactoe.ui.game.screen.GamescreenController_Multi;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.offline.HomeScreen_offline;
@@ -86,7 +87,7 @@ public class WINNERController extends WINNERBase {
             @Override
             public void handle(ActionEvent event) {
                 // Transition to the game screen
-                game_screenBase gameScreen = new GamescreenController(stage, name1, name2);
+                game_screenBase gameScreen = new GamescreenController_Multi(stage, name1, name2);
                 Scene scene = new Scene(gameScreen);
                 stage.setScene(scene);
 

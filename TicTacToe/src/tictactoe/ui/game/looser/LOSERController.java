@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import tictactoe.TicTacToe;
 import tictactoe.ui.game.screen.Game_Screen_Controller_pc;
 import tictactoe.ui.game.screen.GamescreenController;
+import tictactoe.ui.game.screen.GamescreenController_Multi;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.home.offline.HomeScreen_offline;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
@@ -72,7 +73,7 @@ public class LOSERController extends LOSERBase {
         btnPA.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                game_screenBase game = new GamescreenController(stage, name1, name2);
+                game_screenBase game = new GamescreenController_Multi(stage, name1, name2);
                 Scene scene = new Scene(game);
                 stage.setScene(scene);
                 mediaPlayer.pause();

@@ -16,9 +16,9 @@ import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.home.online.HomeOnlineController;
 
-public class GamescreenController extends SharedGame {
+public class GamescreenController_Multi extends SharedGame {
 
-    private GameOn game; //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    private Game game;
     private String score1;
     private String score2;
     private String player1Name;
@@ -29,13 +29,12 @@ public class GamescreenController extends SharedGame {
     private String me;
     private String opponent;
     
-    private char meSymbol;
-    private char opponentSymbol;
-    private char symbol;
+    private String meSymbol;
+    private String opponentSymbol;
     
     public static char clicked = '\0'; //new ----------------------------
     
-    public GamescreenController(Stage stage, String name) {
+    public GamescreenController_Multi(Stage stage, String name) {
 
         super(stage);
 
@@ -45,15 +44,15 @@ public class GamescreenController extends SharedGame {
         initializeGame();
     }
 
-//    public GamescreenController(Stage stage, String name1, String name2) {
-//        super(stage);
-//        this.stage = stage;
-//        this.player1Name = name1;
-//        this.player2Name = name2;
-//        initializeGame();
-//    }
-//    
-    public GamescreenController(Stage stage, String name1, String name2, String score1, String score2, char symbol) {
+    public GamescreenController_Multi(Stage stage, String name1, String name2) {
+        super(stage);
+        this.stage = stage;
+        this.player1Name = name1;
+        this.player2Name = name2;
+        initializeGame();
+    }
+    
+    public GamescreenController_Multi(Stage stage, String name1, String name2, String score1, String score2) {
         super(stage);
         this.stage = stage;
         this.player1Name = name1;
@@ -61,17 +60,15 @@ public class GamescreenController extends SharedGame {
         this.score1 = score1;
         this.score2 = score2;
         this.me = HomeOnlineController.me;
-        this.symbol=symbol;
         if(me.equals(name1)){
             opponent = name2;
-            meSymbol = 'X';
-            opponentSymbol='O';
+            meSymbol = "X";
+            opponentSymbol="O";
         }
         else{
              opponent = name1;
-             meSymbol = 'O';
-             opponentSymbol='x';
-             disableGrid();
+             meSymbol = "O";
+             opponentSymbol="x";
         }
         initializeGame();
         listenForMoves();
@@ -82,7 +79,7 @@ public class GamescreenController extends SharedGame {
             System.err.println("gridPane0 is null!");
             return;
         }
-        game = new GameOn(false,meSymbol); //AAAAAAAAAAAAAAAAAAAAAAAAAAA
+        game = new Game(false);
         label1.setText(player1Name);
         label.setText(player2Name);
 
@@ -119,7 +116,7 @@ public class GamescreenController extends SharedGame {
         System.out.println("-----------------");
         if (game.placeXO(pos)) {
             System.out.println("pos " + pos);
-            updateGridUI(pos,meSymbol);
+            updateGridUI(pos);
             char[][] ch_ar = game.getSquares().getGrid();
             for (int i = 0; i < ch_ar.length; i++) {
                 for (int j = 0; j < ch_ar.length; j++) {
@@ -131,17 +128,15 @@ public class GamescreenController extends SharedGame {
             int row = (pos - 1) / 3;
             int col = (pos - 1) % 3;
             
-//            char c = ch_ar[row][col]; //new ----------------------------
-//            // Thread th = new Thread(() -> {
-//           // player1Name
-//           if(clicked == 'o'){//new ----------------------------
-//               c = 'x';
-//           }
-//           if(clicked == 'x'){//new ----------------------------
-//               c = 'o';
-//           }
-
-            disableGrid();
+            char c = ch_ar[row][col]; //new ----------------------------
+            // Thread th = new Thread(() -> {
+           // player1Name
+           if(clicked == 'o'){//new ----------------------------
+               c = 'x';
+           }
+           if(clicked == 'x'){//new ----------------------------
+               c = 'o';
+           }
             Connection.sendRequest("Move" + "###" + pos+ "###"+ opponent); 
             
             // });
@@ -154,7 +149,7 @@ public class GamescreenController extends SharedGame {
             
 
             if (winningPositions != null) {
-                //drawWinningLine(game); //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                drawWinningLine(game); 
                 //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
@@ -169,7 +164,16 @@ public class GamescreenController extends SharedGame {
         }
     }
     }
-    
+    private void updateGridUI(int pos) {
+        int row = (pos - 1) / 3;
+        int col = (pos - 1) % 3;
+        System.out.println("update:");
+        System.out.println(row * 3 + col);
+        ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
+        imageView.setImage(new Image(getClass().getResource(
+                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
+        ).toExternalForm()));
+    }
 
     //logical error
     private void drawWinningLine() {
@@ -215,13 +219,6 @@ public class GamescreenController extends SharedGame {
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
             imageView.setDisable(true);
-        }
-    }
-    
-    private void enableGrid() {
-        for (int i = 0; i < 9; i++) {
-            ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
-            imageView.setDisable(false);
         }
     }
 
@@ -341,8 +338,7 @@ public class GamescreenController extends SharedGame {
     private void handleOpponentMove(String move) {
         int position = Integer.parseInt(move.substring(0, 1));
         char symbol = move.charAt(1);
-        updateGridUI(position,opponentSymbol);
-        enableGrid();
+        updateGridUI(position, symbol);
     }
 
     private void updateGridUI(int position, char symbol) {
@@ -350,19 +346,8 @@ public class GamescreenController extends SharedGame {
         int col = (position - 1) % 3;
         ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
         imageView.setImage(new Image(getClass().getResource(
-                symbol == 'O' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
+                symbol == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
         ).toExternalForm()));
     }
-    
-//    private void updateGridUI(int pos) {
-//        int row = (pos - 1) / 3;
-//        int col = (pos - 1) % 3;
-//        System.out.println("update:");
-//        System.out.println(row * 3 + col);
-//        ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
-//        imageView.setImage(new Image(getClass().getResource(
-//                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
-//        ).toExternalForm()));
-//    }
 }
 //

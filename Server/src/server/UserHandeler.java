@@ -13,6 +13,7 @@ import static server.DataAccessLayer.login;
 import sun.misc.Queue;
 import templates.Player;
 
+
 class UserHandler extends Thread {
 
     DataInputStream input;
@@ -23,7 +24,7 @@ class UserHandler extends Thread {
     int score;
     String[] data;
     static Vector<UserHandler> clientsVector = new Vector<>();
-    Queue<String> moves_queu = new Queue<>();
+    //Queue<String> moves_queu = new Queue<>();
 
     public UserHandler(Socket socket) {
         try {
@@ -251,6 +252,7 @@ class UserHandler extends Thread {
                         break;
 
                     }
+
                 }
 
                 //now i need to send the queue to the other player

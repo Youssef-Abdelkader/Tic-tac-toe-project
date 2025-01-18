@@ -30,7 +30,7 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 public class HomeOnlineController extends HomeOnline {
 
     static Thread thread;
-    public static boolean  isOnHome = true;
+    public static boolean isOnHome = true;
     String oppName;
     String oppScore;
     public static OnlinePlayer onl_player;
@@ -102,8 +102,7 @@ public class HomeOnlineController extends HomeOnline {
                                     alert.setContentText("Challenge has been accepted");
                                     alert.initOwner(stage);
                                     alert.showAndWait();
-                                    game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4]);
-
+                                    game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4], 'O');
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
@@ -143,7 +142,7 @@ public class HomeOnlineController extends HomeOnline {
 
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
-                                            game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
+                                            game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2], 'X');
 
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
@@ -173,7 +172,6 @@ public class HomeOnlineController extends HomeOnline {
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
 
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
