@@ -161,7 +161,7 @@ public class Game_Screen_Controller_pc extends SharedGame {
             disableGrid();
             return true;
         }
-        if (isBoardFull(board)) {
+        if (isBoardFullPC(board)) {
             showDrawMessage();
             disableGrid();
             return true;
