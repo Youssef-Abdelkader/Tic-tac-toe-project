@@ -1,30 +1,24 @@
 package tictactoe.ui.game.screen;
 
-import connection.Connection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import javafx.application.Platform;
+import java.util.Optional;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
-import tictactoe.ui.home.online.HomeOnlineController;
+import tictactoe.ui.game.winner.WINNERController;
 
 public class GamescreenController extends game_screenBase {
 
@@ -42,6 +36,7 @@ public class GamescreenController extends game_screenBase {
     public GamescreenController(Stage stage, String name) {
 
         super(stage);
+        
         this.stage = stage;
         this.player1Name = name;
         this.player2Name = "PC";
@@ -207,11 +202,21 @@ public class GamescreenController extends game_screenBase {
     }
 
     private void showWinner(String winnerName) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Game Over");
         alert.setHeaderText(null);
         alert.setContentText(winnerName + " wins!");
-        alert.showAndWait();
+        alert.initOwner(stage);
+        ButtonType okButton = new ButtonType("Ok");
+        alert.getButtonTypes().setAll(okButton);
+        Optional <ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == okButton) {
+            WINNERController winner = new WINNERController(stage,winnerName);
+            Scene scene = new Scene(winner);
+            stage.setScene(scene);
+            
+        }
+        
     }
 
     private void disableGrid() {
@@ -298,37 +303,6 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
-//<<<<<<< HEAD
-//    private void drawHorizontalLine(int row, int col) {
-//        Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
-//        line.setStroke(Color.BLUEVIOLET);
-//        line.setStrokeWidth(5);
-//
-//        line.endXProperty().bind(gridPane0.widthProperty());
-//
-//        gridPane0.add(line, col, row);
-//    }
-//
-//    private void drawVerticalLine(int row, int col) {
-//        // Calculate the start and end positions of the line based on the grid cell size
-//        double startX = col * gridPane0.getColumnConstraints().get(col).getPrefWidth();
-//        double startY = row * gridPane0.getRowConstraints().get(row).getPrefHeight();
-//        double endX = startX;
-//        double endY = startY + gridPane0.getRowConstraints().get(row).getPrefHeight();
-//
-//        // Create the line with the calculated coordinates
-//        Line line = new Line(startX, startY, endX, endY);
-//        line.setStroke(Color.BLUEVIOLET);
-//        line.setStrokeWidth(5);
-//
-//        // Optionally, bind to the width and height if you want the line to adjust dynamically
-//        // line.endXProperty().bind(gridPane0.widthProperty());
-//        line.endYProperty().bind(gridPane0.heightProperty());
-//
-//        // Add the line to the grid
-//        gridPane0.add(line, col, row);
-//    }
-// Method to draw a line in a row
 
     private void drawRowLine(int row) {
         Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
