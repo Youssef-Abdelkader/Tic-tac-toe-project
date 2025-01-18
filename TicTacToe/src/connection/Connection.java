@@ -20,8 +20,10 @@ public class Connection {
         boolean connect = false;
         try {
             server = new Socket("127.0.0.1", 5005);
+
             ear = new DataInputStream(server.getInputStream());
             mouth = new DataOutputStream(server.getOutputStream());
+
             connect = true;
         } catch (IOException ex) {
             Platform.runLater(() -> {

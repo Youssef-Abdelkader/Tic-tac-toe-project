@@ -30,14 +30,16 @@ import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 public class HomeOnlineController extends HomeOnline {
 
     static Thread thread;
-
+    public static boolean  isOnHome = true;
     String oppName;
     String oppScore;
     public static OnlinePlayer onl_player;
+    public static String me;
 
     public HomeOnlineController(Stage stage, String userName, String userScore) {
 
         super(stage);
+        me = userName;
         stage.setOnCloseRequest(e -> {
             Connection.sendRequest("logout");
 
@@ -49,11 +51,9 @@ public class HomeOnlineController extends HomeOnline {
 
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
 
-           
-
             oppName = player[0];
             oppScore = player[1];
-           
+
             Thread th = new Thread(() -> {
                 Connection.sendRequest("sendRequest" + "###" + oppName);
             });
@@ -66,9 +66,9 @@ public class HomeOnlineController extends HomeOnline {
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
-                while (true) {
+                while (isOnHome) {
                     String recieve = Connection.recieveRequest();
-
+                    System.out.println("recieve " + recieve);
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -92,6 +92,8 @@ public class HomeOnlineController extends HomeOnline {
                         }
 
                         case "Accepted": {
+
+                            isOnHome = false;
 
                             if (Platform.isFxApplicationThread() == false) {
                                 Platform.runLater(() -> {
@@ -119,36 +121,35 @@ public class HomeOnlineController extends HomeOnline {
 
                             if (!Platform.isFxApplicationThread()) {
                                 Platform.runLater(() -> {
-                                    
+
                                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                     alert.setTitle("Confirmation Dialog");
                                     alert.setHeaderText("Challenge Request");
                                     alert.setContentText(rec[1] + " Wants to Play Against You");
                                     alert.initOwner(stage);
 
-                                   
                                     ButtonType acceptButton = new ButtonType("Accept");
                                     ButtonType declineButton = new ButtonType("Decline");
 
-                                  
                                     alert.getButtonTypes().setAll(acceptButton, declineButton);
 
-                                   
                                     Optional<ButtonType> result = alert.showAndWait();
 
-                                   
                                     if (result.isPresent()) {
                                         if (result.get() == acceptButton) {
-                                            
+
+                                            System.out.println("You accepted!");
+                                            isOnHome = false;
+
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
                                             game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
-                                            
+
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
 
                                         } else if (result.get() == declineButton) {
-                                            
+
                                             Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
 
                                         }
@@ -160,7 +161,7 @@ public class HomeOnlineController extends HomeOnline {
 
                             break;
 
-                        } 
+                        }
 
                     }
                 }
@@ -172,7 +173,6 @@ public class HomeOnlineController extends HomeOnline {
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
 
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
@@ -181,12 +181,12 @@ public class HomeOnlineController extends HomeOnline {
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
-                
-                            }
+            }
         });
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                isOnHome = false;
 
                 TicTacToe.online = false;
                 Connection.sendRequest("logout");
@@ -201,7 +201,6 @@ public class HomeOnlineController extends HomeOnline {
 
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
-        
         Vector<Vector<String>> history = new Vector<>();
 
         Connection.sendRequest("History_request###" + onl_player.getUser_name());

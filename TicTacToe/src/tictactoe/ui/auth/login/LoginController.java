@@ -133,6 +133,7 @@ public class LoginController extends Login {
             @Override
             public void handle(ActionEvent event) {
                 TicTacToe.online = false;
+                 HomeOnlineController.isOnHome=false;
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
                 Scene scene = new Scene(home);
                 stage.setScene(scene);

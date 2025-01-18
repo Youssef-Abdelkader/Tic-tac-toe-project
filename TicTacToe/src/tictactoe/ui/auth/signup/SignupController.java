@@ -29,19 +29,23 @@ public class SignupController extends Signup {
             public void handle(ActionEvent event) {
                 //check if text feilds are empty
                 if (!isEmpty()) {
-                    try {
+
+                    
                         //get username and password from
                         String name = nameText.getText();
                         String password = passwordText.getText();
                         
-                        player.setUser_name(name);
-                        player.setPassword(password);
+                        
                         HomeOnlineController.SetPlayer(player);
                         //organize the message that will be sent to server
                         String message = "signup###" + name + "###" + password;
                         
+                    try {
                         //sending message to server
                         Connection.mouth.writeUTF(message);
+                    } catch (IOException ex) {
+                        Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                         
                         // Start a thread to listen for messages from the server
                         new Thread(new Runnable() {
@@ -50,7 +54,7 @@ public class SignupController extends Signup {
                                 try {
                                     
                                     while (isRunning) {
-                                        String message = Connection.ear.readLine();
+                                        String message = Connection.ear.readUTF();
                                         String[] data = message.split("###");
                                         if ("Duplicated name".equals(data[0])) {
                                             
@@ -76,6 +80,7 @@ public class SignupController extends Signup {
                                                     isRunning = false;
                                                 });
                                             }
+
                                         }
                                     }
                                     
@@ -84,12 +89,11 @@ public class SignupController extends Signup {
                                 }
                             }
                         }).start();
-                    } catch (IOException ex) {
-                        Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    } 
+                    
 
                 }
-            }
+            
         });
 
 
@@ -98,6 +102,7 @@ public class SignupController extends Signup {
             public void handle(ActionEvent event) {
 
                 TicTacToe.online = false;
+                HomeOnlineController.isOnHome=false;
                 HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
 
                 Scene scene = new Scene(home);
