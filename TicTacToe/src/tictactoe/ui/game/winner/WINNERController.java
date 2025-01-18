@@ -6,9 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.game.screen.game_screenBase;
+import tictactoe.ui.home.offline.HomeScreen_offline;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 public class WINNERController extends WINNERBase {
 
@@ -19,6 +23,7 @@ public class WINNERController extends WINNERBase {
     public WINNERController(Stage stage, String name) {
         super();
 
+        String score = "11";
         // Initialize the MediaPlayer with the winner video
         Media media = new Media(getClass().getResource("/resources/winner.mp4").toExternalForm());
         mediaPlayer = new MediaPlayer(media);
@@ -45,8 +50,19 @@ public class WINNERController extends WINNERBase {
         btnEX.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Close the stage (exit the application)
-                stage.close();
+                if (TicTacToe.online == false) {
+
+                    HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
+
+                    Scene scene = new Scene(home);
+                    stage.setScene(scene);
+                } else {
+                    HomeOnlineController home = new HomeOnlineController(stage,name,score);
+                    Scene scene = new Scene(home);
+                    stage.setScene(scene);
+                }
+                mediaPlayer.pause();
+                
             }
         });
     }

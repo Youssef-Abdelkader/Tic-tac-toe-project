@@ -1,42 +1,29 @@
 package tictactoe.ui.game.screen;
 
 import connection.Connection;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.home.online.HomeOnlineController;
 
-public class GamescreenController extends game_screenBase {
+public class GamescreenController extends SharedGame {
 
     private Game game;
-
     private String score1;
     private String score2;
-
     private String player1Name;
     private String player2Name;
     private Stage stage;
-
     private Line winningLine;
 
     private String me;
@@ -46,6 +33,7 @@ public class GamescreenController extends game_screenBase {
     public GamescreenController(Stage stage, String name) {
 
         super(stage);
+
         this.stage = stage;
         this.player1Name = name;
         this.player2Name = "PC";
@@ -59,7 +47,7 @@ public class GamescreenController extends game_screenBase {
         this.player2Name = name2;
         initializeGame();
     }
-//online
+    
     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
         super(stage);
         this.stage = stage;
@@ -145,12 +133,24 @@ public class GamescreenController extends game_screenBase {
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine();
+            
+
+            if (winningPositions != null) {
+                drawWinningLine(game);
+                //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
             }
+
+            if (isBoardFull(ch_ar)) {
+                System.out.println("------------");
+                showDrawMessage();
+                disableGrid();
+                
+            }
         }
     }
-
+    }
     private void updateGridUI(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
@@ -191,29 +191,6 @@ public class GamescreenController extends game_screenBase {
 
     }
 
-    private ImageView getImageView(int x) {
-        if (x == 1) {
-            return boxOne;
-        } else if (x == 2) {
-            return boxTwo;
-        } else if (x == 3) {
-            return boxThree;
-        } else if (x == 4) {
-            return boxFour;
-        } else if (x == 5) {
-            return boxFive;
-        } else if (x == 6) {
-            return boxSix;
-        } else if (x == 7) {
-            return boxSeven;
-        } else if (x == 8) {
-            return boxEight;
-        } else if (x == 9) {
-            return boxNine;
-        }
-        return null;
-    }
-
     private double getCellCenterX(int pos) {
         int col = (pos - 1) % 3;
         return col * 100 + 50;
@@ -224,14 +201,6 @@ public class GamescreenController extends game_screenBase {
         return row * 100 + 50;
     }
 
-    private void showWinner(String winnerName) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText(null);
-        alert.setContentText(winnerName + " wins!");
-        FileHandler.closeResources();
-        alert.showAndWait();
-    }
 
     private void disableGrid() {
         for (int i = 0; i < 9; i++) {

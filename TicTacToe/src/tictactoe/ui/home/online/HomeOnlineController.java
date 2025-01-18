@@ -40,6 +40,10 @@ public class HomeOnlineController extends HomeOnline {
 
         super(stage);
         me = userName;
+        stage.setOnCloseRequest(e -> {
+            Connection.sendRequest("logout");
+
+        });
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
 
@@ -183,7 +187,7 @@ public class HomeOnlineController extends HomeOnline {
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
 
-                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer())); //initializes a new online player
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()),playerLabel.getText(),scoreLabel.getText()); //initializes a new online player
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 

@@ -13,6 +13,12 @@ public class Game {
     private Player player1;
     private Player player2;
 
+
+    public Game() {
+        this.squares = new Board(); // Initialize the Board object
+        this.currentPlayerSymbol = 'X';
+    }
+
     public boolean isRec_flag() {
         return rec_flag;
     }
@@ -59,10 +65,14 @@ public class Game {
                     FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
                     rec[counter] = r;
                     counter++;
-                } else if (online) {
-                    //parameter socket
-                   //sendMoveToServer(""+r.getPosition() + r.getPlayed_char().toChar()+"###",Connection.server);
-                }
+                } 
+                //issue is in: each time the method is called a file is chosen
+                FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
+
+//solution: create another method that initializes the file and then create a method that writes into that file
+// System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
+                rec[counter] = r;
+                counter++;
             }
             switchPlayer();
 
