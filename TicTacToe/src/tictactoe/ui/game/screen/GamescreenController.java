@@ -111,7 +111,7 @@ public class GamescreenController extends game_screenBase {
                 drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
-                sendRecToServer(game.recToString());
+                //sendMoveToServer(game.recToString());
             }
         }
     }
@@ -157,6 +157,7 @@ public class GamescreenController extends game_screenBase {
         winningLine.setStrokeWidth(5);
 
         this.getChildren().add(winningLine);
+        //FileHandler.closeResources();
 
     }
 
@@ -198,6 +199,7 @@ public class GamescreenController extends game_screenBase {
         alert.setTitle("Game Over");
         alert.setHeaderText(null);
         alert.setContentText(winnerName + " wins!");
+        FileHandler.closeResources();
         alert.showAndWait();
     }
 
@@ -275,34 +277,6 @@ public class GamescreenController extends game_screenBase {
         //gridPane0.add(line, col, row);
     }
 
-    private void sendRecToServer(String recToString) {
-        try {
-            Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
-            System.out.println("Connected to server");
-
-            PrintWriter mouth = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader ear = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            mouth.println("Recording###" + recToString);
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String message;
-                        while ((message = ear.readLine()) != null) {
-                            System.out.println("Received from server: " + message);
-                        }
-                    } catch (IOException ex) {
-                        System.out.println("Error while listening to server: " + ex.getMessage());
-                    }
-                }
-            }).start();
-
-        } catch (IOException ex) {
-            System.out.println("Error while connecting to server: " + ex.getMessage());
-        }
-    }
 
     private void drawLine(int a, int b, int c) {
         int row = 0;
