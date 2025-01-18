@@ -4,20 +4,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 
-public class Game_Screen_Controller_pc extends game_screenBase {
+public class Game_Screen_Controller_pc extends SharedGame {
 
     private char[][] board;
     private boolean isPlayerTurn;
     private String player1Name;
     private String player2Name;
     private Stage stage;
+    private Game game;
 
     public Game_Screen_Controller_pc(Stage stage, String name) {
         super(stage);
@@ -29,6 +27,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
             {' ', ' ', ' '}
         };
         this.isPlayerTurn = true; // Player starts
+        this.game = new Game(); // Instantiate the Game object
         initializeGame();
     }
 
@@ -84,6 +83,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
 
         if (board[row][col] == ' ') {
             board[row][col] = symbol;
+            game.placeXO(pos);
             isPlayerTurn = !isPlayerTurn;
             return true;
         }
@@ -117,7 +117,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
         if (checkWinner('X')) {
             return -1;
         }
-        if (isBoardFull()) {
+        if (isBoardFull(board)) {
             return 0;
         }
 
@@ -148,54 +148,25 @@ public class Game_Screen_Controller_pc extends game_screenBase {
                 || (board[0][2] == player && board[1][1] == player && board[2][0] == player);
     }
 
-    private boolean isBoardFull() {
-        for (char[] row : board) {
-            for (char cell : row) {
-                if (cell == ' ') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+   
 
     private boolean checkAndHandleGameOver() {
         char winner = checkWinner('X') ? 'X' : (checkWinner('O') ? 'O' : ' ');
         if (winner != ' ') {
-            drawWinningLine(getWinningPositions(winner));
+            int[] winningPositions = game.calculateWinner(); // Use calculateWinner from Game
+            if (winningPositions != null) {
+                drawWinningLine(game); // Draw the winning line (inherited from SharedGame)
+            }
             showWinner(winner == 'X' ? player1Name : player2Name);
             disableGrid();
             return true;
         }
-        if (isBoardFull()) {
+        if (isBoardFull(board)) {
             showDrawMessage();
             disableGrid();
             return true;
         }
         return false;
-    }
-
-    private int[] getWinningPositions(char winner) {
-        // Check rows
-        for (int i = 0; i < 3; i++) {
-            if (board[i][0] == winner && board[i][1] == winner && board[i][2] == winner) {
-                return new int[]{i * 3 + 1, i * 3 + 2, i * 3 + 3};
-            }
-        }
-        // Check columns
-        for (int i = 0; i < 3; i++) {
-            if (board[0][i] == winner && board[1][i] == winner && board[2][i] == winner) {
-                return new int[]{i + 1, i + 4, i + 7};
-            }
-        }
-        // Check diagonals
-        if (board[0][0] == winner && board[1][1] == winner && board[2][2] == winner) {
-            return new int[]{1, 5, 9};
-        }
-        if (board[0][2] == winner && board[1][1] == winner && board[2][0] == winner) {
-            return new int[]{3, 5, 7};
-        }
-        return null;
     }
 
     private void updateGridUI(int pos, char symbol) {
@@ -207,48 +178,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
         ).toExternalForm()));
     }
 
-    private void drawWinningLine(int[] winningPositions) {
-        if (winningPositions == null || winningPositions.length != 3) {
-            System.err.println("Invalid winning positions!");
-            return;
-        }
-        double startX = getCellCenterX(winningPositions[0]);
-        double startY = getCellCenterY(winningPositions[0]);
-        double endX = getCellCenterX(winningPositions[2]);
-        double endY = getCellCenterY(winningPositions[2]);
-
-        Line line = new Line(startX, startY, endX, endY);
-        line.setStroke(Color.RED);
-        line.setStrokeWidth(5);
-        gridPane0.getChildren().add(line);
-    }
-
-    private double getCellCenterX(int pos) {
-        int col = (pos - 1) % 3;
-        return col * 100 + 50; // Assuming each cell is 100x100 pixels
-    }
-
-    private double getCellCenterY(int pos) {
-        int row = (pos - 1) / 3;
-        return row * 100 + 50; // Assuming each cell is 100x100 pixels
-    }
-
-    private void showWinner(String winnerName) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText(null);
-        alert.setContentText(winnerName + " wins!");
-        alert.showAndWait();
-    }
-
-    private void showDrawMessage() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText(null);
-        alert.setContentText("It's a draw!");
-        FileHandler.closeResources();
-        alert.showAndWait();
-    }
+    
 
     private void disableGrid() {
         for (int i = 0; i < 9; i++) {

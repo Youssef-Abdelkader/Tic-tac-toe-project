@@ -34,7 +34,7 @@ public class Connection {
     }
 
     public static void sendRequest(String msg) {
-        mouth.println(msg);
+        if(mouth!=null){mouth.println(msg);}
     }
 
     public static String recieveRequest() {
