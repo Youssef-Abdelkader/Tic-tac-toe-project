@@ -20,17 +20,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
+import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.game.screen.Player;
+import tictactoe.ui.game.screen.game_screenBase;
 import tictactoe.ui.history.HistoryController;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 public class HomeOnlineController extends HomeOnline {
 
     static Thread thread;
+
+    String oppName;
+    String oppScore;
     public static OnlinePlayer onl_player;
+
+    public HomeOnlineController(Stage stage, String userName, String userScore) {
+
     
-    public HomeOnlineController(Stage stage, String userName, String userScore/*,OnlinePlayer on_pla*/) {
+    
+ 
         super(stage);
         playerLabel.setText(userName);
         scoreLabel.setText(userScore);
@@ -41,12 +50,15 @@ public class HomeOnlineController extends HomeOnline {
 
             System.out.println(Arrays.toString(player));
 
-            String name = player[0];
-            String score = player[1];
-            System.out.println("Name: " + name);
-            System.out.println("Score: " + score);
+
+            oppName = player[0];
+            oppScore = player[1];
+            System.out.println("Name: " + oppName);
+            System.out.println("Score: " + oppScore);
+
+           
             Thread th = new Thread(() -> {
-                Connection.sendRequest("sendRequest" + "###" + name);
+                Connection.sendRequest("sendRequest" + "###" + oppName);
             });
             th.setDaemon(true);
             th.start();
@@ -55,30 +67,12 @@ public class HomeOnlineController extends HomeOnline {
 
         Connection.sendRequest("sendList");
 
-        Thread thread2 = new Thread(() -> { 
-            String recieve = Connection.recieveRequest();
-
-            System.out.println(recieve + "\n"); //NOT PRINTED*******************
-
-            String rec[] = recieve.split("###");
-
-            System.out.println(Arrays.toString(rec)); //NOT PRINTED*******************
-
-            if (rec[0].equals("List")) {
-                String[] players = rec[1].replace("[", "").replace("]", "").split(", ");
-                listView.getItems().clear();
-                for (String player : players) {
-                    listView.getItems().add(player.trim());
-                }
-            }
-        });
-        thread2.setDaemon(true);
-        thread2.start();
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
                 while (true) {
                     String recieve = Connection.recieveRequest();
+
                     String rec[] = recieve.split("###");
                     switch (rec[0]) {
                         case "List": {
@@ -101,16 +95,39 @@ public class HomeOnlineController extends HomeOnline {
                             //Connection.closeconnection();
                             break;
                         }
-                        case "Accept": {
 
+                        case "Accepted": {
+
+
+                        }
+                        
+                               
+
+                            if (Platform.isFxApplicationThread() == false) {
+                                Platform.runLater(() -> {
+                                    System.out.println("Challenge has been accepted");
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Challenge Accepted");
+                                    alert.setContentText("Challenge has been accepted");
+                                    alert.initOwner(stage);
+                                    alert.showAndWait();
+                                    System.out.println(rec[3] + rec[1] + rec[2] + rec[4]);
+                                    System.out.println("------------------------------");
+                                    game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4]);
+
+                                    Scene scene = new Scene(game);
+                                    stage.setScene(scene);
+                                });
+                                  
+                            }
+                              break;
+                        
+                            
+                        case "Refused": {
                             break;
 
                         }
-                        case "Decline": {
 
-                            break;
-
-                        }
 
                         case "invitation": {
 
@@ -139,6 +156,13 @@ public class HomeOnlineController extends HomeOnline {
                                         if (result.get() == acceptButton) {
                                             System.out.println("You accepted!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
+
+                                            game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
+                                            System.out.println(playerLabel.getText() + oppName + scoreLabel.getText() + oppScore);
+                                            Scene scene = new Scene(game);
+                                            stage.setScene(scene);
+
+
                                         } else if (result.get() == declineButton) {
                                             System.out.println("You declined!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
@@ -199,8 +223,9 @@ public class HomeOnlineController extends HomeOnline {
 
         //boolean retflag = false;
         Vector<Vector<String>> history = new Vector<>();
-        if (Connection.setConnection()) {
-            Connection.sendRequest("History_request###" + onl_player.getUser_name());
+
+        Connection.sendRequest("History_request###" + onl_player.getUser_name());
+        Thread th = new Thread(() -> {
             String response = Connection.recieveRequest();
             if (response != null && response.startsWith("History_response")) {
                 String[] historyEntries = response.split("###");
@@ -249,7 +274,9 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(winners);
                 history.add(recordings);
             }
-        }
+        });
+        
+        th.start();
         return history;
 
     }

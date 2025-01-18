@@ -30,6 +30,9 @@ public class GamescreenController extends game_screenBase {
 
     private Game game;
 
+    private String score1;
+    private String score2;
+
     private String player1Name;
     private String player2Name;
     private Stage stage;
@@ -50,6 +53,16 @@ public class GamescreenController extends game_screenBase {
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
+        initializeGame();
+    }
+    
+     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
+        super(stage);
+        this.stage = stage;
+        this.player1Name = name1;
+        this.player2Name = name2;
+        this.score1 = score1;
+        this.score2 = score2;
         initializeGame();
     }
 
@@ -107,8 +120,8 @@ public class GamescreenController extends game_screenBase {
 
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
-                //drawWinningLine(/*winningPositions*/);
-                drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
+                drawWinningLine();
+                //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
                 //sendMoveToServer(game.recToString());
@@ -218,64 +231,7 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
-//<<<<<<< HEAD
-    private void drawLine1(int a, int b, int c) {
-        double startX = 0, startY = 0, endX = 0, endY = 0;
-        ImageView img_st = null;
-        ImageView img_end = null;
-        int row = 0;
-        int col = 0;
-
-        if (b == a + 1 && c == a + 2) { //row win
-            row = (a - 1) / 3;
-            drawHorizontalLine(row, col);
-
-        } else if (b == a + 3 && c == a + 6) {
-            // Winning in a column
-            col = (a - 1) % 3;
-            drawVerticalLine(row, col);
-            /*switch (col) {
-                case 0:
-                    img_st = boxOne;
-                    img_end = boxSeven;
-                    break;
-                case 1:
-                    img_st = boxTwo;
-                    img_end = boxEight;
-                    break;
-                case 2:
-                    img_st = boxThree;
-                    img_end = boxNine;
-            }*/
-        } else if (a == 1 && c == 9) {
-
-            img_st = boxOne;
-            img_end = boxNine;
-
-        } else if (a == 3 && c == 7) {
-            img_st = boxThree;
-            img_end = boxSeven;
-        }
-//        Point2D sceneCoords = img_st.localToScene(img_st.getX(), img_st.getY());
-
-        //startX = sceneCoords.getX();
-        //startY = sceneCoords.getY();
-        //Point2D sceneCoords2 = img_end.localToScene(img_end.getX(), img_end.getY());
-        //endX = sceneCoords2.getX();
-        // endY = sceneCoords2.getY();
-        // tester = "start x= "+startX+" start y= "+startY+"\nend x= "+endX+" end y= "+end;
-
-        /* else {
-        // No valid win condition
-        return;
-        }*/
-        // Create the line and set its properties
-        //Line line = new Line(startX, startY, endX, endY);
-        // line.setStroke(Color.BLUE);
-        // line.setStrokeWidth(5);
-        // Add the line to the gridPane0
-        //gridPane0.add(line, col, row);
-    }
+    
 
 
     private void drawLine(int a, int b, int c) {
@@ -317,35 +273,35 @@ public class GamescreenController extends game_screenBase {
     }
 
 //<<<<<<< HEAD
-    private void drawHorizontalLine(int row, int col) {
-        Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
-        line.setStroke(Color.BLUEVIOLET);
-        line.setStrokeWidth(5);
-
-        line.endXProperty().bind(gridPane0.widthProperty());
-
-        gridPane0.add(line, col, row);
-    }
-
-    private void drawVerticalLine(int row, int col) {
-        // Calculate the start and end positions of the line based on the grid cell size
-        double startX = col * gridPane0.getColumnConstraints().get(col).getPrefWidth();
-        double startY = row * gridPane0.getRowConstraints().get(row).getPrefHeight();
-        double endX = startX;
-        double endY = startY + gridPane0.getRowConstraints().get(row).getPrefHeight();
-
-        // Create the line with the calculated coordinates
-        Line line = new Line(startX, startY, endX, endY);
-        line.setStroke(Color.BLUEVIOLET);
-        line.setStrokeWidth(5);
-
-        // Optionally, bind to the width and height if you want the line to adjust dynamically
-        // line.endXProperty().bind(gridPane0.widthProperty());
-        line.endYProperty().bind(gridPane0.heightProperty());
-
-        // Add the line to the grid
-        gridPane0.add(line, col, row);
-    }
+//    private void drawHorizontalLine(int row, int col) {
+//        Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
+//        line.setStroke(Color.BLUEVIOLET);
+//        line.setStrokeWidth(5);
+//
+//        line.endXProperty().bind(gridPane0.widthProperty());
+//
+//        gridPane0.add(line, col, row);
+//    }
+//
+//    private void drawVerticalLine(int row, int col) {
+//        // Calculate the start and end positions of the line based on the grid cell size
+//        double startX = col * gridPane0.getColumnConstraints().get(col).getPrefWidth();
+//        double startY = row * gridPane0.getRowConstraints().get(row).getPrefHeight();
+//        double endX = startX;
+//        double endY = startY + gridPane0.getRowConstraints().get(row).getPrefHeight();
+//
+//        // Create the line with the calculated coordinates
+//        Line line = new Line(startX, startY, endX, endY);
+//        line.setStroke(Color.BLUEVIOLET);
+//        line.setStrokeWidth(5);
+//
+//        // Optionally, bind to the width and height if you want the line to adjust dynamically
+//        // line.endXProperty().bind(gridPane0.widthProperty());
+//        line.endYProperty().bind(gridPane0.heightProperty());
+//
+//        // Add the line to the grid
+//        gridPane0.add(line, col, row);
+//    }
 // Method to draw a line in a row
 
     private void drawRowLine(int row) {

@@ -374,16 +374,16 @@ public abstract class game_screenBase extends BorderPane {
 
     // Calculate the start and end positions of the line based on the grid cell size
    
-    Line line = new Line(0, 0, 0, 0);
-    line.setStroke(Color.BLUEVIOLET);
-    line.setStrokeWidth(5);
-
-    // Optionally, bind to the width and height if you want the line to adjust dynamically
-    // line.endXProperty().bind(gridPane0.widthProperty());
-    line.endYProperty().bind(gridPane0.heightProperty());
-
-    // Add the line to the grid
-    gridPane0.add(line, 0, 1);
+//    Line line = new Line(0, 0, 0, 0);
+//    line.setStroke(Color.BLUEVIOLET);
+//    line.setStrokeWidth(5);
+//
+//    // Optionally, bind to the width and height if you want the line to adjust dynamically
+//    // line.endXProperty().bind(gridPane0.widthProperty());
+//    line.endYProperty().bind(gridPane0.heightProperty());
+//
+//    // Add the line to the grid
+//    gridPane0.add(line, 0, 1);
 
     }
 }

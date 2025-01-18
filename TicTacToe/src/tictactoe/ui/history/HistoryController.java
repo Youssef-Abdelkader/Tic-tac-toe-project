@@ -21,7 +21,7 @@ public class HistoryController extends History {
     String score = "11";
     public HistoryController(Stage stage, Vector<Vector<String>> history) {
         super(stage);
-        populateTable(history); // Populate the table
+        //populateTable(history); // Populate the table
 
         home.addEventHandler(ActionEvent.ACTION, (event) -> {
             HomeOnlineController cont = new HomeOnlineController(stage,name,score);
@@ -35,9 +35,9 @@ public class HistoryController extends History {
         ObservableList<HistoryRecord> data = FXCollections.observableArrayList();
 
         Vector<String> gameIds = history.get(0);
-        Vector<String> player2s = history.get(2); // Player2 is stored here
-        Vector<String> winners = history.get(3);
-        Vector<String> recordings = history.get(4);
+        Vector<String> player2s = history.get(1); // Player2 is stored here
+        Vector<String> winners = history.get(2);
+        Vector<String> recordings = history.get(3);
 
         for (int i = 0; i < gameIds.size(); i++) {
             data.add(new HistoryRecord(
