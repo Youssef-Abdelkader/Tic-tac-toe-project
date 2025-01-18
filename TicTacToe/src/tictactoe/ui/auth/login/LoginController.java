@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
 import tictactoe.ui.auth.signup.SignupController;
+import tictactoe.ui.game.screen.OnlinePlayer;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 
@@ -17,6 +18,8 @@ public class LoginController extends Login {
 
     private Thread thread;
 
+    OnlinePlayer player = new OnlinePlayer();
+    
     public LoginController(Stage stage) {
         super(stage);
 
@@ -46,7 +49,10 @@ public class LoginController extends Login {
                     //get username and password from 
                     String name = nameText.getText();
                     String password = passwordText.getText();
-
+                    
+                    player.setUser_name(name);
+                    player.setPassword(password);
+                    HomeOnlineController.SetPlayer(player);
                     //organize the message that will be sent to server
                     String message = "login###" + name + "###" + password;
 
@@ -96,6 +102,7 @@ public class LoginController extends Login {
                                                 Platform.runLater(() -> {
 //                                                    System.out.println(message);
                                                     HomeOnlineController home = new HomeOnlineController(stage,name,message);
+                                                    home.SetPlayer(player);
                                                     Scene scene = new Scene(home);
                                                     stage.setScene(scene);
                                                 });

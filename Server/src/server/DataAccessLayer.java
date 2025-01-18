@@ -19,7 +19,8 @@ public class DataAccessLayer {
     public static Connection connection;
     public static int gameId = 1;
 
-    private String url = "jdbc:derby://localhost:1527/Game"; //url
+    private String url = "jdbc:derby://localhost:1527/Game"; //url change /x-o to the db name
+
     
     static {
         try {
@@ -92,22 +93,26 @@ public class DataAccessLayer {
     public static String acceptRequest(String senderName, String recieverName) throws SQLException {
 
         String message;
+        int senderScore=0;
+        int recieverScore=0;
 
         PreparedStatement preparedStatementOne = connection.prepareStatement("SELECT * FROM PLAYER WHERE USER_NAME = ?",
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         preparedStatementOne.setString(1, senderName);
         ResultSet resultSet = preparedStatementOne.executeQuery();
 
-        int senderScore = resultSet.getInt("USER_SCORE");
-
+        if (resultSet.next()) {
+        senderScore = resultSet.getInt("USER_SCORE");
+         }
         PreparedStatement preparedStatementTwo = connection.prepareStatement("SELECT * FROM PLAYER WHERE USER_NAME = ?",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         preparedStatementTwo.setString(1, recieverName);
         resultSet = preparedStatementTwo.executeQuery();
-        int recieverScore = resultSet.getInt("USER_SCORE");
-
+        if (resultSet.next()) {
+        recieverScore = resultSet.getInt("USER_SCORE");
+         }
         Game game = new Game();
         game.setGame_Id(String.valueOf(gameId)); // Convert int to String
         game.setPlayer1(senderName);

@@ -23,10 +23,10 @@ public class Game_Screen_Controller_pc extends game_screenBase {
         super(stage);
         this.stage = stage;
         this.player1Name = name;
-        this.board = new char[][] {
-                { ' ', ' ', ' ' },
-                { ' ', ' ', ' ' },
-                { ' ', ' ', ' ' }
+        this.board = new char[][]{
+            {' ', ' ', ' '},
+            {' ', ' ', ' '},
+            {' ', ' ', ' '}
         };
         this.isPlayerTurn = true; // Player starts
         initializeGame();
@@ -63,7 +63,9 @@ public class Game_Screen_Controller_pc extends game_screenBase {
     private void handlePlayerMove(int pos) {
         if (isPlayerTurn && placeXO(pos, 'X')) {
             updateGridUI(pos, 'X');
-            if (checkAndHandleGameOver()) return;
+            if (checkAndHandleGameOver()) {
+                return;
+            }
 
             // PC's turn
             int[] pcMove = getPCMove();
@@ -90,7 +92,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
 
     private int[] getPCMove() {
         int bestScore = Integer.MIN_VALUE;
-        int[] bestMove = { -1, -1 };
+        int[] bestMove = {-1, -1};
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -100,7 +102,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
                     board[i][j] = ' ';
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMove = new int[] { i, j };
+                        bestMove = new int[]{i, j};
                     }
                 }
             }
@@ -109,9 +111,15 @@ public class Game_Screen_Controller_pc extends game_screenBase {
     }
 
     private int minimax(boolean isMaximizing) {
-        if (checkWinner('O')) return 1;
-        if (checkWinner('X')) return -1;
-        if (isBoardFull()) return 0;
+        if (checkWinner('O')) {
+            return 1;
+        }
+        if (checkWinner('X')) {
+            return -1;
+        }
+        if (isBoardFull()) {
+            return 0;
+        }
 
         int bestScore = isMaximizing ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
@@ -131,19 +139,21 @@ public class Game_Screen_Controller_pc extends game_screenBase {
     private boolean checkWinner(char player) {
         // Check rows, columns, and diagonals
         for (int i = 0; i < 3; i++) {
-            if ((board[i][0] == player && board[i][1] == player && board[i][2] == player) || 
-                (board[0][i] == player && board[1][i] == player && board[2][i] == player)) {
+            if ((board[i][0] == player && board[i][1] == player && board[i][2] == player)
+                    || (board[0][i] == player && board[1][i] == player && board[2][i] == player)) {
                 return true;
             }
         }
-        return (board[0][0] == player && board[1][1] == player && board[2][2] == player) || 
-               (board[0][2] == player && board[1][1] == player && board[2][0] == player);
+        return (board[0][0] == player && board[1][1] == player && board[2][2] == player)
+                || (board[0][2] == player && board[1][1] == player && board[2][0] == player);
     }
 
     private boolean isBoardFull() {
         for (char[] row : board) {
             for (char cell : row) {
-                if (cell == ' ') return false;
+                if (cell == ' ') {
+                    return false;
+                }
             }
         }
         return true;
@@ -169,21 +179,21 @@ public class Game_Screen_Controller_pc extends game_screenBase {
         // Check rows
         for (int i = 0; i < 3; i++) {
             if (board[i][0] == winner && board[i][1] == winner && board[i][2] == winner) {
-                return new int[] { i * 3 + 1, i * 3 + 2, i * 3 + 3 };
+                return new int[]{i * 3 + 1, i * 3 + 2, i * 3 + 3};
             }
         }
         // Check columns
         for (int i = 0; i < 3; i++) {
             if (board[0][i] == winner && board[1][i] == winner && board[2][i] == winner) {
-                return new int[] { i + 1, i + 4, i + 7 };
+                return new int[]{i + 1, i + 4, i + 7};
             }
         }
         // Check diagonals
         if (board[0][0] == winner && board[1][1] == winner && board[2][2] == winner) {
-            return new int[] { 1, 5, 9 };
+            return new int[]{1, 5, 9};
         }
         if (board[0][2] == winner && board[1][1] == winner && board[2][0] == winner) {
-            return new int[] { 3, 5, 7 };
+            return new int[]{3, 5, 7};
         }
         return null;
     }
@@ -236,6 +246,7 @@ public class Game_Screen_Controller_pc extends game_screenBase {
         alert.setTitle("Game Over");
         alert.setHeaderText(null);
         alert.setContentText("It's a draw!");
+        FileHandler.closeResources();
         alert.showAndWait();
     }
 

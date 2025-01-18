@@ -1,4 +1,14 @@
 package tictactoe.ui.game.screen;
+
+import connection.Connection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -7,27 +17,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 public class GamescreenController extends game_screenBase {
-            
+
     private Game game;
-   
+
+    private String score1;
+    private String score2;
+
     private String player1Name;
     private String player2Name;
     private Stage stage;
 
-
     private Line winningLine;
 
-
     public GamescreenController(Stage stage, String name) {
-        
+
         super(stage);
         this.stage = stage;
         this.player1Name = name;
@@ -40,6 +53,16 @@ public class GamescreenController extends game_screenBase {
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
+        initializeGame();
+    }
+    
+     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2) {
+        super(stage);
+        this.stage = stage;
+        this.player1Name = name1;
+        this.player2Name = name2;
+        this.score1 = score1;
+        this.score2 = score2;
         initializeGame();
     }
 
@@ -70,7 +93,14 @@ public class GamescreenController extends game_screenBase {
             stage.setScene(scene);
         });
 
-        recordButton.setOnAction(event -> recordButton.setDisable(true));
+        //recordButton.setOnAction(event -> recordButton.setDisable(true));
+        recordButton.addEventHandler(ActionEvent.ACTION, (event) -> {
+            FileHandler.initializeFile();
+
+            game.setRec_flag(true);
+            //create file
+            recordButton.setDisable(true);
+        });
     }
 
     private void handleGridClick(int pos) {
@@ -90,9 +120,11 @@ public class GamescreenController extends game_screenBase {
 
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
-                drawWinningLine(/*winningPositions*/);
+                drawWinningLine();
+                //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
                 showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
                 disableGrid();
+                sendRecToServer(game.recToString());
             }
         }
     }
@@ -126,7 +158,6 @@ public class GamescreenController extends game_screenBase {
 
         Bounds bounds1 = imageview.localToScene(imageview.getBoundsInLocal());
         Bounds bounds2 = imageview1.localToScene(imageview1.getBoundsInLocal());
-
 
         double startX = bounds1.getMinX() + bounds1.getWidth() / 2;
         double startY = bounds1.getMinY() + bounds1.getHeight() / 2;
@@ -198,7 +229,36 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
+    
 
+    private void sendRecToServer(String recToString) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 5005);  // Assuming the server is on localhost and port 5005
+            System.out.println("Connected to server");
+
+            PrintWriter mouth = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader ear = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            mouth.println("Recording###" + recToString);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String message;
+                        while ((message = ear.readLine()) != null) {
+                            System.out.println("Received from server: " + message);
+                        }
+                    } catch (IOException ex) {
+                        System.out.println("Error while listening to server: " + ex.getMessage());
+                    }
+                }
+            }).start();
+
+        } catch (IOException ex) {
+            System.out.println("Error while connecting to server: " + ex.getMessage());
+        }
+    }
 
     private void drawLine(int a, int b, int c) {
         int row = 0;
@@ -238,7 +298,38 @@ public class GamescreenController extends game_screenBase {
         }
     }
 
+//<<<<<<< HEAD
+//    private void drawHorizontalLine(int row, int col) {
+//        Line line = new Line(0, 0, 0, 0); // Start and end points are initially (0, 0)
+//        line.setStroke(Color.BLUEVIOLET);
+//        line.setStrokeWidth(5);
+//
+//        line.endXProperty().bind(gridPane0.widthProperty());
+//
+//        gridPane0.add(line, col, row);
+//    }
+//
+//    private void drawVerticalLine(int row, int col) {
+//        // Calculate the start and end positions of the line based on the grid cell size
+//        double startX = col * gridPane0.getColumnConstraints().get(col).getPrefWidth();
+//        double startY = row * gridPane0.getRowConstraints().get(row).getPrefHeight();
+//        double endX = startX;
+//        double endY = startY + gridPane0.getRowConstraints().get(row).getPrefHeight();
+//
+//        // Create the line with the calculated coordinates
+//        Line line = new Line(startX, startY, endX, endY);
+//        line.setStroke(Color.BLUEVIOLET);
+//        line.setStrokeWidth(5);
+//
+//        // Optionally, bind to the width and height if you want the line to adjust dynamically
+//        // line.endXProperty().bind(gridPane0.widthProperty());
+//        line.endYProperty().bind(gridPane0.heightProperty());
+//
+//        // Add the line to the grid
+//        gridPane0.add(line, col, row);
+//    }
 // Method to draw a line in a row
+
     private void drawRowLine(int row) {
         Line line = new Line(0, 0, gridPane0.getWidth(), 0);  // Horizontal line
         line.setStroke(Color.RED);
@@ -282,3 +373,4 @@ public class GamescreenController extends game_screenBase {
     }
 
 }
+//
