@@ -51,13 +51,11 @@ public class HomeOnlineController extends HomeOnline {
 
             System.out.println(Arrays.toString(player));
 
-
             oppName = player[0];
             oppScore = player[1];
             System.out.println("Name: " + oppName);
             System.out.println("Score: " + oppScore);
 
-           
             Thread th = new Thread(() -> {
                 Connection.sendRequest("sendRequest" + "###" + oppName);
             });
@@ -67,7 +65,6 @@ public class HomeOnlineController extends HomeOnline {
         }));
 
         Connection.sendRequest("sendList");
-
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
@@ -99,11 +96,6 @@ public class HomeOnlineController extends HomeOnline {
 
                         case "Accepted": {
 
-
-                        }
-                        
-                               
-
                             if (Platform.isFxApplicationThread() == false) {
                                 Platform.runLater(() -> {
                                     System.out.println("Challenge has been accepted");
@@ -119,16 +111,15 @@ public class HomeOnlineController extends HomeOnline {
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
-                                  
+
                             }
-                              break;
-                        
-                            
+                            break;
+                        }
+
                         case "Refused": {
                             break;
 
                         }
-
 
                         case "invitation": {
 
@@ -163,7 +154,6 @@ public class HomeOnlineController extends HomeOnline {
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
 
-
                                         } else if (result.get() == declineButton) {
                                             System.out.println("You declined!");
                                             Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
@@ -190,11 +180,11 @@ public class HomeOnlineController extends HomeOnline {
             @Override
             public void handle(ActionEvent event) {
                 //onl_player -> to be implemented;
-                
+
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
 
-                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()),playerLabel.getText(),scoreLabel.getText()); //initializes a new online player
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()), playerLabel.getText(), scoreLabel.getText()); //initializes a new online player
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
@@ -218,7 +208,6 @@ public class HomeOnlineController extends HomeOnline {
         });
 
     }
-
 
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
@@ -276,17 +265,18 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(recordings);
             }
         });
-        
+
         th.start();
         return history;
 
     }
 
-    public static void SetPlayer(OnlinePlayer player){
+    public static void SetPlayer(OnlinePlayer player) {
         onl_player = player;
     }
-    public static OnlinePlayer GetPlayer(){
+
+    public static OnlinePlayer GetPlayer() {
         return onl_player;
     }
-            
+
 }

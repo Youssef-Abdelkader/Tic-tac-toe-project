@@ -110,13 +110,12 @@ public class SharedGame extends game_screenBase {
         }
         return true;
     }
-    
-    
+
     public boolean isBoardFullPC(char[][] board) {
         for (char[] row : board) {
             for (char cell : row) {
                 if (cell == ' ') {
-                    System.out.println(cell);
+
                     return false;
                 }
             }

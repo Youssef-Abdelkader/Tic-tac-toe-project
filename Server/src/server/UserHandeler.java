@@ -180,7 +180,6 @@ class UserHandler extends Thread {
                     }
 
                     case "logout": {
-
                         try {
                             DataAccessLayer.logout(this.name);
                             output.println("logout###success");
@@ -190,7 +189,6 @@ class UserHandler extends Thread {
 
                             if (!(this.name.equals(null))) {
                                 try {
-
                                     DataAccessLayer.logout(this.name);
                                     output.println("logout###success");
                                     removeClient();
@@ -202,7 +200,6 @@ class UserHandler extends Thread {
                                 } catch (IOException ex) {
                                     Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
                                 break;
                             }
 
