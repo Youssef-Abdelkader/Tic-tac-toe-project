@@ -1,6 +1,7 @@
 package connection;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -13,14 +14,16 @@ public class Connection {
 
     public static Socket server;
     public static DataInputStream ear;
-    public static PrintStream mouth;
+    public static DataOutputStream mouth;
 
     public static boolean setConnection() {
         boolean connect = false;
         try {
             server = new Socket("127.0.0.1", 5005);
+
             ear = new DataInputStream(server.getInputStream());
-            mouth = new PrintStream(server.getOutputStream());
+            mouth = new DataOutputStream(server.getOutputStream());
+
             connect = true;
         } catch (IOException ex) {
             Platform.runLater(() -> {
@@ -34,28 +37,36 @@ public class Connection {
     }
 
     public static void sendRequest(String msg) {
-        if(mouth!=null){mouth.println(msg);}
+        if (mouth != null) {
+            try {
+                mouth.writeUTF(msg);
+            } catch (IOException ex) {
+                Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public static String recieveRequest() {
         String msg = null;
         try {
-            msg = ear.readLine();
+            msg = ear.readUTF();
         } catch (IOException ex) {
-            msg="1###";
-            
+            msg = "1###";
+
         }
         return msg;
     }
-    public static void closeconnection()
-    {
-        mouth.close();
+
+    public static void closeconnection() {
         try {
+            mouth.close();
             ear.close();
             server.close();
+
         } catch (IOException ex) {
-            
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-        
+
     }
 }

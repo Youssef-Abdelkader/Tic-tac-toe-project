@@ -86,7 +86,11 @@ public class DataAccessLayer {
     public static void sendRequest(String senderName, String recieverName) throws SQLException {
 
         UserHandler user = UserHandler.getUserHandler(recieverName);
-        user.output.println(senderName + " wants to play against you");
+        try {
+            user.output.writeUTF(senderName + " wants to play against you");
+        } catch (IOException ex) {
+            Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

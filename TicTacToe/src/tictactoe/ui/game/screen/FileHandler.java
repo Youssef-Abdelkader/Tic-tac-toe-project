@@ -66,13 +66,13 @@ public class FileHandler {
         return flag;
     }
 
-//    public static void closeResources(){
-//        try {
-//            data_out.close();
-//            fos.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public static void closeResources(){
+        try {
+            data_out.close();
+            fos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

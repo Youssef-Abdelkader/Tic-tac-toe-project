@@ -83,7 +83,7 @@ public class SharedGame extends game_screenBase {
         alert.setContentText(winnerName + " wins!");
         alert.initOwner(stage);
         alert.showAndWait();
-
+        FileHandler.closeResources();
     }
 
     public void showDrawMessage() {
@@ -93,7 +93,7 @@ public class SharedGame extends game_screenBase {
             alert.setTitle("Game Over");
             alert.setHeaderText(null);
             alert.setContentText("It's a draw!");
-            //FileHandler.closeResources();
+            FileHandler.closeResources();
             alert.showAndWait();
 
         });
