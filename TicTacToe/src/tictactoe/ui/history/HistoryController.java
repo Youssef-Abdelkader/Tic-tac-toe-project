@@ -17,9 +17,7 @@ import tictactoe.ui.home.online.HomeOnlineController;
 
 public class HistoryController extends History {
 
-    String name = "player";
-    String score = "11";
-    public HistoryController(Stage stage, Vector<Vector<String>> history) {
+    public HistoryController(Stage stage, Vector<Vector<String>> history,String name,String score) {
         super(stage);
         //populateTable(history); // Populate the table
 

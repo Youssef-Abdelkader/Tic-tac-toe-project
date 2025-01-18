@@ -2,13 +2,16 @@ package tictactoe.ui.game.screen;
 
 import java.io.File;
 
-
 public class Game {
 
     private Player player1;
     private Player player2;
 
-    
+    public Game() {
+        this.squares = new Board(); // Initialize the Board object
+        this.currentPlayerSymbol = 'X';
+    }
+
     public boolean isRec_flag() {
         return rec_flag;
     }
@@ -55,10 +58,10 @@ public class Game {
             if (rec_flag) {
                 Recording r = new Recording(pos, X_OR_O.getEnum(currentPlayerSymbol));
                 //issue is in: each time the method is called a file is chosen
-                FileHandler.writeToFile("recording object "+r.getPosition()+r.getPlayed_char().toChar());
+                FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
                 //File file = FileHandler.initializeFile();
                 //FileHandler.writeToFile(file, "recording object "+r.getPosition()+r.getPlayed_char().toChar());
-                
+
 //solution: create another method that initializes the file and then create a method that writes into that file
 // System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
                 rec[counter] = r;

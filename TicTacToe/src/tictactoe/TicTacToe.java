@@ -14,42 +14,26 @@ import tictactoe.ui.history.History;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
+
 public class TicTacToe extends Application {
+
     public static boolean online = false;
     Socket server;
     DataInputStream ear;
     PrintStream mouth;
+
     @Override
     public void start(Stage stage) throws Exception {
-         Parent root = new HomeScreen_offline_Controller(stage);
+        Parent root = new HomeScreen_offline_Controller(stage);
 
-       //  Parent root = new History(stage);
-
-       
-
-        //Parent root = new WINNERController(stage);
-        //Signup() - History();
-        //AnchorPane root = new WINNERBase();
-        //Parent root = new HomeScreen_offline();
-        //  Parent root = new game_screenBase();
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
         stage.show();
-        /*public void start(Stage primaryStage) throws Exception {
-        // Set the initial scene to the serverscene (this will be your main menu)
-        serverscene serverScene = new serverscene();
-        Scene scene = new Scene(serverScene);
 
-        primaryStage.setTitle("Tic Tac Toe Game");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }*/
-        
-        stage.setOnCloseRequest(e->{
+        stage.setOnCloseRequest(e -> {
             Connection.sendRequest("logout");
-            
+
         });
 
     }
