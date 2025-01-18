@@ -2,6 +2,8 @@ package tictactoe.ui.auth.login;
 
 import connection.Connection;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,8 +58,12 @@ public class LoginController extends Login {
                     //organize the message that will be sent to server
                     String message = "login###" + name + "###" + password;
 
-                    //sending message to server
-                    Connection.mouth.println(message);
+                    try {
+                        //sending message to server
+                        Connection.mouth.writeUTF(message);
+                    } catch (IOException ex) {
+                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                     // Start a thread to listen for messages from the server
                     thread = new Thread(new Runnable() {
@@ -66,10 +72,10 @@ public class LoginController extends Login {
                             try {
                                 boolean isRunning = true;
                                 while (isRunning) {
-                                    String message = Connection.ear.readLine();
+                                    String message = Connection.ear.readUTF();
                                     switch (message) {
                                         case "this name is not exist":
-//                                            System.out.println(message);
+
                                              {
                                                 if (Platform.isFxApplicationThread() == false) {
                                                     Platform.runLater(() -> {

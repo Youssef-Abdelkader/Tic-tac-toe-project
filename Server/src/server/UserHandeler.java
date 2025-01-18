@@ -1,6 +1,7 @@
 package server;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -14,7 +15,7 @@ import templates.Player;
 class UserHandler extends Thread {
 
     DataInputStream input;
-    PrintStream output;
+    DataOutputStream output;
     String name;
     String oppoName;
     boolean isPlaying = false;
@@ -25,7 +26,7 @@ class UserHandler extends Thread {
     public UserHandler(Socket socket) {
         try {
             input = new DataInputStream(socket.getInputStream());
-            output = new PrintStream(socket.getOutputStream());
+            output = new DataOutputStream(socket.getOutputStream());
             addClient();
             //System.out.println(input.readLine());
             start(); // Start the thread for this user
@@ -48,7 +49,7 @@ class UserHandler extends Thread {
 
         while (true) {
             try {
-                String request = input.readLine();
+                String request = input.readUTF();
 
                 data = request.split("###");
 
@@ -63,7 +64,7 @@ class UserHandler extends Thread {
                             if (player.getName() != null) {
                                 if (player.getPassword().equals(data[2])) {
                                     score=player.getScore();
-                                    this.output.println(player.getScore());
+                                    this.output.writeUTF(String.valueOf(player.getScore()));
                                     DataAccessLayer.updateStatus(data[1], 1);
                                     try {
                                         Serverscene2Base.updatePiechart(DataAccessLayer.getOnlineMemberCount(), DataAccessLayer.getOfflineMemberCount());
@@ -72,10 +73,10 @@ class UserHandler extends Thread {
                                         Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 } else {
-                                    this.output.println("incorrect password");
+                                    this.output.writeUTF("incorrect password");
                                 }
                             } else {
-                                this.output.println("this name is not exist");
+                                this.output.writeUTF("this name is not exist");
                             }
                         } catch (SQLException ex) {
                             System.out.println(ex.getMessage());
@@ -102,12 +103,12 @@ class UserHandler extends Thread {
                                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         } catch (SQLException ex) {
-                            this.output.println("Duplicated name###");
+                            this.output.writeUTF("Duplicated name###");
                         }
 
                         if (signedUp) {
                             
-                            this.output.println("Signed up successfully###"+0);
+                            this.output.writeUTF("Signed up successfully###"+0);
                         }
                     }
                     break;
@@ -122,7 +123,7 @@ class UserHandler extends Thread {
 
                         UserHandler user2 = UserHandler.getUserHandler(data[1]); //reciever
                         System.out.println(user2);
-                        user2.output.println("invitation" + "###" + name + "###" + score);
+                        user2.output.writeUTF("invitation" + "###" + name + "###" + score);
 
                         
 
@@ -167,10 +168,10 @@ class UserHandler extends Thread {
                                 historyResponse.append("###" + s);
                             }
 
-                            this.output.println(historyResponse.toString());
+                            this.output.writeUTF(historyResponse.toString());
                         } catch (SQLException ex) {
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                            this.output.println("Error retrieving history");
+                            this.output.writeUTF("Error retrieving history");
                         }
                         break;
                     }
@@ -183,7 +184,7 @@ class UserHandler extends Thread {
 
                         try {
                             DataAccessLayer.logout(this.name);
-                            output.println("logout###success");
+                            output.writeUTF("logout###success");
                             clientsVector.remove(this);
                             input.close();
                             output.close();
@@ -192,13 +193,13 @@ class UserHandler extends Thread {
                                 try {
 
                                     DataAccessLayer.logout(this.name);
-                                    output.println("logout###success");
+                                    output.writeUTF("logout###success");
                                     removeClient();
                                     input.close();
                                     output.close();
                                 } catch (SQLException ex) {
                                     Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                                    output.println("logout###failure");
+                                    output.writeUTF("logout###failure");
                                 } catch (IOException ex) {
                                     Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                                 }
@@ -224,11 +225,11 @@ class UserHandler extends Thread {
                             DataAccessLayer.addWinner(winnerName, gameId);
 
                             // Notify the client that the winner was recorded successfully
-                            output.println("winner###success");
+                            output.writeUTF("winner###success");
                         } catch (SQLException ex) {
                             // Log the error and notify the client if the database update fails
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                            output.println("winner###failure");
+                            output.writeUTF("winner###failure");
                         }
                         break;
 
@@ -291,7 +292,11 @@ class UserHandler extends Thread {
         for (UserHandler client : clientsVector) {
             Vector<String> temp = new Vector<String>(Online);
             temp.remove(client.name + " - Score: " + client.score);
-            client.output.println("List" + "###" + temp);
+            try {
+                client.output.writeUTF("List" + "###" + temp);
+            } catch (IOException ex) {
+                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
 
@@ -327,7 +332,11 @@ class UserHandler extends Thread {
             opp.oppoName=this.name;
             
             try {
-                opp.output.println("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
+                try {
+                    opp.output.writeUTF("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
+                } catch (IOException ex) {
+                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.out.println(this.name + this.oppoName);
                 System.out.println("-----------------");
                 System.out.println(DataAccessLayer.acceptRequest(this.name, this.oppoName));
@@ -338,7 +347,11 @@ class UserHandler extends Thread {
         }
         else if(data[1].equals("Refused")){
             UserHandler opp = getUserHandler(data[2]);
-            opp.output.println("Refused");
+            try {
+                opp.output.writeUTF("Refused");
+            } catch (IOException ex) {
+                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

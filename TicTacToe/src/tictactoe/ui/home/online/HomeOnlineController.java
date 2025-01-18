@@ -49,14 +49,10 @@ public class HomeOnlineController extends HomeOnline {
 
             String[] player = listView.getSelectionModel().getSelectedItem().split(" - Score: ");
 
-            System.out.println(Arrays.toString(player));
-
+           
 
             oppName = player[0];
             oppScore = player[1];
-            System.out.println("Name: " + oppName);
-            System.out.println("Score: " + oppScore);
-
            
             Thread th = new Thread(() -> {
                 Connection.sendRequest("sendRequest" + "###" + oppName);
@@ -67,7 +63,6 @@ public class HomeOnlineController extends HomeOnline {
         }));
 
         Connection.sendRequest("sendList");
-
 
         if (thread == null || !(thread.isAlive())) {
             thread = new Thread(() -> {
@@ -93,79 +88,67 @@ public class HomeOnlineController extends HomeOnline {
 
                         case "logout": {
 
-                            //Connection.closeconnection();
                             break;
                         }
 
                         case "Accepted": {
 
-
-                        }
-                        
-                               
-
                             if (Platform.isFxApplicationThread() == false) {
                                 Platform.runLater(() -> {
-                                    System.out.println("Challenge has been accepted");
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Challenge Accepted");
                                     alert.setContentText("Challenge has been accepted");
                                     alert.initOwner(stage);
                                     alert.showAndWait();
-                                    System.out.println(rec[3] + rec[1] + rec[2] + rec[4]);
-                                    System.out.println("------------------------------");
                                     game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4]);
 
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
-                                  
+
                             }
-                              break;
-                        
-                            
+                            break;
+                        }
+
                         case "Refused": {
                             break;
 
                         }
 
-
                         case "invitation": {
 
                             if (!Platform.isFxApplicationThread()) {
                                 Platform.runLater(() -> {
-                                    System.out.println(rec[1]);
-                                    System.out.println("--------------------");
+                                    
                                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                     alert.setTitle("Confirmation Dialog");
                                     alert.setHeaderText("Challenge Request");
                                     alert.setContentText(rec[1] + " Wants to Play Against You");
                                     alert.initOwner(stage);
 
-                                    // Customize the buttons
+                                   
                                     ButtonType acceptButton = new ButtonType("Accept");
                                     ButtonType declineButton = new ButtonType("Decline");
 
-                                    // Add the buttons to the alert
+                                  
                                     alert.getButtonTypes().setAll(acceptButton, declineButton);
 
-                                    // Show the alert and wait for a response
+                                   
                                     Optional<ButtonType> result = alert.showAndWait();
 
-                                    // Handle button clicks
+                                   
                                     if (result.isPresent()) {
                                         if (result.get() == acceptButton) {
-                                            System.out.println("You accepted!");
+                                            
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
                                             game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2]);
-                                            System.out.println(playerLabel.getText() + oppName + scoreLabel.getText() + oppScore);
+                                            
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
 
-
                                         } else if (result.get() == declineButton) {
-                                            System.out.println("You declined!");
+                                            
                                             Connection.sendRequest("GetInvitation" + "###" + "Refused" + "###" + rec[1]);
 
                                         }
@@ -177,7 +160,7 @@ public class HomeOnlineController extends HomeOnline {
 
                             break;
 
-                        } //END OF CASE INVITATION
+                        } 
 
                     }
                 }
@@ -189,20 +172,17 @@ public class HomeOnlineController extends HomeOnline {
         historyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //onl_player -> to be implemented;
                 
+
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
 
-                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()),playerLabel.getText(),scoreLabel.getText()); //initializes a new online player
+                HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()), playerLabel.getText(), scoreLabel.getText()); //initializes a new online player
                 Scene scene = new Scene(history);
                 stage.setScene(scene);
 
-                //onl_player -> to be implemented;
-                //HistoryController history = new HistoryController(stage , retrievePlayerHistory(onl_player));
-                //Scene scene = new Scene(history);
-                //stage.setScene(scene);
-            }
+                
+                            }
         });
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -219,10 +199,9 @@ public class HomeOnlineController extends HomeOnline {
 
     }
 
-
     public Vector<Vector<String>> retrievePlayerHistory(OnlinePlayer onl_player) {
 
-        //boolean retflag = false;
+        
         Vector<Vector<String>> history = new Vector<>();
 
         Connection.sendRequest("History_request###" + onl_player.getUser_name());
@@ -276,17 +255,18 @@ public class HomeOnlineController extends HomeOnline {
                 history.add(recordings);
             }
         });
-        
+
         th.start();
         return history;
 
     }
 
-    public static void SetPlayer(OnlinePlayer player){
+    public static void SetPlayer(OnlinePlayer player) {
         onl_player = player;
     }
-    public static OnlinePlayer GetPlayer(){
+
+    public static OnlinePlayer GetPlayer() {
         return onl_player;
     }
-            
+
 }

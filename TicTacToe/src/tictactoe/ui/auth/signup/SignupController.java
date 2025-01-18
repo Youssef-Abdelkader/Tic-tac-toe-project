@@ -2,6 +2,8 @@ package tictactoe.ui.auth.signup;
 
 import connection.Connection;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,60 +29,64 @@ public class SignupController extends Signup {
             public void handle(ActionEvent event) {
                 //check if text feilds are empty
                 if (!isEmpty()) {
-                    //get username and password from 
-                    String name = nameText.getText();
-                    String password = passwordText.getText();
-
-                    player.setUser_name(name);
-                    player.setPassword(password);
-                    HomeOnlineController.SetPlayer(player);
-                    //organize the message that will be sent to server
-                    String message = "signup###" + name + "###" + password;
-
-                    //sending message to server
-                    Connection.mouth.println(message);
-
-                    // Start a thread to listen for messages from the server
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-
-                                while (isRunning) {
-                                    String message = Connection.ear.readLine();
-                                    String[] data = message.split("###");
-                                    if ("Duplicated name".equals(data[0])) {
-                                        
-                                        if (Platform.isFxApplicationThread() == false) {
-                                            Platform.runLater(() -> {
-                                                
-                                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                alert.setTitle("Duplicated Name");
-                                                alert.setContentText("Please retry");
-                                                alert.showAndWait();
-                                                isRunning = false;
-                                            });
-                                        }
-                                    } else if ("Signed up successfully".equals(data[0])){
-                                        if (Platform.isFxApplicationThread() == false) {
-                                            Platform.runLater(() -> {
-                                                //instead create a method in homeOnline controller
-                                                
-                                                HomeOnlineController home = new HomeOnlineController(stage,name,data[1]/*,player*/);
-                                                home.SetPlayer(player);
-                                                Scene scene = new Scene(home);
-                                                stage.setScene(scene);
-                                                isRunning = false;
-                                            });
+                    try {
+                        //get username and password from
+                        String name = nameText.getText();
+                        String password = passwordText.getText();
+                        
+                        player.setUser_name(name);
+                        player.setPassword(password);
+                        HomeOnlineController.SetPlayer(player);
+                        //organize the message that will be sent to server
+                        String message = "signup###" + name + "###" + password;
+                        
+                        //sending message to server
+                        Connection.mouth.writeUTF(message);
+                        
+                        // Start a thread to listen for messages from the server
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    
+                                    while (isRunning) {
+                                        String message = Connection.ear.readLine();
+                                        String[] data = message.split("###");
+                                        if ("Duplicated name".equals(data[0])) {
+                                            
+                                            if (Platform.isFxApplicationThread() == false) {
+                                                Platform.runLater(() -> {
+                                                    
+                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                                    alert.setTitle("Duplicated Name");
+                                                    alert.setContentText("Please retry");
+                                                    alert.showAndWait();
+                                                    isRunning = false;
+                                                });
+                                            }
+                                        } else if ("Signed up successfully".equals(data[0])){
+                                            if (Platform.isFxApplicationThread() == false) {
+                                                Platform.runLater(() -> {
+                                                    //instead create a method in homeOnline controller
+                                                    
+                                                    HomeOnlineController home = new HomeOnlineController(stage,name,data[1]/*,player*/);
+                                                    home.SetPlayer(player);
+                                                    Scene scene = new Scene(home);
+                                                    stage.setScene(scene);
+                                                    isRunning = false;
+                                                });
+                                            }
                                         }
                                     }
+                                    
+                                } catch (IOException ex) {
+                                    System.out.println(ex.getMessage());
                                 }
-
-                            } catch (IOException ex) {
-                                System.out.println(ex.getMessage());
                             }
-                        }
-                    }).start();
+                        }).start();
+                    } catch (IOException ex) {
+                        Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 }
             }
