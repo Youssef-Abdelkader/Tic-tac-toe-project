@@ -1,10 +1,12 @@
 package tictactoe.ui.game.screen;
 
 import connection.Connection;
+import java.util.Optional;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -13,6 +15,8 @@ import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.game.winner.WINNERController;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 public class SharedGame extends game_screenBase {
 
@@ -37,7 +41,7 @@ public class SharedGame extends game_screenBase {
         this.opponent = opponent;
         this.score1 = score1;
         this.score2 = score2;
-        scoreOne.setText("Score: " + this.score1); // Use instance variables
+        scoreOne.setText("Score: " + this.score1); 
         scoreTwo.setText("Score: " + this.score2);
     }
 
@@ -97,8 +101,8 @@ public class SharedGame extends game_screenBase {
 
             if (TicTacToe.online == true) {
                 Connection.sendRequest("score###win###" + player);
-                int score =  Integer.parseInt(score2);
-                score += 3;
+                int score = Integer.parseInt(score2);
+                score += 4;
                 String finalScore = Integer.toString(score);
                 WINNERController win = new WINNERController(stage, player, opponent, finalScore, score1);
                 Scene scene = new Scene(win);
@@ -110,7 +114,7 @@ public class SharedGame extends game_screenBase {
             }
         } else {
             if (TicTacToe.online == true) {
-                LOSERBase lose = new LOSERController(stage, player, opponent, score1, score2);
+                LOSERBase lose = new LOSERController(stage, player, opponent, score2, score1);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
             } else {
@@ -124,15 +128,56 @@ public class SharedGame extends game_screenBase {
     public void showDrawMessage() {
         Platform.runLater(() -> {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Game Over");
             alert.setHeaderText(null);
             alert.initOwner(stage);
             alert.setContentText("It's a draw!");
-            alert.showAndWait();
+            ButtonType exitButton = new ButtonType("Exit");
+            ButtonType playAgainButton = new ButtonType("Play Again");
 
-            if (TicTacToe.online == true) {
-                Connection.sendRequest("score###draw");
+            alert.getButtonTypes().setAll(playAgainButton, exitButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            Connection.sendRequest("score###draw###" + player + "###" + opponent);
+
+            if (result.isPresent()) {
+                
+                int scoreTwo = Integer.parseInt(score2);
+                scoreTwo += 2;
+                String finalScore2 = Integer.toString(scoreTwo);
+
+                int scoreOne = Integer.parseInt(score1);
+                scoreOne += 2;
+                String finalScore1 = Integer.toString(scoreOne);
+                if (result.get() == playAgainButton) {
+                    if (TicTacToe.online == true) {
+                        GamescreenController game = new GamescreenController(stage, player, opponent, finalScore2, finalScore1, 'X');
+                        Scene scene = new Scene(game);
+                        stage.setScene(scene);
+                    } else {
+                        game_screenBase gameScreen = new GamescreenController_Multi(stage, player, opponent);
+                        Scene scene = new Scene(gameScreen);
+                        stage.setScene(scene);
+                    }
+                } else {
+                    if (TicTacToe.online == true) {
+                        
+                        if (player.equals(HomeOnlineController.me)) {
+                            HomeOnlineController home = new HomeOnlineController(stage, player, finalScore2);
+                            Scene scene = new Scene(home);
+                            stage.setScene(scene);
+                        } else {
+                            HomeOnlineController home = new HomeOnlineController(stage, opponent, finalScore1);
+                            Scene scene = new Scene(home);
+                            stage.setScene(scene);
+                        }
+                    } else {
+                        HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+                        Scene scene = new Scene(home);
+                        stage.setScene(scene);
+                    }
+                }
             }
 
         });

@@ -11,6 +11,7 @@ import tictactoe.ui.game.screen.Game_Screen_Controller_pc;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.GamescreenController_Multi;
 import tictactoe.ui.game.screen.game_screenBase;
+import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
 
 public class WINNERController extends WINNERBase {
@@ -53,6 +54,10 @@ public class WINNERController extends WINNERBase {
         btnEX.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                
+                HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
                 // Close the stage (exit the application)
                 stage.close();
 
@@ -85,6 +90,7 @@ public class WINNERController extends WINNERBase {
                 game_screenBase gameScreen = new GamescreenController_Multi(stage, name1, name2);
                 Scene scene = new Scene(gameScreen);
                 stage.setScene(scene);
+                
 
                 // Pause the video when transitioning
                 mediaPlayer.pause();
@@ -98,6 +104,9 @@ public class WINNERController extends WINNERBase {
         btnEX.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
                 // Close the stage (exit the application)
                 stage.close();
 

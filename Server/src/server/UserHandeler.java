@@ -123,30 +123,38 @@ class UserHandler extends Thread {
                         break;
 
                     }
-                    
-                    case "close":{
-                        
+
+                    case "close": {
+
                         this.output.writeUTF("logout###");
                         break;
                     }
-                    
-                    case "score":{
-                        System.out.println("wiinnnnnnnn");
-                    try {
-                        score = DataAccessLayer.retriveScore(data[2]);
-                        if(data[1].equals("win")){
-                            score += 3;
-                            DataAccessLayer.updateScore(data[2], score);
-                            this.output.writeUTF("score###"+score);
-                            System.out.println("score:"+score);
-                        }else if(data[1].equals("draw")){
-                            score += 1;
-                            DataAccessLayer.updateScore(data[2], score);
-                            this.output.writeUTF("score###"+score);
+
+                    case "score": {
+
+                        try {
+
+                            if (data[1].equals("win")) {
+                                score = DataAccessLayer.retriveScore(data[2]);
+                                score += 4;
+                                DataAccessLayer.updateScore(data[2], score);
+                                this.output.writeUTF("score###" + score);
+                                System.out.println("score:" + score);
+                            } else if (data[1].equals("draw")) {
+                                UserHandler user = getUserHandler(data[2]);
+                                UserHandler user2 = getUserHandler(data[3]);
+                                user.score = DataAccessLayer.retriveScore(data[2]);
+                                user2.score = DataAccessLayer.retriveScore(data[3]);
+                                user.score += 1;
+                                user2.score += 1;
+                                DataAccessLayer.updateScore(user.name, user.score);
+                                DataAccessLayer.updateScore(user2.name, user2.score);
+                                user.output.writeUTF("score###" + user.score);
+                                user2.output.writeUTF("score###" + user2.score);
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                         break;
                     }
 
@@ -201,7 +209,6 @@ class UserHandler extends Thread {
                             clientsVector.remove(this);
                             input.close();
                             output.close();
-
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);

@@ -62,9 +62,10 @@ public class GamescreenController extends SharedGame {
             System.err.println("gridPane0 is null!");
             return;
         }
-        game = new GameOn(false, meSymbol); //AAAAAAAAAAAAAAAAAAAAAAAAAAA
+        game = new GameOn(false, meSymbol); 
         label1.setText(player1Name);
         label.setText(player2Name);
+        
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);

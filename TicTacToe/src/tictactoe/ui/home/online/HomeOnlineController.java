@@ -143,7 +143,7 @@ public class HomeOnlineController extends HomeOnline {
 
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
-                                            game_screenBase game = new GamescreenController(stage, rec[1], playerLabel.getText(), rec[2], scoreLabel.getText(), 'X');
+                                            game_screenBase game = new GamescreenController(stage, rec[1], playerLabel.getText(), scoreLabel.getText(), rec[2], 'X');
 
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
