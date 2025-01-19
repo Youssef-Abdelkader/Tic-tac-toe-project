@@ -82,12 +82,7 @@ public class SharedGame extends game_screenBase {
     }
 
     public void showWinner(String winnerName) {
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Game Over");
-//        alert.setHeaderText(null);
-//        alert.setContentText(winnerName + " wins!");
-//        alert.initOwner(stage);
-//        alert.show();
+
         if(winnerName.equals(player)){
             WINNERController win = new WINNERController(stage, player, opponent);
             Scene scene = new Scene(win);

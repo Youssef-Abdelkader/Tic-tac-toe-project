@@ -1,3 +1,4 @@
+
 package tictactoe.ui.game.looser;
 
 import javafx.event.ActionEvent;
@@ -11,6 +12,8 @@ import tictactoe.ui.game.screen.Game_Screen_Controller_pc;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.GamescreenController_Multi;
 import tictactoe.ui.game.screen.game_screenBase;
+
+import tictactoe.ui.home.online.HomeOnline;
 import tictactoe.ui.home.offline.HomeScreen_offline;
 import tictactoe.ui.home.offline.HomeScreen_offline_Controller;
 import tictactoe.ui.home.online.HomeOnlineController;
@@ -19,7 +22,7 @@ public class LOSERController extends LOSERBase {
 
     private final MediaPlayer mediaPlayer;
 
-    //SINGLE PLAYER CONSTRUCTOR
+    // SINGLE PLAYER CONSTRUCTOR
     public LOSERController(Stage stage, String name) {
         super();
 
@@ -29,15 +32,17 @@ public class LOSERController extends LOSERBase {
         videoView.setMediaPlayer(mediaPlayer);
         mediaPlayer.setAutoPlay(true);
 
+        // Pause the MP3 soundtrack when the MP4 video starts playing
+        TicTacToe.mediaPlayer.pause();
+
         btnPA.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-              
-                    game_screenBase game = new Game_Screen_Controller_pc(stage, name,"PC");
-                    Scene scene = new Scene(game);
-                    stage.setScene(scene);
-                    mediaPlayer.pause();
-                
+                game_screenBase game = new Game_Screen_Controller_pc(stage, name,"PC");
+                Scene scene = new Scene(game);
+                stage.setScene(scene);
+                mediaPlayer.pause();
+                TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
             }
         });
 
@@ -45,22 +50,21 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
-
                     HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
-
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnlineController home = new HomeOnlineController(stage,name,score);
+                    HomeOnlineController home = new HomeOnlineController(stage, name, score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }
                 mediaPlayer.pause();
+                TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
             }
         });
     }
 
-    //MULTI PLAYER CONSTRUCTOR
+    // MULTI PLAYER CONSTRUCTOR
     public LOSERController(Stage stage, String name1, String name2) {
         super();
 
@@ -70,6 +74,9 @@ public class LOSERController extends LOSERBase {
         videoView.setMediaPlayer(mediaPlayer);
         mediaPlayer.setAutoPlay(true);
 
+        // Pause the MP3 soundtrack when the MP4 video starts playing
+        TicTacToe.mediaPlayer.pause();
+
         btnPA.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -77,24 +84,24 @@ public class LOSERController extends LOSERBase {
                 Scene scene = new Scene(game);
                 stage.setScene(scene);
                 mediaPlayer.pause();
+                TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
             }
         });
 
-        btnEX.setOnAction(new EventHandler<ActionEvent>() {
+btnEX.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (TicTacToe.online == false) {
                     HomeScreen_offline_Controller home = new HomeScreen_offline_Controller(stage);
-
-                    // HomeScreen_offline home = new HomeScreen_offline_Controller(stage);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 } else {
-                    HomeOnlineController home = new HomeOnlineController(stage,name1,score);
+                    HomeOnlineController home = new HomeOnlineController(stage, name1, score);
                     Scene scene = new Scene(home);
                     stage.setScene(scene);
                 }
                 mediaPlayer.pause();
+                TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
             }
         });
     }
