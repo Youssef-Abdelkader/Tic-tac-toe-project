@@ -123,6 +123,12 @@ class UserHandler extends Thread {
                         break;
 
                     }
+                    
+                    case "close":{
+                        
+                        this.output.writeUTF("logout###");
+                        break;
+                    }
 
                     case "sendRequest": {
 

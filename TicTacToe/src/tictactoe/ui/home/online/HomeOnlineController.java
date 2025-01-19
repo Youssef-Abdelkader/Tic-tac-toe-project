@@ -60,7 +60,6 @@ public class HomeOnlineController extends HomeOnline {
             });
             th.setDaemon(true);
             th.start();
-//clear list view when history
         }));
 
         Connection.sendRequest("sendList");
@@ -88,6 +87,7 @@ public class HomeOnlineController extends HomeOnline {
                         }
 
                         case "logout": {
+                            
                             isOnHome = false;
                             break;
                         }
@@ -111,7 +111,6 @@ public class HomeOnlineController extends HomeOnline {
                             }
                             break;
                         }
-
 
                         case "invitation": {
 
@@ -172,6 +171,7 @@ public class HomeOnlineController extends HomeOnline {
 
                 // Assuming listView is your ListView instance
                 listView.getItems().clear();
+                Connection.sendRequest("close###");
 
                 HistoryController history = new HistoryController(stage, retrievePlayerHistory(GetPlayer()), playerLabel.getText(), scoreLabel.getText()); //initializes a new online player
                 Scene scene = new Scene(history);
