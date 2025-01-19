@@ -1,17 +1,11 @@
 package tictactoe.ui.game.looser;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import tictactoe.TicTacToe;
-import tictactoe.ui.home.offline.HomeScreen_offline;
-import tictactoe.ui.home.online.HomeOnlineController;
 
 
 public abstract class LOSERBase extends AnchorPane {
@@ -19,7 +13,7 @@ public abstract class LOSERBase extends AnchorPane {
     protected final MediaView videoView;
     protected final Label lbl1;
     protected final Label lbl2;
-    protected final Label score;
+    
     protected final Button btnPA;
     protected final Button btnEX;
 
@@ -27,7 +21,7 @@ public abstract class LOSERBase extends AnchorPane {
         videoView = new MediaView();
         lbl1 = new Label();
         lbl2 = new Label();
-        score = new Label();
+        
         btnPA = new Button();
         btnEX = new Button();
 
@@ -60,17 +54,7 @@ public abstract class LOSERBase extends AnchorPane {
         lbl2.setText("LOSER");
         lbl2.setTextFill(javafx.scene.paint.Color.valueOf("#ff4d4d")); 
         lbl2.setFont(new Font("Verdana Bold", 50.0)); 
-
-        
-        score.setLayoutX(359.0);
-        score.setLayoutY(205.0);
-        score.setPrefHeight(26.0);
-        score.setPrefWidth(81.0);
-        score.setText("Score = ");
-        score.setTextFill(javafx.scene.paint.Color.valueOf("#ff4d4d")); 
-        score.setFont(new Font("Tahoma", 18.0)); 
-
-        
+    
         btnPA.setLayoutX(342.0);
         btnPA.setLayoutY(274.0);
         btnPA.setMnemonicParsing(false);
@@ -99,7 +83,7 @@ public abstract class LOSERBase extends AnchorPane {
 
         
 
-        getChildren().addAll(videoView, lbl1, lbl2, score, btnPA, btnEX);
+        getChildren().addAll(videoView, lbl1, lbl2, btnPA, btnEX);
 
         
         videoView.fitWidthProperty().bind(widthProperty());

@@ -9,10 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
@@ -20,7 +19,7 @@ import tictactoe.ui.auth.login.LoginController;
 import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 import tictactoe.ui.player.singleplayer.Single_player_sceneController;
 
-public class HomeScreen_offline extends BorderPane {
+public abstract class HomeScreen_offline extends BorderPane {
 
     protected final StackPane stackPane;
     protected final Label label;
@@ -30,7 +29,9 @@ public class HomeScreen_offline extends BorderPane {
     protected final Button singlePBtn;
     protected final Button MultiPBtn;
     protected final Button OnlineBtn;
+    protected final Button Recordings;
 
+    
     public HomeScreen_offline(Stage stage) {
 
         stackPane = new StackPane();
@@ -41,6 +42,7 @@ public class HomeScreen_offline extends BorderPane {
         singlePBtn = new Button();
         MultiPBtn = new Button();
         OnlineBtn = new Button();
+        Recordings = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -52,15 +54,16 @@ public class HomeScreen_offline extends BorderPane {
         getStylesheets().add("/tictactoe/styles/background.css");
 
         label.setAlignment(javafx.geometry.Pos.CENTER);
-        label.setPrefHeight(62.0);
+        label.setPrefHeight(40.0);
         label.setPrefWidth(406.0);
         label.getStyleClass().add("homescreen_title");
         label.getStylesheets().add("/tictactoe/styles/background.css");
         label.setText("SHICK SHACK SHOCK");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         label.setFont(new Font("Berlin Sans FB Demi Bold", 36.0));
+        label.setStyle("-fx-text-fill: #15b530;");
         setTop(stackPane);
-        setPadding(new Insets(30.0, 10.0, 10.0, 10.0));
+        setPadding(new Insets(20.0, 10.0, 10.0, 10.0));
 
         BorderPane.setAlignment(imageView, javafx.geometry.Pos.CENTER);
         imageView.setFitHeight(150.0);
@@ -69,6 +72,7 @@ public class HomeScreen_offline extends BorderPane {
         imageView.setPreserveRatio(true);
         imageView.setImage(new Image(getClass().getResource("/tictactoe/images/x.png").toExternalForm()));
         setLeft(imageView);
+        BorderPane.setMargin(imageView, new Insets(100.0, 0.0, 0.0, 0.0)); // Move image X downward
 
         BorderPane.setAlignment(imageView0, javafx.geometry.Pos.CENTER);
         imageView0.setFitHeight(150.0);
@@ -77,14 +81,16 @@ public class HomeScreen_offline extends BorderPane {
         imageView0.setPreserveRatio(true);
         imageView0.setImage(new Image(getClass().getResource("/tictactoe/images/o.png").toExternalForm()));
         setRight(imageView0);
+        BorderPane.setMargin(imageView0, new Insets(100.0, 0.0, 0.0, 0.0)); // Move image O downward
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
         vBox.setAlignment(javafx.geometry.Pos.CENTER);
         vBox.setMaxWidth(USE_PREF_SIZE);
         vBox.setMinHeight(USE_PREF_SIZE);
         vBox.setPrefHeight(268.0);
-        vBox.setPrefWidth(300.0);
+        vBox.setPrefWidth(220.0);
         vBox.setSpacing(15.0);
+        vBox.setPadding(new Insets(110.0, 0.0, 0.0, 0.0)); // Move all buttons downward
 
         singlePBtn.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         singlePBtn.setMaxWidth(Double.MAX_VALUE);
@@ -116,38 +122,25 @@ public class HomeScreen_offline extends BorderPane {
         OnlineBtn.getStylesheets().add("/tictactoe/styles/background.css");
         OnlineBtn.setText("online");
         OnlineBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        vBox.setPadding(new Insets(20.0, 0.0, 0.0, 0.0));
-        setCenter(vBox);
 
+        Recordings.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
+        Recordings.setMaxWidth(Double.MAX_VALUE);
+        Recordings.setMnemonicParsing(false);
+        Recordings.setStyle("-fx-border-radius: 10;");
+        Recordings.getStyleClass().add("history_btn");
+        Recordings.getStylesheets().add("/tictactoe/styles/background.css");
+        Recordings.setText("Recordings");
+        Recordings.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        
         stackPane.getChildren().add(label);
         vBox.getChildren().add(singlePBtn);
         vBox.getChildren().add(MultiPBtn);
         vBox.getChildren().add(OnlineBtn);
+        vBox.getChildren().add(Recordings);
+        setCenter(vBox);
 
-        MultiPBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Multi_player_SceneController multi = new Multi_player_SceneController(stage);
-                Scene scene = new Scene(multi);
-                stage.setScene(scene);
-            }   
-        });
-        singlePBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Single_player_sceneController single = new Single_player_sceneController(stage);
-                Scene scene = new Scene(single);
-                stage.setScene(scene);
-            }   
-        });
-        OnlineBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                TicTacToe.online = true;
-                LoginController account = new LoginController(stage);
-                Scene scene = new Scene(account);
-                stage.setScene(scene);
-            }   
-        });
+        
+
+        
     }
 }

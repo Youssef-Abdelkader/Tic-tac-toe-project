@@ -47,6 +47,7 @@ public class Single_Player_Scene extends AnchorPane {
         textField.setLayoutY(185.0);
         textField.setPrefHeight(31.0);
         textField.setPrefWidth(239.0);
+        textField.setText("Me");
         textField.getStyleClass().add("listview");
         textField.getStylesheets().add("/tictactoe/styles/Single_player.css");
 

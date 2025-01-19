@@ -10,13 +10,14 @@
 
         -fx-background-radius:15;
     }
-    .listview
+    .tableview
     {
         -fx-background-radius:15;
 
     }
 
-    .history_btn 
+    
+    .home 
     {
         -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
         -fx-text-fill: white; /* White text color */
@@ -24,6 +25,6 @@
         -fx-font-weight: bold; /* Bold text */
         -fx-padding: 10px; /* Padding for size */
         -fx-background-radius: 20; /* Rounded corners */
-        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0)
+        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0,0,0);
 
     }

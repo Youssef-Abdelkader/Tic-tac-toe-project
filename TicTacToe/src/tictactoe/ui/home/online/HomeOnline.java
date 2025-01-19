@@ -7,10 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
-
 public abstract class HomeOnline extends AnchorPane {
-
 
     protected final AnchorPane helloBackground;
     protected final Label helloLabel;
@@ -21,7 +18,7 @@ public abstract class HomeOnline extends AnchorPane {
     protected final Button backButton;
     protected final AnchorPane playerBackground;
     protected final Label playerLabel;
-    protected final ListView listView;
+    protected static ListView<String> listView;
     protected final Label scoreLabel;
 
     public HomeOnline(Stage stage) {
@@ -103,6 +100,7 @@ public abstract class HomeOnline extends AnchorPane {
         listView.setPrefHeight(243.0);
         listView.setPrefWidth(474.0);
         listView.getStyleClass().add("listView");
+        //listView.getItems().add("item 1" + " - Score: " + "0"); //**********************************
 
         scoreLabel.setAlignment(javafx.geometry.Pos.CENTER);
         scoreLabel.setLayoutX(291.0);
