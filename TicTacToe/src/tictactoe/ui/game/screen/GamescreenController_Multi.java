@@ -32,47 +32,17 @@ public class GamescreenController_Multi extends SharedGame {
     private String meSymbol;
     private String opponentSymbol;
     
-    public static char clicked = '\0'; //new ----------------------------
-    
-    public GamescreenController_Multi(Stage stage, String name) {
-
-        super(stage);
-
-        this.stage = stage;
-        this.player1Name = name;
-        this.player2Name = "PC";
-        initializeGame();
-    }
+    public static char clicked = '\0'; 
 
     public GamescreenController_Multi(Stage stage, String name1, String name2) {
-        super(stage);
+        super(stage,name1,name2);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
         initializeGame();
     }
     
-    public GamescreenController_Multi(Stage stage, String name1, String name2, String score1, String score2) {
-        super(stage);
-        this.stage = stage;
-        this.player1Name = name1;
-        this.player2Name = name2;
-        this.score1 = score1;
-        this.score2 = score2;
-        this.me = HomeOnlineController.me;
-        if(me.equals(name1)){
-            opponent = name2;
-            meSymbol = "X";
-            opponentSymbol="O";
-        }
-        else{
-             opponent = name1;
-             meSymbol = "O";
-             opponentSymbol="x";
-        }
-        initializeGame();
-        listenForMoves();
-    }
+    
 
     private void initializeGame() {
         if (gridPane0 == null) {

@@ -13,7 +13,6 @@ import static server.DataAccessLayer.login;
 import sun.misc.Queue;
 import templates.Player;
 
-
 class UserHandler extends Thread {
 
     DataInputStream input;
@@ -67,7 +66,7 @@ class UserHandler extends Thread {
                             if (player.getName() != null) {
                                 if (player.getPassword().equals(data[2])) {
 
-                                    score=player.getScore();
+                                    score = player.getScore();
                                     this.output.writeUTF(String.valueOf(player.getScore()));
 
                                     DataAccessLayer.updateStatus(data[1], 1);
@@ -113,8 +112,7 @@ class UserHandler extends Thread {
 
                         if (signedUp) {
 
-                            
-                            this.output.writeUTF("Signed up successfully###"+0);
+                            this.output.writeUTF("Signed up successfully###" + 0);
 
                         }
                     }
@@ -178,21 +176,6 @@ class UserHandler extends Thread {
                             input.close();
                             output.close();
 
-                            if (!(this.name.equals(null))) {
-                                try {
-                                    DataAccessLayer.logout(this.name);
-                                    output.writeUTF("logout###success");
-                                    removeClient();
-                                    input.close();
-                                    output.close();
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                                    output.writeUTF("logout###failure");
-                                } catch (IOException ex) {
-                                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                break;
-                            }
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +191,6 @@ class UserHandler extends Thread {
                             int gameId = Integer.parseInt(data[2]); // gameId is the third part of the message
 
                             DataAccessLayer.addWinner(winnerName, gameId);
-
 
                             // Notify the client that the winner was recorded successfully
                             output.writeUTF("winner###success");
@@ -331,16 +313,14 @@ class UserHandler extends Thread {
 
             try {
 
-                try {
-                    opp.output.writeUTF("Accepted###"+DataAccessLayer.acceptRequest(this.name, this.oppoName));
-                } catch (IOException ex) {
-                    Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                opp.output.writeUTF("Accepted###" + DataAccessLayer.acceptRequest(this.name, this.oppoName));
 
                 System.out.println(this.name + this.oppoName);
                 System.out.println("-----------------");
                 System.out.println(DataAccessLayer.acceptRequest(this.name, this.oppoName));
             } catch (SQLException ex) {
+                Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             sendList();

@@ -39,6 +39,10 @@ public class GameOn {
         this.currentPlayerSymbol = symbol;
     }
 
+    public void setCurrentPlayerSymbol(char currentPlayerSymbol) {
+        this.currentPlayerSymbol = currentPlayerSymbol;
+    }
+
     public boolean isOnline() {
         return online;
     }
@@ -47,10 +51,6 @@ public class GameOn {
         this.online = online;
     }
 
-
-    /*Game() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
     public boolean placeXO(int pos) {
         int row = (pos - 1) / 3;
         int col = (pos - 1) % 3;
@@ -70,9 +70,8 @@ public class GameOn {
                 FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
 
 //solution: create another method that initializes the file and then create a method that writes into that file
-// System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
+
                 rec[counter] = r;
-                counter++;
             }
             //switchPlayer();
 

@@ -11,19 +11,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import tictactoe.ui.game.looser.LOSERBase;
+import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.game.winner.WINNERController;
 
 public class SharedGame extends game_screenBase {
 
     private String score1;
     private String score2;
-    private String player1Name;
-    private String player2Name;
+    private String player;
+    private String opponent;
     private Stage stage;
     private Line winningLine;
 
-    public SharedGame(Stage stage) {
+    public SharedGame(Stage stage,String player,String opponent) {
         super(stage);
+        this.stage = stage;
+        this.player = player;
+        this.opponent = opponent;
     }
 
     public void drawWinningLine(Game game) {
@@ -77,13 +82,21 @@ public class SharedGame extends game_screenBase {
     }
 
     public void showWinner(String winnerName) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText(null);
-        alert.setContentText(winnerName + " wins!");
-        alert.initOwner(stage);
-        alert.showAndWait();
-        FileHandler.closeResources();
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setTitle("Game Over");
+//        alert.setHeaderText(null);
+//        alert.setContentText(winnerName + " wins!");
+//        alert.initOwner(stage);
+//        alert.show();
+        if(winnerName.equals(player)){
+            WINNERController win = new WINNERController(stage, player, opponent);
+            Scene scene = new Scene(win);
+            stage.setScene(scene);
+        }else{
+            LOSERBase lose = new LOSERController(stage, player, opponent);
+            Scene scene = new Scene(lose);
+            stage.setScene(scene);
+        }
     }
 
     public void showDrawMessage() {
@@ -92,8 +105,8 @@ public class SharedGame extends game_screenBase {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game Over");
             alert.setHeaderText(null);
+            alert.initOwner(stage);
             alert.setContentText("It's a draw!");
-            FileHandler.closeResources();
             alert.showAndWait();
 
         });

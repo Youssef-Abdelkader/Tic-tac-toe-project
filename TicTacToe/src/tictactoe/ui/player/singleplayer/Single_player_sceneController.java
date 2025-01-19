@@ -41,7 +41,7 @@ public class Single_player_sceneController extends Single_Player_Scene {
 
     private void goToGame() {
         //System.out.println(textField.getText());
-        game_screenBase game = new Game_Screen_Controller_pc(stage, textField.getText());
+        Game_Screen_Controller_pc game = new Game_Screen_Controller_pc(stage, textField.getText(),"PC");
         Scene scene = new Scene(game);
         stage.setScene(scene);
 

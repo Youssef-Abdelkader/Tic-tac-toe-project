@@ -33,7 +33,7 @@ public class LOSERController extends LOSERBase {
             @Override
             public void handle(ActionEvent event) {
               
-                    game_screenBase game = new Game_Screen_Controller_pc(stage, name);
+                    game_screenBase game = new Game_Screen_Controller_pc(stage, name,"PC");
                     Scene scene = new Scene(game);
                     stage.setScene(scene);
                     mediaPlayer.pause();

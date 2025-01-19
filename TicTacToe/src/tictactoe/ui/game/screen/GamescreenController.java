@@ -18,7 +18,7 @@ import tictactoe.ui.home.online.HomeOnlineController;
 
 public class GamescreenController extends SharedGame {
 
-    private GameOn game; //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    private GameOn game;
     private String score1;
     private String score2;
     private String player1Name;
@@ -33,28 +33,10 @@ public class GamescreenController extends SharedGame {
     private char opponentSymbol;
     private char symbol;
 
-    public static char clicked = '\0'; //new ----------------------------
+    public static char clicked = '\0';
 
-    public GamescreenController(Stage stage, String name) {
-
-        super(stage);
-
-        this.stage = stage;
-        this.player1Name = name;
-        this.player2Name = "PC";
-        initializeGame();
-    }
-
-//    public GamescreenController(Stage stage, String name1, String name2) {
-//        super(stage);
-//        this.stage = stage;
-//        this.player1Name = name1;
-//        this.player2Name = name2;
-//        initializeGame();
-//    }
-//    
     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2, char symbol) {
-        super(stage);
+        super(stage,name1,name2);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
@@ -69,7 +51,7 @@ public class GamescreenController extends SharedGame {
         } else {
             opponent = name1;
             meSymbol = 'O';
-            opponentSymbol = 'x';
+            opponentSymbol = 'X';
             disableGrid();
         }
         initializeGame();
@@ -103,7 +85,6 @@ public class GamescreenController extends SharedGame {
             stage.setScene(scene);
         });
 
-        //recordButton.setOnAction(event -> recordButton.setDisable(true));
         recordButton.addEventHandler(ActionEvent.ACTION, (event) -> {
             FileHandler.initializeFile();
 
@@ -116,6 +97,7 @@ public class GamescreenController extends SharedGame {
     private void handleGridClick(int pos) {
         System.out.println("posHandle:" + pos);
         System.out.println("-----------------");
+        game.setCurrentPlayerSymbol(meSymbol);
         if (game.placeXO(pos)) {
             System.out.println("pos " + pos);
             updateGridUI(pos, meSymbol);
@@ -130,41 +112,27 @@ public class GamescreenController extends SharedGame {
 
                 }
             }
-            int row = (pos - 1) / 3;
-            int col = (pos - 1) % 3;
 
-//            char c = ch_ar[row][col]; //new ----------------------------
-//            // Thread th = new Thread(() -> {
-//           // player1Name
-//           if(clicked == 'o'){//new ----------------------------
-//               c = 'x';
-//           }
-//           if(clicked == 'x'){//new ----------------------------
-//               c = 'o';
-//           }
             disableGrid();
             Connection.sendRequest("Move" + "###" + pos + meSymbol + "###" + opponent);
 
-            // });
-            // th.setDaemon(true);
-            // th.start();
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine();
 
-                if (winningPositions != null) {
-                    //drawWinningLine(game); //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                    //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
-                    showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
-                    disableGrid();
+                String winner = game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name;
+                if(opponent.equals(winner)){
+                    showWinner(me);
+                }else{
+                    showWinner(opponent);
                 }
 
-                if (isBoardFull(ch_ar)) {
-                    System.out.println("------------");
-                    showDrawMessage();
-                    disableGrid();
+            }
+            else if (isBoardFull(ch_ar)) {
+                System.out.println("------------");
+                showDrawMessage();
+                disableGrid();
 
-                }
             }
         }
     }
@@ -309,14 +277,13 @@ public class GamescreenController extends SharedGame {
 
         gridPane0.add(line, 0, 0);
     }
-//////////////////////////
 
     private void listenForMoves() {
         new Thread(() -> {
             try {
 
                 while (true) {
-                    //it doesn't read 
+
                     String message = Connection.ear.readUTF();
                     System.out.println("--mesage " + message);
                     if (message != null && message.startsWith("Move###")) {
@@ -325,7 +292,7 @@ public class GamescreenController extends SharedGame {
                             String move = parts[1];
                             System.out.println("Move from listen method " + move);
                             Platform.runLater(() -> handleOpponentMove(move));
-                            clicked = move.charAt(1);//new ----------------------------
+                            clicked = move.charAt(1);
                         }
                     }
                 }
@@ -349,17 +316,33 @@ public class GamescreenController extends SharedGame {
         imageView.setImage(new Image(getClass().getResource(
                 symbol == 'O' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
         ).toExternalForm()));
+
+        game.setCurrentPlayerSymbol(opponentSymbol);
+        if (game.placeXO(position)) {
+            char[][] ch_ar = game.getSquares().getGrid();
+
+            int[] winningPositions = game.calculateWinner();
+            if (winningPositions != null) {
+                drawWinningLine();
+
+//                showWinner(game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name);
+//                disableGrid();
+                
+                String winner = game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name;
+                if(opponent.equals(winner)){
+                    showWinner(me);
+                }else{
+                    showWinner(opponent);
+                }
+
+            }
+            else if (isBoardFull(ch_ar)) {
+                System.out.println("------------");
+                showDrawMessage();
+                disableGrid();
+
+            }
+        }
     }
 
-//    private void updateGridUI(int pos) {
-//        int row = (pos - 1) / 3;
-//        int col = (pos - 1) % 3;
-//        System.out.println("update:");
-//        System.out.println(row * 3 + col);
-//        ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
-//        imageView.setImage(new Image(getClass().getResource(
-//                game.getCurrentPlayerSymbol() == 'X' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
-//        ).toExternalForm()));
-//    }
 }
-//

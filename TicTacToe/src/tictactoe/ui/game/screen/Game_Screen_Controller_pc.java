@@ -17,10 +17,11 @@ public class Game_Screen_Controller_pc extends SharedGame {
     private Stage stage;
     private Game game;
 
-    public Game_Screen_Controller_pc(Stage stage, String name) {
-        super(stage);
+    public Game_Screen_Controller_pc(Stage stage, String name,String pc) {
+        super(stage,name,"PC");
         this.stage = stage;
         this.player1Name = name;
+        this.player2Name = pc;
         this.board = new char[][]{
             {' ', ' ', ' '},
             {' ', ' ', ' '},

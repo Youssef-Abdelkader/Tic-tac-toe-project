@@ -40,6 +40,7 @@ public class HomeOnlineController extends HomeOnline {
 
         super(stage);
         me = userName;
+        isOnHome = true;
         stage.setOnCloseRequest(e -> {
             Connection.sendRequest("logout");
 
@@ -87,7 +88,7 @@ public class HomeOnlineController extends HomeOnline {
                         }
 
                         case "logout": {
-
+                            isOnHome = false;
                             break;
                         }
 
@@ -102,7 +103,7 @@ public class HomeOnlineController extends HomeOnline {
                                     alert.setContentText("Challenge has been accepted");
                                     alert.initOwner(stage);
                                     alert.showAndWait();
-                                    game_screenBase game = new GamescreenController(stage, rec[3], rec[1], rec[2], rec[4], 'O');
+                                    game_screenBase game = new GamescreenController(stage, rec[1], rec[3], rec[4], rec[2], 'O');
                                     Scene scene = new Scene(game);
                                     stage.setScene(scene);
                                 });
@@ -111,10 +112,6 @@ public class HomeOnlineController extends HomeOnline {
                             break;
                         }
 
-                        case "Refused": {
-                            break;
-
-                        }
 
                         case "invitation": {
 
@@ -142,7 +139,7 @@ public class HomeOnlineController extends HomeOnline {
 
                                             Connection.sendRequest("GetInvitation" + "###" + "Accepted" + "###" + rec[1]);
 
-                                            game_screenBase game = new GamescreenController(stage, playerLabel.getText(), rec[1], scoreLabel.getText(), rec[2], 'X');
+                                            game_screenBase game = new GamescreenController(stage, rec[1], playerLabel.getText(), rec[2], scoreLabel.getText(), 'X');
 
                                             Scene scene = new Scene(game);
                                             stage.setScene(scene);
