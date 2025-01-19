@@ -11,6 +11,7 @@ import tictactoe.ui.game.screen.Game_Screen_Controller_pc;
 import tictactoe.ui.game.screen.GamescreenController;
 import tictactoe.ui.game.screen.GamescreenController_Multi;
 import tictactoe.ui.game.screen.game_screenBase;
+import tictactoe.ui.home.online.HomeOnlineController;
 
 public class WINNERController extends WINNERBase {
 
@@ -102,6 +103,42 @@ public class WINNERController extends WINNERBase {
 
                 // Resume the MP3 soundtrack
                 TicTacToe.mediaPlayer.play();
+            }
+        });
+    }
+    
+    public WINNERController(Stage stage, String name1, String name2, String score1, String score2) {
+        super();
+
+        Media media = new Media(getClass().getResource("/resources/winner.mp4").toExternalForm());
+        mediaPlayer = new MediaPlayer(media);
+        videoView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setAutoPlay(true);
+
+        // Pause the MP3 soundtrack when the MP4 video starts playing
+        //TicTacToe.mediaPlayer.pause();
+
+        btnPA.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GamescreenController game = new GamescreenController(stage, name1, name2, score1, score2, 'X');
+                Scene scene = new Scene(game);
+                stage.setScene(scene);
+                mediaPlayer.pause();
+                //TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
+            }
+        });
+
+        btnEX.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                HomeOnlineController home = new HomeOnlineController(stage, name1, score1);
+                Scene scene = new Scene(home);
+                stage.setScene(scene);
+
+                mediaPlayer.pause();
+                //TicTacToe.mediaPlayer.play(); // Resume the MP3 soundtrack
             }
         });
     }

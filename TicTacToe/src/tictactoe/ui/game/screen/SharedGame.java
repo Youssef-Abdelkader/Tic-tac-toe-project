@@ -40,7 +40,7 @@ public class SharedGame extends game_screenBase {
         scoreOne.setText("Score: " + this.score1); // Use instance variables
         scoreTwo.setText("Score: " + this.score2);
     }
-    
+
     public void drawWinningLine(Game game) {
         int[] winningPositions = game.calculateWinner();
         if (winningPositions == null || winningPositions.length != 3) {
@@ -94,18 +94,26 @@ public class SharedGame extends game_screenBase {
     public void showWinner(String winnerName) {
 
         if (winnerName.equals(player)) {
-            WINNERController win = new WINNERController(stage, player, opponent);
-            Scene scene = new Scene(win);
-            stage.setScene(scene);
+
             if (TicTacToe.online == true) {
                 Connection.sendRequest("score###win###" + player);
+                int score =  Integer.parseInt(score2);
+                score += 3;
+                String finalScore = Integer.toString(score);
+                WINNERController win = new WINNERController(stage, player, opponent, finalScore, score1);
+                Scene scene = new Scene(win);
+                stage.setScene(scene);
+            } else {
+                WINNERController win = new WINNERController(stage, player, opponent);
+                Scene scene = new Scene(win);
+                stage.setScene(scene);
             }
         } else {
             if (TicTacToe.online == true) {
-                LOSERBase lose = new LOSERController(stage, player, opponent,score1,score2);
+                LOSERBase lose = new LOSERController(stage, player, opponent, score1, score2);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
-            }else{
+            } else {
                 LOSERBase lose = new LOSERController(stage, player, opponent);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
