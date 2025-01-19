@@ -1,36 +1,46 @@
 package tictactoe.ui.game.screen;
 
-import java.util.Optional;
+import connection.Connection;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import tictactoe.TicTacToe;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
 import tictactoe.ui.game.winner.WINNERController;
 
 public class SharedGame extends game_screenBase {
 
-    private String score1;
-    private String score2;
     private String player;
     private String opponent;
     private Stage stage;
     private Line winningLine;
+    private String score1;
+    private String score2;
 
-    public SharedGame(Stage stage,String player,String opponent) {
+    public SharedGame(Stage stage, String player, String opponent) {
         super(stage);
         this.stage = stage;
         this.player = player;
         this.opponent = opponent;
     }
 
+    public SharedGame(Stage stage, String player, String opponent, String score1, String score2) {
+        super(stage);
+        this.stage = stage;
+        this.player = player;
+        this.opponent = opponent;
+        this.score1 = score1;
+        this.score2 = score2;
+        scoreOne.setText("Score: " + this.score1); // Use instance variables
+        scoreTwo.setText("Score: " + this.score2);
+    }
+    
     public void drawWinningLine(Game game) {
         int[] winningPositions = game.calculateWinner();
         if (winningPositions == null || winningPositions.length != 3) {
@@ -83,14 +93,23 @@ public class SharedGame extends game_screenBase {
 
     public void showWinner(String winnerName) {
 
-        if(winnerName.equals(player)){
+        if (winnerName.equals(player)) {
             WINNERController win = new WINNERController(stage, player, opponent);
             Scene scene = new Scene(win);
             stage.setScene(scene);
-        }else{
-            LOSERBase lose = new LOSERController(stage, player, opponent);
-            Scene scene = new Scene(lose);
-            stage.setScene(scene);
+            if (TicTacToe.online == true) {
+                Connection.sendRequest("score###win###" + player);
+            }
+        } else {
+            if (TicTacToe.online == true) {
+                LOSERBase lose = new LOSERController(stage, player, opponent,score1,score2);
+                Scene scene = new Scene(lose);
+                stage.setScene(scene);
+            }else{
+                LOSERBase lose = new LOSERController(stage, player, opponent);
+                Scene scene = new Scene(lose);
+                stage.setScene(scene);
+            }
         }
     }
 
@@ -103,6 +122,10 @@ public class SharedGame extends game_screenBase {
             alert.initOwner(stage);
             alert.setContentText("It's a draw!");
             alert.showAndWait();
+
+            if (TicTacToe.online == true) {
+                Connection.sendRequest("score###draw");
+            }
 
         });
     }

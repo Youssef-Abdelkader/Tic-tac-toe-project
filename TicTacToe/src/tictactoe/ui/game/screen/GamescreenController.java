@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
@@ -19,8 +18,8 @@ import tictactoe.ui.home.online.HomeOnlineController;
 public class GamescreenController extends SharedGame {
 
     private GameOn game;
-    private String score1;
-    private String score2;
+    public String score1;
+    public String score2;
     private String player1Name;
     private String player2Name;
     private Stage stage;
@@ -36,7 +35,7 @@ public class GamescreenController extends SharedGame {
     public static char clicked = '\0';
 
     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2, char symbol) {
-        super(stage,name1,name2);
+        super(stage,name1,name2,score1,score2);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;

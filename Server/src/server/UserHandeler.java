@@ -129,6 +129,26 @@ class UserHandler extends Thread {
                         this.output.writeUTF("logout###");
                         break;
                     }
+                    
+                    case "score":{
+                        System.out.println("wiinnnnnnnn");
+                    try {
+                        score = DataAccessLayer.retriveScore(data[2]);
+                        if(data[1].equals("win")){
+                            score += 3;
+                            DataAccessLayer.updateScore(data[2], score);
+                            this.output.writeUTF("score###"+score);
+                            System.out.println("score:"+score);
+                        }else if(data[1].equals("draw")){
+                            score += 1;
+                            DataAccessLayer.updateScore(data[2], score);
+                            this.output.writeUTF("score###"+score);
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        break;
+                    }
 
                     case "sendRequest": {
 

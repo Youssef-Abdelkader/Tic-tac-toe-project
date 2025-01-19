@@ -91,6 +91,11 @@ public class HomeOnlineController extends HomeOnline {
                             isOnHome = false;
                             break;
                         }
+                        
+                        case "score":{
+                            scoreLabel.setText(rec[1]);
+                            break;
+                        }
 
                         case "Accepted": {
 
