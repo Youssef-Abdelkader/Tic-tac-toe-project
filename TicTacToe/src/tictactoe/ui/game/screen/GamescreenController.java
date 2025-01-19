@@ -28,13 +28,13 @@ public class GamescreenController extends SharedGame {
 
     private String me;
     private String opponent;
-    
+
     private char meSymbol;
     private char opponentSymbol;
     private char symbol;
-    
+
     public static char clicked = '\0'; //new ----------------------------
-    
+
     public GamescreenController(Stage stage, String name) {
 
         super(stage);
@@ -61,17 +61,16 @@ public class GamescreenController extends SharedGame {
         this.score1 = score1;
         this.score2 = score2;
         this.me = HomeOnlineController.me;
-        this.symbol=symbol;
-        if(me.equals(name1)){
+        this.symbol = symbol;
+        if (me.equals(name1)) {
             opponent = name2;
             meSymbol = 'X';
-            opponentSymbol='O';
-        }
-        else{
-             opponent = name1;
-             meSymbol = 'O';
-             opponentSymbol='x';
-             disableGrid();
+            opponentSymbol = 'O';
+        } else {
+            opponent = name1;
+            meSymbol = 'O';
+            opponentSymbol = 'x';
+            disableGrid();
         }
         initializeGame();
         listenForMoves();
@@ -82,7 +81,7 @@ public class GamescreenController extends SharedGame {
             System.err.println("gridPane0 is null!");
             return;
         }
-        game = new GameOn(false,meSymbol); //AAAAAAAAAAAAAAAAAAAAAAAAAAA
+        game = new GameOn(false, meSymbol); //AAAAAAAAAAAAAAAAAAAAAAAAAAA
         label1.setText(player1Name);
         label.setText(player2Name);
 
@@ -119,18 +118,21 @@ public class GamescreenController extends SharedGame {
         System.out.println("-----------------");
         if (game.placeXO(pos)) {
             System.out.println("pos " + pos);
-            updateGridUI(pos,meSymbol);
+            updateGridUI(pos, meSymbol);
             char[][] ch_ar = game.getSquares().getGrid();
             for (int i = 0; i < ch_ar.length; i++) {
                 for (int j = 0; j < ch_ar.length; j++) {
-                    System.out.println("row = " + i);
-                    System.out.println("col = " + j);
-                    System.out.println(ch_ar[i][j]);
+                    if (ch_ar[i][j] != 0) {
+                        System.out.println("row = " + i);
+                        System.out.println("col = " + j);
+                        System.out.println(ch_ar[i][j]);
+                    }
+
                 }
             }
             int row = (pos - 1) / 3;
             int col = (pos - 1) % 3;
-            
+
 //            char c = ch_ar[row][col]; //new ----------------------------
 //            // Thread th = new Thread(() -> {
 //           // player1Name
@@ -140,36 +142,32 @@ public class GamescreenController extends SharedGame {
 //           if(clicked == 'x'){//new ----------------------------
 //               c = 'o';
 //           }
-
             disableGrid();
-            Connection.sendRequest("Move" + "###" + pos+ "###"+ opponent); 
-            
+            Connection.sendRequest("Move" + "###" + pos + meSymbol + "###" + opponent);
+
             // });
             // th.setDaemon(true);
             // th.start();
-
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine();
-            
 
-            if (winningPositions != null) {
-                //drawWinningLine(game); //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
-                showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
-                disableGrid();
-            }
+                if (winningPositions != null) {
+                    //drawWinningLine(game); //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                    //drawLine(winningPositions[0], winningPositions[1], winningPositions[2]);
+                    showWinner(game.getCurrentPlayerSymbol() == 'X' ? player2Name : player1Name);
+                    disableGrid();
+                }
 
-            if (isBoardFull(ch_ar)) {
-                System.out.println("------------");
-                showDrawMessage();
-                disableGrid();
-                
+                if (isBoardFull(ch_ar)) {
+                    System.out.println("------------");
+                    showDrawMessage();
+                    disableGrid();
+
+                }
             }
         }
     }
-    }
-    
 
     //logical error
     private void drawWinningLine() {
@@ -210,14 +208,13 @@ public class GamescreenController extends SharedGame {
         return row * 100 + 50;
     }
 
-
     private void disableGrid() {
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
             imageView.setDisable(true);
         }
     }
-    
+
     private void enableGrid() {
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
@@ -317,16 +314,16 @@ public class GamescreenController extends SharedGame {
     private void listenForMoves() {
         new Thread(() -> {
             try {
-               
+
                 while (true) {
                     //it doesn't read 
                     String message = Connection.ear.readUTF();
-                    System.out.println("--mesage "+ message);
+                    System.out.println("--mesage " + message);
                     if (message != null && message.startsWith("Move###")) {
                         String[] parts = message.split("###");
                         if (parts.length > 1) {
                             String move = parts[1];
-                            System.out.println("Move from listen method "+move);
+                            System.out.println("Move from listen method " + move);
                             Platform.runLater(() -> handleOpponentMove(move));
                             clicked = move.charAt(1);//new ----------------------------
                         }
@@ -341,7 +338,7 @@ public class GamescreenController extends SharedGame {
     private void handleOpponentMove(String move) {
         int position = Integer.parseInt(move.substring(0, 1));
         char symbol = move.charAt(1);
-        updateGridUI(position,opponentSymbol);
+        updateGridUI(position, symbol);
         enableGrid();
     }
 
@@ -353,7 +350,7 @@ public class GamescreenController extends SharedGame {
                 symbol == 'O' ? "/tictactoe/images/o_game.png" : "/tictactoe/images/x_game.jpeg"
         ).toExternalForm()));
     }
-    
+
 //    private void updateGridUI(int pos) {
 //        int row = (pos - 1) / 3;
 //        int col = (pos - 1) % 3;
