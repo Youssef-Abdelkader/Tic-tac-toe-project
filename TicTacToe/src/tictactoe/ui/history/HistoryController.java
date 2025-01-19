@@ -2,15 +2,9 @@ package tictactoe.ui.history;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.util.Vector;
 import javafx.event.ActionEvent;
-import java.util.Vector;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.home.online.HomeOnlineController;
@@ -33,7 +27,7 @@ public class HistoryController extends History {
         ObservableList<HistoryRecord> data = FXCollections.observableArrayList();
 
         Vector<String> gameIds = history.get(0);
-        Vector<String> player2s = history.get(1); // Player2 is stored here
+        Vector<String> player2s = history.get(1); 
         Vector<String> winners = history.get(2);
         Vector<String> recordings = history.get(3);
 
