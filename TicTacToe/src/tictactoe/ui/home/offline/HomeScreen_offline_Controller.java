@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tictactoe.ui.home.offline;
 
 import connection.Connection;
@@ -15,10 +11,6 @@ import tictactoe.ui.auth.login.LoginController;
 import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 import tictactoe.ui.player.singleplayer.Single_player_sceneController;
 
-/**
- *
- * @author yosef
- */
 public class HomeScreen_offline_Controller extends HomeScreen_offline {
 
     public static boolean pc;

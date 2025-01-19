@@ -24,6 +24,7 @@ public class GamescreenController extends SharedGame {
     private String player2Name;
     private Stage stage;
     private Line winningLine;
+    public boolean isRunning;
 
     private String me;
     private String opponent;
@@ -41,6 +42,7 @@ public class GamescreenController extends SharedGame {
         this.player2Name = name2;
         this.score1 = score1;
         this.score2 = score2;
+        this.isRunning = true;
         this.me = HomeOnlineController.me;
         this.symbol = symbol;
         if (me.equals(name1)) {
@@ -120,12 +122,14 @@ public class GamescreenController extends SharedGame {
             if (winningPositions != null) {
                 drawWinningLine();
 
-                String winner = game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name;
+               char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
+                String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
                 if(opponent.equals(winner)){
-                    showWinner(me);
-                }else{
                     showWinner(opponent);
+                }else{
+                    showWinner(me);
                 }
+                Connection.sendRequest("close");
 
             }
             else if (isBoardFull(ch_ar)) {
@@ -164,16 +168,6 @@ public class GamescreenController extends SharedGame {
 
         this.getChildren().add(winningLine);
 
-    }
-
-    private double getCellCenterX(int pos) {
-        int col = (pos - 1) % 3;
-        return col * 100 + 50;
-    }
-
-    private double getCellCenterY(int pos) {
-        int row = (pos - 1) / 3;
-        return row * 100 + 50;
     }
 
     private void disableGrid() {
@@ -281,17 +275,19 @@ public class GamescreenController extends SharedGame {
     private void listenForMoves() {
         new Thread(() -> {
             try {
-
-                while (true) {
-
+                while (isRunning) {
                     String message = Connection.ear.readUTF();
                     System.out.println("--mesage " + message);
-                    if (message != null && message.startsWith("Move###")) {
+                    if(message.equals("logout###")){
+                        
+                        isRunning = false;
+                    }
+                    else if (message != null && message.startsWith("Move###")) {
                         String[] parts = message.split("###");
                         if (parts.length > 1) {
                             String move = parts[1];
                             System.out.println("Move from listen method " + move);
-                            Platform.runLater(() -> handleOpponentMove(move));
+                            Platform.runLater(() -> isRunning = handleOpponentMove(move));
                             clicked = move.charAt(1);
                         }
                     }
@@ -302,14 +298,17 @@ public class GamescreenController extends SharedGame {
         }).start();
     }
 
-    private void handleOpponentMove(String move) {
+    private boolean handleOpponentMove(String move) {
+        boolean onGame = true;
         int position = Integer.parseInt(move.substring(0, 1));
         char symbol = move.charAt(1);
-        updateGridUI(position, symbol);
+        onGame = updateGridUI(position, symbol);
         enableGrid();
+        return onGame;
     }
 
-    private void updateGridUI(int position, char symbol) {
+    private boolean updateGridUI(int position, char symbol) {
+        boolean onGame = true;
         int row = (position - 1) / 3;
         int col = (position - 1) % 3;
         ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
@@ -324,25 +323,25 @@ public class GamescreenController extends SharedGame {
             int[] winningPositions = game.calculateWinner();
             if (winningPositions != null) {
                 drawWinningLine();
-
-//                showWinner(game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name);
-//                disableGrid();
-                
-                String winner = game.getCurrentPlayerSymbol() != 'X' ? player2Name : player1Name;
+                onGame = false;
+                char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
+                String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
                 if(opponent.equals(winner)){
-                    showWinner(me);
-                }else{
                     showWinner(opponent);
+                    
+                }else{
+                    showWinner(me);
                 }
 
             }
             else if (isBoardFull(ch_ar)) {
-                System.out.println("------------");
+                onGame = false;
                 showDrawMessage();
                 disableGrid();
 
             }
         }
+        return onGame;
     }
 
 }

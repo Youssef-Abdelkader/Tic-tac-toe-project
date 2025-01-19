@@ -140,6 +140,7 @@ class UserHandler extends Thread {
                                 DataAccessLayer.updateScore(data[2], score);
                                 this.output.writeUTF("score###" + score);
                                 System.out.println("score:" + score);
+                                
                             } else if (data[1].equals("draw")) {
                                 UserHandler user = getUserHandler(data[2]);
                                 UserHandler user2 = getUserHandler(data[3]);
@@ -151,7 +152,11 @@ class UserHandler extends Thread {
                                 DataAccessLayer.updateScore(user2.name, user2.score);
                                 user.output.writeUTF("score###" + user.score);
                                 user2.output.writeUTF("score###" + user2.score);
+                               
                             }
+                            this.isPlaying = false;
+                            UserHandler oppo = getUserHandler(this.oppoName);
+                            oppo.isPlaying = false;
                         } catch (SQLException ex) {
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -215,6 +220,7 @@ class UserHandler extends Thread {
                         } catch (IOException ex) {
                             Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        break;
                     }
 
                     case "winner": {
@@ -251,7 +257,6 @@ class UserHandler extends Thread {
                     }
 
                     case "Move": {
-                        //if the game is on
                         if (this.isPlaying) {
                             UserHandler opponent = getUserHandler(this.oppoName);
                             if (opponent != null) {
@@ -261,18 +266,12 @@ class UserHandler extends Thread {
                             }
 
                             System.out.println(data[1]);
-                            //data[1] is move
-                            //data[2] is opponent
                         }
                         break;
 
                     }
 
                 }
-
-                //now i need to send the queue to the other player
-                //if (request == null) break; // Exit if client disconnects
-                //sendMessageToAll(request);
             } catch (IOException ex) {
                 removeClient();
                 try {
@@ -282,11 +281,10 @@ class UserHandler extends Thread {
                     Logger.getLogger(UserHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                break; // Exit the loop if an error occurs
+                break; 
             }
 
         }
-        // Cleanup after client disconnects
 
     }
 
