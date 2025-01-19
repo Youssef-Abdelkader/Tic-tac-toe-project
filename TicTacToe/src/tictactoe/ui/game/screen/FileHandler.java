@@ -44,28 +44,23 @@ public class FileHandler {
         file = selectedFile; 
     }
 
-    public static boolean writeToFile(String data) {
-        if (file == null) {
-            System.err.println("File is null. Please pass a valid file.");
-            return false;
-        }
-
-       
-        boolean flag = false;
-
-        try { 
-            data_out.writeUTF(data+"\n");
-        } catch (IOException ex) {
-            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            flag = true; 
-            System.out.println("Data written to file: " + file.getAbsolutePath());
-
-       
-
-        return flag;
+    public static boolean writeToFile(String position, char symbol) {
+    if (file == null) {
+        System.err.println("File is null. Please pass a valid file.");
+        return false;
     }
 
+    try {
+        String moverec = position + symbol + "###";
+        data_out.writeBytes(moverec); 
+        data_out.flush(); 
+        System.out.println("Move written to file: " + position + symbol);
+        return true;
+    } catch (IOException ex) {
+        Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
+        return false;
+    }
+}
     public static void closeResources(){
         try {
             data_out.close();
@@ -74,5 +69,6 @@ public class FileHandler {
             Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+   
 }

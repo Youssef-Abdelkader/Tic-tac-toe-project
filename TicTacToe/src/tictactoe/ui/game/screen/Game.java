@@ -59,20 +59,14 @@ public class Game {
 
             squares.setGrid(row, col, currentPlayerSymbol);
 
-            if (rec_flag || online) {
+            if (rec_flag) {
                 Recording r = new Recording(pos, X_OR_O.getEnum(currentPlayerSymbol));
                 if (rec_flag) {
-                    FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
+                    FileHandler.writeToFile("" + r.getPosition(), r.getPlayed_char().toChar());
                     rec[counter] = r;
                     counter++;
-                } 
-                //issue is in: each time the method is called a file is chosen
-                FileHandler.writeToFile("recording object " + r.getPosition() + r.getPlayed_char().toChar());
-
-//solution: create another method that initializes the file and then create a method that writes into that file
-// System.out.println("recording object "+r.getPosition()+r.getPlayed_char().toChar());
-                rec[counter] = r;
-                counter++;
+                }
+                System.out.println("counter "+counter);
             }
             switchPlayer();
 

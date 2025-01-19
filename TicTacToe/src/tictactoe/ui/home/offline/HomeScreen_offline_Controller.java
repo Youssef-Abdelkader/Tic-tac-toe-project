@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.TicTacToe;
 import tictactoe.ui.auth.login.LoginController;
+import tictactoe.ui.game.screen.RecordingScreenController;
 import tictactoe.ui.player.multiplayer.Multi_player_SceneController;
 import tictactoe.ui.player.singleplayer.Single_player_sceneController;
 
@@ -50,6 +51,16 @@ public class HomeScreen_offline_Controller extends HomeScreen_offline {
                 Single_player_sceneController single = new Single_player_sceneController(stage);
                 Scene scene = new Scene(single);
                 stage.setScene(scene);
+            }
+        });
+        Recordings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                RecordingScreenController recsc = new RecordingScreenController(stage);
+                Scene scene = new Scene(recsc);
+                stage.setScene(scene);
+                
+                recsc.populateVbox();
             }
         });
     }

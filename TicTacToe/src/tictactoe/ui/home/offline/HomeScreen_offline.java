@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -28,7 +29,9 @@ public abstract class HomeScreen_offline extends BorderPane {
     protected final Button singlePBtn;
     protected final Button MultiPBtn;
     protected final Button OnlineBtn;
+    protected final Button Recordings;
 
+    
     public HomeScreen_offline(Stage stage) {
 
         stackPane = new StackPane();
@@ -39,6 +42,7 @@ public abstract class HomeScreen_offline extends BorderPane {
         singlePBtn = new Button();
         MultiPBtn = new Button();
         OnlineBtn = new Button();
+        Recordings = new Button();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -119,10 +123,20 @@ public abstract class HomeScreen_offline extends BorderPane {
         OnlineBtn.setText("online");
         OnlineBtn.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
+        Recordings.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
+        Recordings.setMaxWidth(Double.MAX_VALUE);
+        Recordings.setMnemonicParsing(false);
+        Recordings.setStyle("-fx-border-radius: 10;");
+        Recordings.getStyleClass().add("history_btn");
+        Recordings.getStylesheets().add("/tictactoe/styles/background.css");
+        Recordings.setText("Recordings");
+        Recordings.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        
         stackPane.getChildren().add(label);
         vBox.getChildren().add(singlePBtn);
         vBox.getChildren().add(MultiPBtn);
         vBox.getChildren().add(OnlineBtn);
+        vBox.getChildren().add(Recordings);
         setCenter(vBox);
 
         

@@ -27,6 +27,10 @@ public class SharedGame extends game_screenBase {
     private String score1;
     private String score2;
 
+     public SharedGame(Stage stage) {
+        super(stage);
+    }
+     
     public SharedGame(Stage stage, String player, String opponent) {
         super(stage);
         this.stage = stage;

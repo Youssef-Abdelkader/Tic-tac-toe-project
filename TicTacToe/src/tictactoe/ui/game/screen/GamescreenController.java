@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tictactoe.ui.game.looser.LOSERBase;
 import tictactoe.ui.game.looser.LOSERController;
+import static tictactoe.ui.game.screen.FileHandler.file;
 import tictactoe.ui.home.online.HomeOnlineController;
 
 public class GamescreenController extends SharedGame {
@@ -36,7 +37,7 @@ public class GamescreenController extends SharedGame {
     public static char clicked = '\0';
 
     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2, char symbol) {
-        super(stage,name1,name2,score1,score2);
+        super(stage, name1, name2, score1, score2);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
@@ -59,15 +60,22 @@ public class GamescreenController extends SharedGame {
         listenForMoves();
     }
 
+    public GamescreenController(Stage stage, String player1, String player2) {
+        super(stage);
+        this.stage = stage;
+        this.player1Name = player1;
+        this.player2Name = player2;
+        initializeGame();
+    }
+
     private void initializeGame() {
         if (gridPane0 == null) {
             System.err.println("gridPane0 is null!");
             return;
         }
-        game = new GameOn(false, meSymbol); 
+        game = new GameOn(false, meSymbol);
         label1.setText(player1Name);
         label.setText(player2Name);
-        
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
@@ -89,9 +97,13 @@ public class GamescreenController extends SharedGame {
 
         recordButton.addEventHandler(ActionEvent.ACTION, (event) -> {
             FileHandler.initializeFile();
+            System.out.println("file path from file " + file.getPath());
+            RecordingScreenController.recordings_vector.add(file);
+
+            FileHandler.writeToFile(player1Name + "-", 'x');
+            FileHandler.writeToFile(player2Name + "-", 'o');
 
             game.setRec_flag(true);
-            //create file
             recordButton.setDisable(true);
         });
     }
@@ -122,17 +134,16 @@ public class GamescreenController extends SharedGame {
             if (winningPositions != null) {
                 drawWinningLine();
 
-               char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
+                char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
                 String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
-                if(opponent.equals(winner)){
+                if (opponent.equals(winner)) {
                     showWinner(opponent);
-                }else{
+                } else {
                     showWinner(me);
                 }
                 Connection.sendRequest("close");
 
-            }
-            else if (isBoardFull(ch_ar)) {
+            } else if (isBoardFull(ch_ar)) {
                 System.out.println("------------");
                 showDrawMessage();
                 disableGrid();
@@ -278,11 +289,10 @@ public class GamescreenController extends SharedGame {
                 while (isRunning) {
                     String message = Connection.ear.readUTF();
                     System.out.println("--mesage " + message);
-                    if(message.equals("logout###")){
-                        
+                    if (message.equals("logout###")) {
+
                         isRunning = false;
-                    }
-                    else if (message != null && message.startsWith("Move###")) {
+                    } else if (message != null && message.startsWith("Move###")) {
                         String[] parts = message.split("###");
                         if (parts.length > 1) {
                             String move = parts[1];
@@ -326,15 +336,14 @@ public class GamescreenController extends SharedGame {
                 onGame = false;
                 char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
                 String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
-                if(opponent.equals(winner)){
+                if (opponent.equals(winner)) {
                     showWinner(opponent);
-                    
-                }else{
+
+                } else {
                     showWinner(me);
                 }
 
-            }
-            else if (isBoardFull(ch_ar)) {
+            } else if (isBoardFull(ch_ar)) {
                 onGame = false;
                 showDrawMessage();
                 disableGrid();
@@ -344,4 +353,34 @@ public class GamescreenController extends SharedGame {
         return onGame;
     }
 
+    static boolean playRec = false;
+    static String[] rec_arr = new String[11];
+
+    private void updateGridUIRec(int pos, char ch) {
+        int row = (pos - 1) / 3;
+        int col = (pos - 1) % 3;
+
+        ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
+        imageView.setImage(new Image(getClass().getResource(
+                ch == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
+        ).toExternalForm()));
+    }
+
+    public static void passRecording(String[] s) {
+        rec_arr = s;
+        System.out.println("recorded moves " + s);
+    }
+
+    public void updateRecGrid() {
+        playRec = true;
+
+        for (int i = 2; i < rec_arr.length; i++) {
+            if (rec_arr[i] != null && rec_arr[i].length() >= 2) {
+                int pos = Integer.parseInt(rec_arr[i].substring(0, 1));
+                char ch = rec_arr[i].charAt(1);
+                System.out.println(rec_arr[i]);
+                updateGridUIRec(pos, ch);
+            }
+        }
+    }
 }
