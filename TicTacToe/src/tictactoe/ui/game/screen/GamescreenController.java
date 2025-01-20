@@ -36,7 +36,7 @@ public class GamescreenController extends SharedGame {
     public static char clicked = '\0';
 
     public GamescreenController(Stage stage, String name1, String name2, String score1, String score2, char symbol) {
-        super(stage,name1,name2,score1,score2);
+        super(stage, name1, name2, score1, score2);
         this.stage = stage;
         this.player1Name = name1;
         this.player2Name = name2;
@@ -49,10 +49,14 @@ public class GamescreenController extends SharedGame {
             opponent = name2;
             meSymbol = 'X';
             opponentSymbol = 'O';
+            super.setOpponent(name2);
+            super.setPlayer(name1);
         } else {
             opponent = name1;
             meSymbol = 'O';
             opponentSymbol = 'X';
+            super.setOpponent(name1);
+            super.setPlayer(name2);
             disableGrid();
         }
         initializeGame();
@@ -64,10 +68,9 @@ public class GamescreenController extends SharedGame {
             System.err.println("gridPane0 is null!");
             return;
         }
-        game = new GameOn(false, meSymbol); 
+        game = new GameOn(false, meSymbol);
         label1.setText(player1Name);
         label.setText(player2Name);
-        
 
         for (int i = 0; i < 9; i++) {
             ImageView imageView = (ImageView) gridPane0.getChildren().get(i);
@@ -122,17 +125,11 @@ public class GamescreenController extends SharedGame {
             if (winningPositions != null) {
                 drawWinningLine();
 
-               char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
-                String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
-                if(opponent.equals(winner)){
-                    showWinner(opponent);
-                }else{
-                    showWinner(me);
-                }
+                showWinnerSender(me);
+
                 Connection.sendRequest("close");
 
-            }
-            else if (isBoardFull(ch_ar)) {
+            } else if (isBoardFull(ch_ar)) {
                 System.out.println("------------");
                 showDrawMessage();
                 disableGrid();
@@ -278,11 +275,10 @@ public class GamescreenController extends SharedGame {
                 while (isRunning) {
                     String message = Connection.ear.readUTF();
                     System.out.println("--mesage " + message);
-                    if(message.equals("logout###")){
-                        
+                    if (message.equals("logout###")) {
+
                         isRunning = false;
-                    }
-                    else if (message != null && message.startsWith("Move###")) {
+                    } else if (message != null && message.startsWith("Move###")) {
                         String[] parts = message.split("###");
                         if (parts.length > 1) {
                             String move = parts[1];
@@ -324,17 +320,9 @@ public class GamescreenController extends SharedGame {
             if (winningPositions != null) {
                 drawWinningLine();
                 onGame = false;
-                char winnerSymbol = game.getSquares().getGrid()[(winningPositions[0] - 1) / 3][(winningPositions[0] - 1) % 3];
-                String winner = (winnerSymbol == meSymbol) ? player2Name : player1Name;
-                if(opponent.equals(winner)){
-                    showWinner(opponent);
-                    
-                }else{
-                    showWinner(me);
-                }
+                showWinnerReciever(opponent);
 
-            }
-            else if (isBoardFull(ch_ar)) {
+            } else if (isBoardFull(ch_ar)) {
                 onGame = false;
                 showDrawMessage();
                 disableGrid();

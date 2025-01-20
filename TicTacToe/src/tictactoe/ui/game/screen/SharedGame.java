@@ -45,6 +45,14 @@ public class SharedGame extends game_screenBase {
         scoreTwo.setText("Score: " + this.score2);
     }
 
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
+    }
+
     public void drawWinningLine(Game game) {
         int[] winningPositions = game.calculateWinner();
         if (winningPositions == null || winningPositions.length != 3) {
@@ -97,14 +105,15 @@ public class SharedGame extends game_screenBase {
 
     public void showWinner(String winnerName) {
 
-        if (winnerName.equals(opponent)) {
+        System.out.println("oppo:" + opponent);
+        if (winnerName.equals(player)) {
 
             if (TicTacToe.online == true) {
-                Connection.sendRequest("score###win###" + player);
-                int score = Integer.parseInt(score2);
+                Connection.sendRequest("score###win###" + winnerName);
+                int score = Integer.parseInt(score1);
                 score += 4;
                 String finalScore = Integer.toString(score);
-                WINNERController win = new WINNERController(stage, player, opponent, finalScore, score1);
+                WINNERController win = new WINNERController(stage, player, opponent, score2, finalScore);
                 Scene scene = new Scene(win);
                 stage.setScene(scene);
             } else {
@@ -114,8 +123,8 @@ public class SharedGame extends game_screenBase {
             }
         } else {
             if (TicTacToe.online == true) {
-                
-                LOSERBase lose = new LOSERController(stage, player, opponent, score2, score1);
+
+                LOSERBase lose = new LOSERController(stage, opponent, player, score2, score1);
                 Scene scene = new Scene(lose);
                 stage.setScene(scene);
             } else {
@@ -124,6 +133,38 @@ public class SharedGame extends game_screenBase {
                 stage.setScene(scene);
             }
         }
+    }
+
+    public void showWinnerSender(String winnerName) {
+
+        if (TicTacToe.online == true) {
+            Connection.sendRequest("score###win###" + winnerName);
+            int score = Integer.parseInt(score2);
+            score += 4;
+            String finalScore = Integer.toString(score);
+            WINNERController win = new WINNERController(stage, player, opponent, finalScore, score1);
+            Scene scene = new Scene(win);
+            stage.setScene(scene);
+        } else {
+            WINNERController win = new WINNERController(stage, player, opponent);
+            Scene scene = new Scene(win);
+            stage.setScene(scene);
+        }
+    }
+
+    public void showWinnerReciever(String winnerName) {
+
+        if (TicTacToe.online == true) {
+
+            LOSERBase lose = new LOSERController(stage, opponent, player, score2, score1);
+            Scene scene = new Scene(lose);
+            stage.setScene(scene);
+        } else {
+            LOSERBase lose = new LOSERController(stage, player, opponent);
+            Scene scene = new Scene(lose);
+            stage.setScene(scene);
+        }
+
     }
 
     public void showDrawMessage() {
