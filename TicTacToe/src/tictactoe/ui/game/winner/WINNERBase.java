@@ -1,6 +1,5 @@
 package tictactoe.ui.game.winner;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -14,7 +13,6 @@ public abstract class WINNERBase extends AnchorPane {
     protected final MediaView videoView;
     protected final Label lbl1;
     protected final Label lbl2;
-    protected final Label score;
     protected final Button btnPA;
     protected final Button btnEX;
 
@@ -22,7 +20,6 @@ public abstract class WINNERBase extends AnchorPane {
         videoView = new MediaView();
         lbl1 = new Label();
         lbl2 = new Label();
-        score = new Label();
         btnPA = new Button();
         btnEX = new Button();
 
@@ -52,13 +49,6 @@ public abstract class WINNERBase extends AnchorPane {
         lbl2.setText("WINNER");
         lbl2.setTextFill(Color.web("#28a745"));
         lbl2.setFont(new Font("Arial", 70.0));
-
-        // Score label
-        score.setLayoutX(350.0);
-        score.setLayoutY(200.0);
-        score.setText("New Score = ");
-        score.setTextFill(Color.web("#28a745"));
-        score.setFont(new Font("Arial", 18.0));
 
         // Play Again Button
         btnPA.setLayoutX(320.0);
@@ -92,7 +82,6 @@ public abstract class WINNERBase extends AnchorPane {
         getChildren().add(videoView);
         getChildren().add(lbl1);
         getChildren().add(lbl2);
-        getChildren().add(score);
         getChildren().add(btnPA);
         getChildren().add(btnEX);
 

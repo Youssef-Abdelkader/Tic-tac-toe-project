@@ -1,9 +1,6 @@
 package tictactoe.ui.game.screen;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -14,10 +11,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import tictactoe.ui.game.looser.LOSERBase;
-import tictactoe.ui.game.looser.LOSERController;
+import tictactoe.TicTacToe;
 
-public class game_screenBase extends BorderPane {
+public abstract class game_screenBase extends BorderPane {
 
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
@@ -33,9 +29,9 @@ public class game_screenBase extends BorderPane {
     protected final Label label;
     protected final Button recordButton;
     protected final Button forfeitButton;
-    protected final Label label0;
+    protected final Label scoreOne;
     protected final Label label1;
-    protected final Label label2;
+    protected final Label scoreTwo;
     protected final GridPane gridPane0;
     protected final ColumnConstraints columnConstraints3;
     protected final ColumnConstraints columnConstraints4;
@@ -43,15 +39,16 @@ public class game_screenBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final RowConstraints rowConstraints4;
     protected final RowConstraints rowConstraints5;
-    protected final ImageView imageView1;
-    protected final ImageView imageView2;
-    protected final ImageView imageView3;
-    protected final ImageView imageView4;
-    protected final ImageView imageView5;
-    protected final ImageView imageView6;
-    protected final ImageView imageView7;
-    protected final ImageView imageView8;
-    protected final ImageView imageView9;
+
+    protected final ImageView boxOne;
+    protected final ImageView boxTwo;
+    protected final ImageView boxThree;
+    protected final ImageView boxFour;
+    protected final ImageView boxFive;
+    protected final ImageView boxSix;
+    protected final ImageView boxSeven;
+    protected final ImageView boxEight;
+    protected final ImageView boxNine;
 
     public game_screenBase(Stage stage) {
 
@@ -69,9 +66,9 @@ public class game_screenBase extends BorderPane {
         label = new Label();
         recordButton = new Button();
         forfeitButton = new Button();
-        label0 = new Label();
+        scoreOne = new Label();
         label1 = new Label();
-        label2 = new Label();
+        scoreTwo = new Label();
         gridPane0 = new GridPane();
         columnConstraints3 = new ColumnConstraints();
         columnConstraints4 = new ColumnConstraints();
@@ -79,15 +76,16 @@ public class game_screenBase extends BorderPane {
         rowConstraints3 = new RowConstraints();
         rowConstraints4 = new RowConstraints();
         rowConstraints5 = new RowConstraints();
-        imageView1 = new ImageView();
-        imageView2 = new ImageView();
-        imageView3 = new ImageView();
-        imageView4 = new ImageView();
-        imageView5 = new ImageView();
-        imageView6 = new ImageView();
-        imageView7 = new ImageView();
-        imageView8 = new ImageView();
-        imageView9 = new ImageView();
+
+        boxOne = new ImageView();
+        boxTwo = new ImageView();
+        boxThree = new ImageView();
+        boxFour = new ImageView();
+        boxFive = new ImageView();
+        boxSix = new ImageView();
+        boxSeven = new ImageView();
+        boxEight = new ImageView();
+        boxNine = new ImageView();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -162,7 +160,7 @@ public class game_screenBase extends BorderPane {
         label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label.setLayoutX(160.0);
         label.setLayoutY(17.0);
-        label.setText("Menna");
+        label.setText("Pc");
         label.setTextFill(javafx.scene.paint.Color.WHITE);
         label.setFont(new Font("Comic Sans MS Bold", 34.0));
 
@@ -184,20 +182,12 @@ public class game_screenBase extends BorderPane {
         forfeitButton.setTranslateX(120.0);
         forfeitButton.setFont(new Font("Centaur", 14.0));
 
-        GridPane.setColumnIndex(label0, 3);
-        GridPane.setRowIndex(label0, 2);
-        label0.setText("Score  40");
-        label0.setTextFill(javafx.scene.paint.Color.WHITE);
-        label0.setTranslateY(15.0);
-        label0.setFont(new Font("Cambria Bold", 18.0));
-        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERController(stage);
-                Scene scene = new Scene(lose);
-                stage.setScene(scene);
-            }   
-        });
+        GridPane.setColumnIndex(scoreOne, 3);
+        GridPane.setRowIndex(scoreOne, 2);
+        scoreOne.setText("Score  40");
+        scoreOne.setTextFill(javafx.scene.paint.Color.WHITE);
+        scoreOne.setTranslateY(15.0);
+        scoreOne.setFont(new Font("Cambria Bold", 18.0));
 
         GridPane.setColumnIndex(label1, 1);
         GridPane.setRowSpan(label1, 2);
@@ -207,13 +197,18 @@ public class game_screenBase extends BorderPane {
         label1.setTextFill(javafx.scene.paint.Color.WHITE);
         label1.setFont(new Font("Comic Sans MS Bold", 34.0));
 
-        GridPane.setColumnIndex(label2, 1);
-        GridPane.setRowIndex(label2, 3);
-        label2.setText("Score  40");
-        label2.setTextFill(javafx.scene.paint.Color.WHITE);
-        label2.setFont(new Font("Cambria Bold", 18.0));
+        GridPane.setColumnIndex(scoreTwo, 1);
+        GridPane.setRowIndex(scoreTwo, 3);
+        scoreTwo.setText("Score  40");
+        scoreTwo.setTextFill(javafx.scene.paint.Color.WHITE);
+        scoreTwo.setFont(new Font("Cambria Bold", 18.0));
         BorderPane.setMargin(gridPane, new Insets(10.0));
         setTop(gridPane);
+        
+        if(TicTacToe.online ==false){
+            scoreOne.setVisible(false);
+            scoreTwo.setVisible(false);
+        }
 
         BorderPane.setAlignment(gridPane0, javafx.geometry.Pos.CENTER);
         gridPane0.setAlignment(javafx.geometry.Pos.CENTER);
@@ -248,96 +243,96 @@ public class game_screenBase extends BorderPane {
         rowConstraints5.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
         gridPane0.setPadding(new Insets(10.0));
 
-        GridPane.setHalignment(imageView1, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(imageView1, javafx.geometry.VPos.CENTER);
-        imageView1.setFitHeight(102.0);
-        imageView1.setFitWidth(147.0);
-        imageView1.setPickOnBounds(true);
-        imageView1.setPreserveRatio(true);
+        GridPane.setHalignment(boxOne, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxOne, javafx.geometry.VPos.CENTER);
+        boxOne.setFitHeight(102.0);
+        boxOne.setFitWidth(147.0);
+        boxOne.setPickOnBounds(true);
+        boxOne.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView2, 2);
-        GridPane.setHalignment(imageView2, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView2, 2);
-        GridPane.setValignment(imageView2, javafx.geometry.VPos.CENTER);
-        imageView2.setFitHeight(100.0);
-        imageView2.setFitWidth(144.0);
-        imageView2.setLayoutX(25.0);
-        imageView2.setLayoutY(-1.0);
-        imageView2.setPickOnBounds(true);
-        imageView2.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxTwo, 1);
+        GridPane.setHalignment(boxTwo, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxTwo, javafx.geometry.VPos.CENTER);
+        boxTwo.setFitHeight(97.0);
+        boxTwo.setFitWidth(144.0);
+        boxTwo.setLayoutX(25.0);
+        boxTwo.setLayoutY(-1.0);
+        boxTwo.setPickOnBounds(true);
+        boxTwo.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView3, 2);
-        GridPane.setHalignment(imageView3, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView3, 1);
-        GridPane.setValignment(imageView3, javafx.geometry.VPos.CENTER);
-        imageView3.setFitHeight(100.0);
-        imageView3.setFitWidth(144.0);
-        imageView3.setLayoutX(25.0);
-        imageView3.setLayoutY(-1.0);
-        imageView3.setPickOnBounds(true);
-        imageView3.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxThree, 2);
+        GridPane.setHalignment(boxThree, javafx.geometry.HPos.CENTER);
+        GridPane.setValignment(boxThree, javafx.geometry.VPos.CENTER);
+        boxThree.setFitHeight(102.0);
+        boxThree.setFitWidth(147.0);
+        boxThree.setLayoutX(25.0);
+        boxThree.setLayoutY(-1.0);
+        boxThree.setPickOnBounds(true);
+        boxThree.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView4, 2);
-        GridPane.setHalignment(imageView4, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(imageView4, javafx.geometry.VPos.CENTER);
-        imageView4.setFitHeight(102.0);
-        imageView4.setFitWidth(147.0);
-        imageView4.setLayoutX(25.0);
-        imageView4.setLayoutY(-1.0);
-        imageView4.setPickOnBounds(true);
-        imageView4.setPreserveRatio(true);
+        GridPane.setHalignment(boxFour, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxFour, 1);
+        GridPane.setValignment(boxFour, javafx.geometry.VPos.CENTER);
+        boxFour.setFitHeight(103.0);
+        boxFour.setFitWidth(145.0);
+        boxFour.setLayoutX(25.0);
+        boxFour.setLayoutY(-1.0);
+        boxFour.setPickOnBounds(true);
+        boxFour.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView5, 1);
-        GridPane.setHalignment(imageView5, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView5, 2);
-        GridPane.setValignment(imageView5, javafx.geometry.VPos.CENTER);
-        imageView5.setFitHeight(101.0);
-        imageView5.setFitWidth(146.0);
-        imageView5.setLayoutX(25.0);
-        imageView5.setLayoutY(-1.0);
-        imageView5.setPickOnBounds(true);
-        imageView5.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxFive, 1);
+        GridPane.setHalignment(boxFive, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxFive, 1);
+        GridPane.setValignment(boxFive, javafx.geometry.VPos.CENTER);
+        boxFive.setFitHeight(98.0);
+        boxFive.setFitWidth(152.0);
+        boxFive.setLayoutX(25.0);
+        boxFive.setLayoutY(-1.0);
+        boxFive.setPickOnBounds(true);
+        boxFive.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView6, 1);
-        GridPane.setHalignment(imageView6, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView6, 1);
-        GridPane.setValignment(imageView6, javafx.geometry.VPos.CENTER);
-        imageView6.setFitHeight(98.0);
-        imageView6.setFitWidth(152.0);
-        imageView6.setLayoutX(25.0);
-        imageView6.setLayoutY(-1.0);
-        imageView6.setPickOnBounds(true);
-        imageView6.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxSix, 2);
+        GridPane.setHalignment(boxSix, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxSix, 1);
+        GridPane.setValignment(boxSix, javafx.geometry.VPos.CENTER);
+        boxSix.setFitHeight(100.0);
+        boxSix.setFitWidth(144.0);
+        boxSix.setLayoutX(25.0);
+        boxSix.setLayoutY(-1.0);
+        boxSix.setPickOnBounds(true);
+        boxSix.setPreserveRatio(true);
 
-        GridPane.setColumnIndex(imageView7, 1);
-        GridPane.setHalignment(imageView7, javafx.geometry.HPos.CENTER);
-        GridPane.setValignment(imageView7, javafx.geometry.VPos.CENTER);
-        imageView7.setFitHeight(97.0);
-        imageView7.setFitWidth(144.0);
-        imageView7.setLayoutX(25.0);
-        imageView7.setLayoutY(-1.0);
-        imageView7.setPickOnBounds(true);
-        imageView7.setPreserveRatio(true);
+        GridPane.setHalignment(boxSeven, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxSeven, 2);
+        GridPane.setValignment(boxSeven, javafx.geometry.VPos.CENTER);
+        boxSeven.setFitHeight(102.0);
+        boxSeven.setFitWidth(152.0);
+        boxSeven.setLayoutX(25.0);
+        boxSeven.setLayoutY(-1.0);
+        boxSeven.setPickOnBounds(true);
+        boxSeven.setPreserveRatio(true);
 
-        GridPane.setHalignment(imageView8, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView8, 2);
-        GridPane.setValignment(imageView8, javafx.geometry.VPos.CENTER);
-        imageView8.setFitHeight(102.0);
-        imageView8.setFitWidth(152.0);
-        imageView8.setLayoutX(25.0);
-        imageView8.setLayoutY(-1.0);
-        imageView8.setPickOnBounds(true);
-        imageView8.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxEight, 1);
+        GridPane.setHalignment(boxEight, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxEight, 2);
+        GridPane.setValignment(boxEight, javafx.geometry.VPos.CENTER);
+        boxEight.setFitHeight(101.0);
+        boxEight.setFitWidth(146.0);
+        boxEight.setLayoutX(25.0);
+        boxEight.setLayoutY(-1.0);
+        boxEight.setPickOnBounds(true);
+        boxEight.setPreserveRatio(true);
 
-        GridPane.setHalignment(imageView9, javafx.geometry.HPos.CENTER);
-        GridPane.setRowIndex(imageView9, 1);
-        GridPane.setValignment(imageView9, javafx.geometry.VPos.CENTER);
-        imageView9.setFitHeight(103.0);
-        imageView9.setFitWidth(145.0);
-        imageView9.setLayoutX(25.0);
-        imageView9.setLayoutY(-1.0);
-        imageView9.setPickOnBounds(true);
-        imageView9.setPreserveRatio(true);
+        GridPane.setColumnIndex(boxNine, 2);
+        GridPane.setHalignment(boxNine, javafx.geometry.HPos.CENTER);
+        GridPane.setRowIndex(boxNine, 2);
+        GridPane.setValignment(boxNine, javafx.geometry.VPos.CENTER);
+        boxNine.setFitHeight(100.0);
+        boxNine.setFitWidth(144.0);
+        boxNine.setLayoutX(25.0);
+        boxNine.setLayoutY(-1.0);
+        boxNine.setPickOnBounds(true);
+        boxNine.setPreserveRatio(true);
         setCenter(gridPane0);
         setPadding(new Insets(10.0));
 
@@ -354,40 +349,39 @@ public class game_screenBase extends BorderPane {
         gridPane.getChildren().add(label);
         gridPane.getChildren().add(recordButton);
         gridPane.getChildren().add(forfeitButton);
-        gridPane.getChildren().add(label0);
+        gridPane.getChildren().add(scoreOne);
         gridPane.getChildren().add(label1);
-        gridPane.getChildren().add(label2);
+        gridPane.getChildren().add(scoreTwo);
+
         gridPane0.getColumnConstraints().add(columnConstraints3);
         gridPane0.getColumnConstraints().add(columnConstraints4);
         gridPane0.getColumnConstraints().add(columnConstraints5);
         gridPane0.getRowConstraints().add(rowConstraints3);
         gridPane0.getRowConstraints().add(rowConstraints4);
         gridPane0.getRowConstraints().add(rowConstraints5);
-        gridPane0.getChildren().add(imageView1);
-        gridPane0.getChildren().add(imageView2);
-        gridPane0.getChildren().add(imageView3);
-        gridPane0.getChildren().add(imageView4);
-        gridPane0.getChildren().add(imageView5);
-        gridPane0.getChildren().add(imageView6);
-        gridPane0.getChildren().add(imageView7);
-        gridPane0.getChildren().add(imageView8);
-        gridPane0.getChildren().add(imageView9);
-        
-        forfeitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LOSERBase lose = new LOSERController(stage);
-                Scene scene = new Scene(lose);
-                stage.setScene(scene);
-            }   
-        });
 
-          recordButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-               recordButton.setDisable(true);
-            }   
-        });
+        gridPane0.getChildren().add(boxOne);
+        gridPane0.getChildren().add(boxTwo);
+        gridPane0.getChildren().add(boxThree);
+        gridPane0.getChildren().add(boxFour);
+        gridPane0.getChildren().add(boxFive);
+        gridPane0.getChildren().add(boxSix);
+        gridPane0.getChildren().add(boxSeven);
+        gridPane0.getChildren().add(boxEight);
+        gridPane0.getChildren().add(boxNine);
+
+    // Calculate the start and end positions of the line based on the grid cell size
+   
+//    Line line = new Line(0, 0, 0, 0);
+//    line.setStroke(Color.BLUEVIOLET);
+//    line.setStrokeWidth(5);
+//
+//    // Optionally, bind to the width and height if you want the line to adjust dynamically
+//    // line.endXProperty().bind(gridPane0.widthProperty());
+//    line.endYProperty().bind(gridPane0.heightProperty());
+//
+//    // Add the line to the grid
+//    gridPane0.add(line, 0, 1);
 
     }
 }

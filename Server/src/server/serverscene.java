@@ -1,4 +1,4 @@
-package tictactoe.serverMUSTmove;
+package server;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -67,15 +67,6 @@ public class serverscene extends AnchorPane {
 
         widthProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             setButtonPosition(newValue.doubleValue());
-        });
-
-        Start.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Serverscene2Base server = new Serverscene2Base(stage);
-                Scene scene = new Scene(server);
-                stage.setScene(scene);
-            }   
         });
 
         getChildren().add(Scene_title);
