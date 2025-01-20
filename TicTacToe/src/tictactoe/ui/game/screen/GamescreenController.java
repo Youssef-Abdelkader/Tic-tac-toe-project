@@ -2,6 +2,8 @@ package tictactoe.ui.game.screen;
 
 import connection.Connection;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Bounds;
@@ -352,7 +354,7 @@ public class GamescreenController extends SharedGame {
         }
         return onGame;
     }
-
+/////////////////////////////////////////////////////
     static boolean playRec = false;
     static String[] rec_arr = new String[11];
 
@@ -362,7 +364,7 @@ public class GamescreenController extends SharedGame {
 
         ImageView imageView = (ImageView) gridPane0.getChildren().get(row * 3 + col);
         imageView.setImage(new Image(getClass().getResource(
-                ch == 'X' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
+                ch == 'x' ? "/tictactoe/images/x_game.jpeg" : "/tictactoe/images/o_game.png"
         ).toExternalForm()));
     }
 
@@ -380,6 +382,13 @@ public class GamescreenController extends SharedGame {
                 char ch = rec_arr[i].charAt(1);
                 System.out.println(rec_arr[i]);
                 updateGridUIRec(pos, ch);
+                
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GamescreenController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         }
     }
