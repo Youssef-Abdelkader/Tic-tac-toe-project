@@ -1,38 +1,46 @@
-# 🎯 Tic-Tac-Toe Multiplayer - Java Edition  
 
-[![Java](https://img.shields.io/badge/Java-17%2B-blue?logo=openjdk)](https://www.java.com/)
-[![Apache Derby](https://img.shields.io/badge/Database-Apache_Derby-red)](https://db.apache.org/derby/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+# 🎮 Tic-Tac-Toe Multiplayer Java Application
+Tic-Tac-Toe; it’s a modern, feature-packed experience that blends classic gameplay with contemporary tech and design.
 
-A modern **multiplayer Tic-Tac-Toe** game with **online battles, AI challenges, and replay features**—built with Java and client-server architecture.
+## 👥 Team Collaboration
 
----
+This project was a collaborative effort by an incredible team:
+**Malak Raaof**, **Habiba Elhadi**, **Abdelrahman Atia**, **Menna Ghalwash**, and **myself**.
 
-## ✨ Features  
-
-🎮 **Game Modes**  
-- **Player vs. AI**: 3 difficulty levels (Easy, Medium, Hard)  
-- **Local Multiplayer**: Play with a friend on the same device  
-- **Online Multiplayer**:  
-  - Browse active players  
-  - Send/accept game invites  
-  - Live leaderboard tracking  
-
-📊 **Database & Auth**  
-- User registration/login via **Apache Derby SQL**  
-- Match history & replay system  
-
-🏆 **Bonus Rewards**  
-- Winners unlock fun celebration videos!  
+> Special thanks to the amazing **JETS team** — *Hager Samir, Ahmed Mazen,* and *Heba Ismail* — for their exceptional mentorship and guidance throughout the journey. 🌟
 
 ---
 
-## 🛠️ Tech Stack  
+## 💡 Project Overview
 
-| Component       | Technology Used               |
-|----------------|-------------------------------|
-| **Backend**    | Java 17, Sockets, Threads     |
-| **Database**   | Apache Derby (Embedded SQL)   |
-| **Client UI**  | Java Swing                    |
-| **Networking** | TCP/IP for real-time gameplay |
+Initially developed using **Apache Derby SQL** for efficient database management and secure user authentication, our application offers multiple gameplay modes and a seamless user experience.
+
+## 💻 Key Features
+
+* **VS Computer**
+  Challenge an AI opponent with adjustable difficulty levels.
+
+* **Player VS Player (Local)**
+  Play on the same device with a friend.
+
+* **Online Multiplayer Mode**
+
+  * Browse and invite available online players.
+  * Send and receive real-time game invitations.
+  * Accept or decline invites.
+  * Record and replay completed games.
+
+* **Fun Additions**
+  Winners are rewarded with bonus fun videos! 📹
+
+---
+
+## 🌐 Tech Stack & Architecture
+
+* **Language:** Java
+* **Database:** Apache Derby SQL
+* **Architecture:** Client-Server Model
+* **Client:** Handles user interface, gameplay logic, and score tracking
+* **Server:** Manages authentication, data persistence, and real-time connections
+
 
