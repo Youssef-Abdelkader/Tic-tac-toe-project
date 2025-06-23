@@ -7,8 +7,7 @@
 ## 👥 Team Collaboration
 
 This project was a joint effort by a dedicated and talented team:
-
-**Malak Raaof**, **Habiba Elhadi**, **Abdelrahman Atia**, **Menna Ghalwash**, and **myself**.
+**Youssef Abdelkader**,**Malak Raaof**, **Habiba Elhadi**, **Abdelrahman Atia**, **Menna Ghalwash**, 
 
 > Special thanks to the incredible **JETS team** — *Hager Samir, Ahmed Mazen,* and *Heba Ismail* — for their outstanding mentorship and support throughout this journey. 🌟
 
